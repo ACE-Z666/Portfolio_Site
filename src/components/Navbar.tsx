@@ -10,15 +10,14 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { href: '#home', label: 'Home' },
     { href: '#about', label: 'About' },
+    { href: '#projects', label: 'Works' },
     { href: '#skills', label: 'Skills' },
-    { href: '#projects', label: 'Projects' },
     { href: '#contact', label: 'Contact' },
   ];
 
   return (
-    <nav className="sticky top-0 left-0 right-0 bg-transparent backdrop-blur-lg z-50">
+    <nav className="sticky top-0 left-0 right-0 bg-transparent backdrop-blur z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo/Brand */}
@@ -35,7 +34,7 @@ const Navbar = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-gray-400 font-serif hover:text-white transition-all px-3 py-2 rounded-md text-sm font-medium duration-200"
+                  className="text-gray-400 font-monojb hover:scale-110 transition-transform px-3 py-2 rounded-md text-sm font-medium duration-200"
                 >
                   {item.label}
                 </Link>

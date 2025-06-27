@@ -1,5 +1,4 @@
 "use client";
-import { motion } from 'framer-motion';
 
 const projects = [
   {
@@ -21,13 +20,16 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className="max-w-5xl mx-auto px-4">
-      <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Projects</h2>
-      <div className="grid gap-8 md:grid-cols-3">
+    <div className=" flex w-screen">
+      <div className='h-screen w-[15vw] bg-[#DC851F]'>
+
+      </div>
+      <div className="flex flex-col"> 
+      <h2 className="font-semibold  mb-8 text-left px-16 font-satoshi text-7xl">What Can I Do?</h2>
+      {/* <div className="grid gap-8 md:grid-cols-3">
         {projects.map((project, idx) => (
-          <motion.div
+          <div
             key={project.title}
-            whileHover={{ y: -8, scale: 1.03, boxShadow: '0 8px 32px #0004' }}
             className="bg-black rounded-xl p-6 shadow-md border border-gray-700 transition-all flex flex-col gap-4"
           >
             <h3 className="text-xl font-semibold mb-2 text-blue-400">{project.title}</h3>
@@ -39,8 +41,9 @@ export default function Projects() {
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
         ))}
+      </div></div> */}
       </div>
     </div>
   );

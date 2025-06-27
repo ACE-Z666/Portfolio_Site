@@ -4,18 +4,17 @@ import { ReactNode } from 'react';
 import Navbar from '../components/Navbar';
 
 export const metadata: Metadata = {
-  title: 'Abhijith J Nair: AI & ML Developer, Intermediate Full Stack Developer',
-  description: 'Portfolio of Abhijith J Nair: AI & ML Developer, Intermediate Full Stack Developer',
+  title: 'Abhijith J Nair',
+  description: 'AI & ML Developer, Intermediate Full Stack Developer',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <body className=" relative bg-transparent text-gray-100">
+      <body className=" relative bg-[#030303] text-gray-100 overflow-x-hidden">
         <div className="fixed inset-0 z-0">
         </div>
-       <div className="relative backdrop-blur-3xl  z-10">
-          <Navbar />
+       <div className="relative z-10">
           <main className="min-h-screen flex flex-col items-center justify-center">
             {children}
           </main>

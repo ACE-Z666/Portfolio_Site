@@ -16,6 +16,17 @@
   font-family: 'agraham';
   src: url("../fonts/Agraham.otf") format('opentype');
 }
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("../fonts/Satoshi-Variable.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: "MonoJB";
+  src: url("../fonts/JetBrainsMono.ttf") format('truetype');
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Inter:wght@400;700&display=swap');
 
 html {
@@ -29,6 +40,15 @@ body {
   font-family: 'Outfit', 'Inter', sans-serif;
   transition: background 0.5s;
 }
+
+.font-satoshi {
+  font-family: 'Satoshi', sans-serif;
+}
+
+.font-monojb {
+  font-family: 'MonoJB', sans-serif;
+}
+
 
 .test-satine {
   font-family: 'Satine', sans-serif;
@@ -55,3 +75,5 @@ canvas {
   height: 100%;
   opacity: 0.8;
 }
+
+

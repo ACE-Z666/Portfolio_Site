@@ -3,38 +3,19 @@
 export default function Hero() {
 
   return (
-    <div className="flex flex-col items-center  justify-center min-h-[90vh] w-full  bg-transparent text-center relative overflow-hidden">
+    <div className="min-h-[90vh] flex items-start w-full text-center relative overflow-hidden">
+      <div className=" flex flex-col items-start justify-start w-[85vw]">
        
-        <div>
-      <h1
-        className="text-xl md:text-2xl scale-125 md:scale-125 test-agraham mb-4 text-white bg-clip-text drop-shadow-lg "
-      >
-      Hey, I am <span className='text-white'> Abhijith J Nair</span>
-      </h1>  
-      <h1
-        className="text-3xl md:text-7xl scale-125 test-moxa font-medium mb-4 text-white bg-clip-text drop-shadow-lg"
-      >
-        <span className='text-white'>AI & ML</span> Developer
-      </h1>
-      <p
-        className="text-3xl md:text-7xl test-moxa font-medium text-white mb-8"
-      >
-      Intermediate <span className='text-white font-medium'>Full Stack Developer</span>
-      </p>
-      <a
-        href='#Projects'
-        className=" text-gray-300 flex flex-col test-moxa text-2xl uppercase font-medium"
-      >
-       <div>
-        <a href="" className='text-white px-20'>Resume</a>
-        <a href="https://www.linkedin.com/in/abhijith-j-nair" className='text-white px-8'>LinkedIn</a>
-        <a href="https://github.com/ACE-Z666" className='text-white px-20'>GitHub</a>
-       </div>
-      </a>
-      {/* Glowing background visuals */}
-      <div className="absolute inset-0 -z-60 flex items-center justify-center">
-        <div className="w-full h-full bg-gradient-radial from-blue-700/40 to-transparent rounded-full blur-3xl animate-pulse" />
+        <div className="text-7xl text-left font-satoshi font-semibold py-32 font-italic px-16 bg-[#0f0f0f] w-[85vw]">
+          <h1> AI <span className="text-[#DC851F]">&</span> ML Developer, <br /> Intermediate Full Stack Developer.</h1>
+        </div>
+         <div className="text-xl text-gray-400  text-left font-monojb w-[80vw] pb-10 px-16 mt-20">
+          <span className="text-[#DC851F]">Hey I'm Abhijith J Nair, </span><br /><br /> Aspiring Full Stack Developer and AI enthusiast with hands-on experience in building intelligent web applications using React, Node.js, Langchain and Huggingface. Adept at team leadership, event planning, and designing scalable software solutions. Looking to leverage tech + strategy skills in an internship or junior developer role.
+        </div>
+        
       </div>
+      <div className="h-screen w-[20vw]" >
+
       </div>
     </div>
   );
