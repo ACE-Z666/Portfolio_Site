@@ -1,4 +1,5 @@
 "use client";
+import Cards from './Cards.tsx';
 
 const projects = [
   {
@@ -25,26 +26,10 @@ export default function Projects() {
 
       </div>
       <div className="flex flex-col"> 
-      <h2 className="font-semibold  mb-8 text-left px-16 font-satoshi text-7xl">What Can I Do?</h2>
-      {/* <div className="grid gap-8 md:grid-cols-3">
-        {projects.map((project, idx) => (
-          <div
-            key={project.title}
-            className="bg-black rounded-xl p-6 shadow-md border border-gray-700 transition-all flex flex-col gap-4"
-          >
-            <h3 className="text-xl font-semibold mb-2 text-blue-400">{project.title}</h3>
-            <p className="text-gray-300 flex-1">{project.description}</p>
-            <div className="flex flex-wrap gap-2 mt-4">
-              {project.tech.map((tag) => (
-                <span key={tag} className="px-3 py-1 bg-gray-900/70 rounded-full text-xs text-gray-300 border border-gray-700">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div></div> */}
-      </div>
+      <h2 className=" mb-8 text-left px-16 font-monojb text-7xl">What Can I Do?</h2>
+      <Cards></Cards>
+
+     </div>
     </div>
   );
 } 
