@@ -21,15 +21,13 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className=" flex w-screen">
-      <div className='h-screen w-[15vw] bg-[#DC851F]'>
-
-      </div>
-      <div className="flex flex-col"> 
-      <h2 className=" mb-8 text-left px-16 font-monojb text-7xl">What Can I Do?</h2>
-      <Cards></Cards>
+    <div className=" flex flex-col ">
+      <div className="flex flex-col w-screen h-screen justify-center items-center"> 
+      <h2 className=" mb-8 text-left px-16 font-satoshi scale-[200%] font-semibold text-7xl">My Works!</h2>
+      
 
      </div>
+     <Cards></Cards>
     </div>
   );
 } 
