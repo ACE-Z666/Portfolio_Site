@@ -3,9 +3,9 @@
 export default function Hero() {
  
   return (
-    <div className="h-screen flex mypic items-start w-full text-center relative overflow-hidden">
-      <div className="flex flex-col items-center justify-center w-screen">
-        <nav className="bg-transparent z-50 flex py-4">
+    <div className=" flex flex-col text-center overflow-x-hidden">
+      <div className="flex flex-col mypic h-screen w-screen py-8">
+        <nav className="bg-transparent z-50 flex">
           <li className="flex w-screen justify-evenly font-monojb ">
             <ul className="cursor-pointer text-gray-300 hover:text-[#f18f01] transition-all">About</ul>
             <ul className="cursor-pointer text-gray-300 hover:text-[#f18f01] transition-all">Works</ul>
@@ -31,9 +31,14 @@ export default function Hero() {
           </h1>
           
         </div>
-       
+    </div>
+     <div className="flex flex-col w-screen h-screen justify-center items-center"> 
+      <h2 className=" mb-8 text-left px-16 font-satoshi scale-[200%] font-semibold text-7xl">My Works!</h2>
+      
+
+     </div>
+        
         </div>
-      </div>
         
 
       

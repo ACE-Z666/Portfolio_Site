@@ -79,8 +79,8 @@ canvas {
 
 .mypic {
   position: relative;
-  height: screen;
-  width: screen;
+  height: full;
+  width: full;
 }
 
 .mypic::before {
