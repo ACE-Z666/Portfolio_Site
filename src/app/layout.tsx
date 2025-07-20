@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main className="min-h-screen flex flex-col items-center justify-center">
             {children}
           </main>
-          <footer className="w-full py-6 text-center text-xs text-gray-500 border-t border-gray-800 mt-12">
+          <footer className="w-full py-6 text-center font-satoshi text-xs text-gray-500 border-t border-gray-800">
             &copy; {new Date().getFullYear()} Abhijith J Nair. All rights reserved.
           </footer>
         </div>

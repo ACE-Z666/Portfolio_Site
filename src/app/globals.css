@@ -76,28 +76,3 @@ canvas {
   opacity: 0.8;
 }
 
-
-.mypic {
-  position: relative;
-  height: full;
-  width: full;
-}
-
-.mypic::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("../assets/my-pic.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.35;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.mypic > * {
-  position: relative;
-  z-index: 1;
-}
-

@@ -73,10 +73,10 @@ export default function Skills() {
 
 	return (
 		<div className="w-screen h-screen flex flex-col items-center justify-start py-16 px-4 md:px-28 bg-transparent">
-			<h1 className="text-2xl md:text-7xl font-monojb font-semibold mb-12 text-left w-screen px-8">
-				Levels Unlocked!
+			<h1 className="text-2xl md:text-7xl font-monojb font-semibold mb-12 text-left text-[#f18f01] w-screen px-16">
+				Skills Unlocked!
 			</h1>
-			<div className="w-screen py-4 flex flex-col gap-20">
+			<div className="w-screen py-4 flex flex-col gap-10">
 				{skillCategories.map((cat, idx) => (
 					<div
 						key={cat.label}
@@ -114,19 +114,19 @@ export default function Skills() {
 								duration: 0.3,
 							});
 						}}
-						className="group relative overflow-hidden rounded-xl bg-transparent shadow-md cursor-pointer transition-all"
+						className="group relative text-left overflow-hidden rounded-2xl border-b-2 my-2 border-[#ffffff]/5 border-l-4 mx-12 shadow-md cursor-pointer transition-all"
 						style={{
 							maxHeight: 64,
 							minHeight: 64,
 							transition: "max-height 0.2s",
 						}}
 					>
-						<div className="flex items-center px-8 py-4 text-lg md:text-4xl font-satoshi uppercase font-bold text-[#f18f01] font-satoshi tracking-wide">
+						<div className="flex items-center px-8 py-4 text-lg md:text-4xl font-satoshi uppercase font-semibold text-white test-moxa tracking-wide">
 							{cat.label}
 						</div>
 						<div
 							ref={(el) => (contentRefs.current[idx] = el)}
-							className="skills-list opacity-0 pointer-events-none translate-y-5 hover:scale-105 transition-all px-8 pb-6 flex flex-wrap gap-6"
+							className="skills-list opacity-0 pointer-events-none translate-y-5 transition-all px-8 pb-6 flex flex-wrap gap-6"
 							style={{
 								transition: "opacity 0.3s, transform 0.3s",
 							}}
@@ -134,7 +134,7 @@ export default function Skills() {
 							{cat.skills.map((skill) => (
 								<span
 									key={skill.name}
-									className="inline-flex items-center gap-4 bg-[#222] text-gray-200 text-base md:text-lg rounded-md px-4 py-2 font-monojb shadow-sm border border-[#f18f01]/30"
+									className="inline-flex items-center gap-4 text-gray-300 text-base md:text-lg rounded-md px-4 py-2 font-monojb "
 								>
 									<img
 										src={skill.logo}
