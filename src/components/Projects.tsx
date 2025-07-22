@@ -7,26 +7,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 const featuredProjects = [
   {
-    title: "Chat-It",
+    title: "Chat-It.",
     subtitle: "Chat with the Users around the World",
     services: "React · Express · MongoDB · Node.js",
     image: "/cards/img2.png",
   }, 
   {
-    title: "EchoLearn",
-    subtitle: "The Complete Student's ToolKit",
+    title: "EchoLearn.",
+    subtitle: "The Complete Student's ToolKit - Including the Exclusive Echo AI",
     services: "React · Langchain · RAG · PineconeDB · MERN",
     image: "/cards/img1.png",
   },
   
   {
-    title: "iPhone Threejs Project",
+    title: "iPhone Threejs.",
     subtitle: "Clone of iPhone 15 Pro with a 3D model of it",
     services: "React · ThreeJs · GSAP · Tailwind CSS",
     image: "/cards/img3.png",
   },
   {
-    title: "Arcane",
+    title: "Arcane.",
     subtitle: "Contributed to the Website of Event named 'Arcane'",
     services: "React · Tailwind CSS",
     image: "/cards/img4.png",
@@ -90,18 +90,18 @@ const Projects: React.FC = () => {
             key={project.title}
             className="item absolute inset-0 featured-card bg-transparent w-screen h-screen rounded-2xl shadow-lg overflow-hidden flex flex-col cursor-pointer"
           >
-            <div className="relative w-full h-full bg-gray-900 overflow-hidden">
+            <div className="relative w-full h-full bg-gray-700 overflow-hidden">
               <img
                 src={project.image}
                 alt={project.title}
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute scale-125 inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent flex flex-col justify-end py-36 px-60">
+              <div className="absolute scale-125 inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent flex flex-col justify-end py-36 px-80">
                 <h3 className="text-4xl md:text-7xl font-semibold font-satoshi mb-3 text-[#f18f01]">
                   {project.title}
                 </h3>
-                <p className="text-gray-200 font-monojb text-xl md:text-2xl mb-2">
+                <p className="text-gray-200 font-satoshi text-xl md:text-2xl mb-2">
                   {project.subtitle}
                 </p>
                 <p className="text-gray-300 text-sm font-monojb">{project.services}</p>

@@ -23,17 +23,17 @@ export default function Contact() {
   return ( 
     <div
       ref={contactRef}
-      className="w-screen  h-full bg-transparent text-white py-20 px-6 md:px-24 flex flex-col lg:flex-row justify-between items-start gap-16"
+      className="w-screen  h-full bg-transparent text-white py-20 px-6 md:px-48 flex flex-col lg:flex-row justify-between items-start gap-16"
     >
       {/* Left Side – Info & Social */}
       <div className="flex flex-col gap-6 max-w-3xl">
-        <h2 className="text-3xl md:text-5xl font-monojb text-[#f18f01] mb-2">
-          Let's Get in Touch
+        <h2 className="text-3xl md:text-5xl font-satoshi font-semibold text-[#f18f01] mb-2">
+          Let's Get in Touch.
         </h2>
-        <p className="text-gray-300 text-2xl font-monojb leading-relaxed">
-          Whether you want to collaborate, have a question, or just want to say hi—I'm always open to connecting. Drop a message and I’ll try my best to respond soon!
+        <p className="text-gray-300 text-2xl font-satoshi font-light leading-relaxed">
+          Whether you want to collaborate, have a question, or just want to say hi I'm always open to connecting. Drop a message and I’ll try my best to respond soon!
         </p>
-        <div className="text-gray-400 font-monojb mt-4 space-y-2">
+        <div className="text-gray-400 font-satoshi font-light mt-4 space-y-2">
           <p>
             📧 <strong>Email: </strong>{""}
             <a
@@ -50,7 +50,7 @@ export default function Contact() {
               download
               className="text-[#f18f01] hover:underline"
             >
-              Download Resume
+              Resume
             </a>
           </p>
         </div>
@@ -66,40 +66,35 @@ export default function Contact() {
 
       {/* Right Side – Contact Form */}
       <div className="flex flex-col w-full max-w-xl">
-        <h2 className="text-2xl md:text-4xl font-monojb mb-8 text-center text-gray-100">
-          Connect with me 
+        <h2 className="text-2xl md:text-4xl font-satoshi mb-8 text-center text-gray-100">
+          Connect with Me 
         </h2>
         <form
-          className="bg-transparent rounded-2xl p-8 shadow-xl flex flex-col gap-6"
+          className="bg-transparent rounded-2xl py-8 shadow-xl flex flex-col gap-6"
           onSubmit={(e) => {
             e.preventDefault();
             setSubmitted(true);
           }}
         >
-          <input
-            type="text"
-            placeholder="Name"
-            required
-            className="px-6 py-3 rounded-xl bg-transparent text-gray-100 border-b-2 border-gray-700 focus:outline-none focus:border-b-2 focus:border-[#f18f01] transition-colors"
-          />
+          <input type="name" name="text" className="input py-4" placeholder="Name" />
+
           <input
             type="email"
             placeholder="Email Address"
             required
-            className="px-6 py-3 rounded-xl bg-transparent text-gray-100 border-b-2 border-gray-700 focus:outline-none focus:border-b-2 focus:border-[#f18f01] transition-colors"
-          />
+            className="input"          />
           <textarea
             placeholder="Your Message"
             required
             rows={5}
-            className="px-6 py-3 rounded-xl bg-transparent text-gray-100 border-b-2 border-gray-700 focus:outline-none focus:border-b-2 focus:border-[#f18f01] transition-colors"
-          />
-          <button
-            className="w-full py-3 rounded-2xl bg-transparent border-2 border-[#444] hover:border-[#f18f01] text-white font-semibold shadow-lg hover:shadow-xl transition-all"
-          >
-            {submitted ? "Thank you! Will respond to it Soon" : "Send Message"}
+            className="input"          />
+          <button>
+            <span className="shadow"></span>
+            <span className="edge"></span>
+            <span className="front text"> {submitted ? "Thank you! Will respond to it Soon" : "Send Message"}
+            </span>
           </button>
-        </form>
+         </form>
       </div>
     </div>
   );
