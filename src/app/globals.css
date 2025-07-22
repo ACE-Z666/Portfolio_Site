@@ -195,3 +195,14 @@ button:focus:not(:focus-visible) {
   min-height: inherit;
   line-height: inherit;
 }
+
+/* Add to your global CSS or as Tailwind classes */
+.active-category {
+  @apply bg-white bg-opacity-5;
+}
+
+@media (hover: hover) {
+  .category:hover:not(.active-category) {
+    @apply bg-white bg-opacity-5;
+  }
+}

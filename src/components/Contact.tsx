@@ -30,12 +30,12 @@ export default function Contact() {
         <h2 className="text-3xl md:text-5xl font-satoshi font-semibold text-[#f18f01] mb-2">
           Let's Get in Touch.
         </h2>
-        <p className="text-gray-300 text-2xl font-satoshi font-light leading-relaxed">
+        <p className="text-gray-300 sm:text-2xl text-xl font-satoshi font-light leading-relaxed">
           Whether you want to collaborate, have a question, or just want to say hi I'm always open to connecting. Drop a message and I’ll try my best to respond soon!
         </p>
         <div className="text-gray-400 font-satoshi font-light mt-4 space-y-2">
           <p>
-            📧 <strong>Email: </strong>{""}
+            <strong>Email: </strong>{""}
             <a
               href="mailto:www.abhijithjnair4321@gmail.com"
               className="text-[#f18f01] font-monojb hover:underline"
@@ -44,7 +44,7 @@ export default function Contact() {
             </a>
           </p>
           <p>
-            📄{" "}
+            {" "}
             <a
               href="/Abhijith_Resume.pdf"
               download
@@ -56,10 +56,10 @@ export default function Contact() {
         </div>
         <div className="flex gap-4 mt-6">
           <a href="https://github.com/AbhijithJNair" target="_blank">
-            <img src="/logos/github.png" alt="GitHub" className="w-8 h-8" />
+            <img src="https://img.icons8.com/?size=100&id=106562&format=png&color=FFFFFF" alt="GitHub" className="w-10 h-10" />
           </a>
           <a href="https://www.linkedin.com/in/abhijithnair23" target="_blank">
-            <img src="/logos/linkedin.png" alt="LinkedIn" className="w-8 h-8" />
+            <img src="https://img.icons8.com/?size=100&id=8808&format=png&color=FFFFFF" alt="LinkedIn" className="w-10 h-10" />
           </a>
         </div>
       </div>

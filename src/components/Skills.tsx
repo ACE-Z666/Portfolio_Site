@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 
 const skillCategories = [
@@ -58,6 +58,7 @@ const skillCategories = [
 export default function Skills() {
 	const categoryRefs = useRef<(HTMLDivElement | null)[]>([]);
 	const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+	const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
 	useEffect(() => {
 		categoryRefs.current.forEach((ref, idx) => {
@@ -72,62 +73,86 @@ export default function Skills() {
 		});
 	}, []);
 
+	// Handle category expansion
+	const handleCategoryClick = (idx: number) => {
+		const ref = categoryRefs.current[idx];
+		const content = contentRefs.current[idx];
+		if (!ref || !content) return;
+
+		if (activeIndex === idx) {
+			// Close if already open
+			gsap.to(ref, {
+				maxHeight: 64,
+				duration: 0.4,
+			});
+			gsap.to(content, {
+				opacity: 0,
+				y: 20,
+				pointerEvents: "none",
+				duration: 0.3,
+			});
+			setActiveIndex(null);
+		} else {
+			// Close previously open category
+			if (activeIndex !== null) {
+				const prevRef = categoryRefs.current[activeIndex];
+				const prevContent = contentRefs.current[activeIndex];
+				if (prevRef && prevContent) {
+					gsap.to(prevRef, {
+						maxHeight: 64,
+						duration: 0.4,
+					});
+					gsap.to(prevContent, {
+						opacity: 0,
+						y: 20,
+						pointerEvents: "none",
+						duration: 0.3,
+					});
+				}
+			}
+
+			// Open clicked category
+			const expandedHeight = 64 + content.scrollHeight + 32;
+			gsap.to(ref, {
+				maxHeight: expandedHeight,
+				duration: 0.2,
+			});
+			gsap.to(content, {
+				opacity: 1,
+				y: 0,
+				pointerEvents: "auto",
+				duration: 0.4,
+			});
+			setActiveIndex(idx);
+		}
+	};
+
 	return (
-		<div className="w-screen h-screen flex flex-col items-center justify-start py-16 px-4 md:px-24 bg-transparent">
-			<h1 className="text-2xl md:text-7xl font-satoshi font-normal mb-12 text-left text-white w-screen px-48">
+		<div className="w-screen h-3/4  sm:min-h-screen flex flex-col items-center justify-center sm:justify-start py-8 px-4 md:px-24 bg-transparent">
+			<h1 className="text-3xl md:text-7xl font-satoshi font-normal mb-12 text-left text-white w-screen sm:px-48 px-8">
 				Skills <span className="text-[#f18f01]">Unlocked!</span>
 			</h1>
-			<div className="w-full py-4 px-4 flex flex-col gap-10">
+			<div className="w-full py-4 px-4 flex flex-col sm:gap-10 gap-6">
 				{skillCategories.map((cat, idx) => (
 					<div
 						key={cat.label}
 						ref={(el) => (categoryRefs.current[idx] = el)}
-						onMouseEnter={() => {
-							const ref = categoryRefs.current[idx];
-							const content = contentRefs.current[idx];
-							if (!ref || !content) return;
-
-							const expandedHeight = 64 + content.scrollHeight + 32;
-							gsap.to(ref, {
-								maxHeight: expandedHeight,
-								duration: 0.2,
-							});
-							gsap.to(content, {
-								opacity: 1,
-								y: 0,
-								pointerEvents: "auto",
-								duration: 0.4,
-							});
-						}}
-						onMouseLeave={() => {
-							const ref = categoryRefs.current[idx];
-							const content = contentRefs.current[idx];
-							if (!ref || !content) return;
-
-							gsap.to(ref, {
-								maxHeight: 64,
-								duration: 0.4,
-							});
-							gsap.to(content, {
-								opacity: 0,
-								y: 20,
-								pointerEvents: "none",
-								duration: 0.3,
-							});
-						}}
-						className="group relative text-left overflow-hidden rounded-2xl my-2  mx-12 shadow-md cursor-pointer transition-all"
+						onClick={() => handleCategoryClick(idx)}
+						className={`group relative text-left overflow-hidden rounded-2xl sm:my-2 my-0 sm:mx-12 mx-0 shadow-md cursor-pointer transition-all scrollbar-hide ${
+							activeIndex === idx ? 'bg-opacity-0 bg-white' : ''
+						}`}
 						style={{
 							maxHeight: 64,
 							minHeight: 64,
 							transition: "max-height 0.2s",
 						}}
 					>
-						<div className="flex items-center px-8 py-4 text-lg md:text-4xl font-light text-white font-satoshi tracking-wide">
+						<div className="flex items-left sm:px-8 sm:py-4 text-lg md:text-4xl font-light text-white font-satoshi tracking-wide">
 							{cat.label}
 						</div>
 						<div
 							ref={(el) => (contentRefs.current[idx] = el)}
-							className="skills-list opacity-0 w-full pointer-events-none translate-y-5 transition-all px-8 pb-6 flex flex-wrap gap-6"
+							className="skills-list opacity-0 w-full pointer-events-none translate-y-5 transition-all px-8 pb-6 flex sm:gap-6 gap-8 overflow-x-auto scrollbar-hide"
 							style={{
 								transition: "opacity 0.3s, transform 0.3s",
 							}}
@@ -135,7 +160,7 @@ export default function Skills() {
 							{cat.skills.map((skill) => (
 								<span
 									key={skill.name}
-									className="inline-flex items-center justify-center gap-4 text-gray-300 text-base md:text-lg rounded-md px-4 py-2 font-monojb "
+									className="inline-flex items-center justify-center gap-4 text-gray-300 text-base md:text-lg rounded-md px-4 sm:py-2 py-4 font-monojb "
 								>
 									<img
 										src={skill.logo}

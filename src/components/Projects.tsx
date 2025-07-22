@@ -88,16 +88,16 @@ const Projects: React.FC = () => {
         {featuredProjects.map((project) => (
           <div
             key={project.title}
-            className="item absolute inset-0 featured-card bg-transparent w-screen h-screen rounded-2xl shadow-lg overflow-hidden flex flex-col cursor-pointer"
+            className="item absolute inset-0 featured-card bg-black w-screen h-screen  rounded-2xl shadow-lg overflow-hidden flex flex-col cursor-pointer"
           >
-            <div className="relative w-full h-full bg-gray-700 overflow-hidden">
+            <div className="sm:relative w-full h-full bg-transperant overflow-hidden">
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover"
+                className="w-full sm:h-full object-cover h-3/4 rounded-2xl"
                 loading="lazy"
               />
-              <div className="absolute scale-125 inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent flex flex-col justify-end py-36 px-80">
+              <div className="sm:absolute sm:scale-125 inset-0 sm:bg-gradient-to-t sm:from-black/80 sm:via-black/60 sm:to-transparent flex flex-col justify-end sm:py-36 py-12 sm:px-80 px-8">
                 <h3 className="text-4xl md:text-7xl font-semibold font-satoshi mb-3 text-[#f18f01]">
                   {project.title}
                 </h3>
