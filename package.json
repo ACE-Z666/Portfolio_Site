@@ -9,15 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "firebase": "^11.9.0",
-    "framer-motion": "^12.16.0",
+    "framer-motion": "^12.23.9",
     "github-calendar": "^2.3.4",
     "gsap": "^3.13.0",
     "locomotive-scroll": "^4.1.4",
+    "lucide-react": "^0.526.0",
     "next": "14.1.0",
+    "ogl": "^1.0.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-locomotive-scroll": "^0.2.2",
+    "swiper": "^11.2.10",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7",
     "three": "^0.178.0"
   },
   "devDependencies": {

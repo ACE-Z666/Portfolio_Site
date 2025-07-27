@@ -75,6 +75,9 @@ export default function Skills() {
 
 	// Handle category expansion
 	const handleCategoryClick = (idx: number) => {
+		// Only handle clicks on mobile
+		if (window.innerWidth >= 640) return;
+		
 		const ref = categoryRefs.current[idx];
 		const content = contentRefs.current[idx];
 		if (!ref || !content) return;
@@ -138,13 +141,13 @@ export default function Skills() {
 						key={cat.label}
 						ref={(el) => (categoryRefs.current[idx] = el)}
 						onClick={() => handleCategoryClick(idx)}
-						className={`group relative text-left overflow-hidden rounded-2xl sm:my-2 my-0 sm:mx-12 mx-0 shadow-md cursor-pointer transition-all scrollbar-hide ${
-							activeIndex === idx ? 'bg-opacity-0 bg-white' : ''
+						className={`group relative text-left overflow-hidden rounded-2xl sm:my-2 my-0 sm:mx-12 mx-0 shadow-md cursor-pointer transition-all hover-expand ${
+							activeIndex === idx ? 'cardSkills' : ''
 						}`}
 						style={{
 							maxHeight: 64,
 							minHeight: 64,
-							transition: "max-height 0.2s",
+							transition: "max-height 0.3s ease-in-out",
 						}}
 					>
 						<div className="flex items-left sm:px-8 sm:py-4 text-lg md:text-4xl font-light text-white font-satoshi tracking-wide">
