@@ -1,209 +1,218 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { Draggable } from "gsap/Draggable";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(Draggable, ScrollTrigger);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-const featuredProjects = [
-  {
-    title: "Chat-It.",
-    subtitle: "Chat with the Users around the World",
-    services: "React · Express · MongoDB · Node.js",
-    image: "https://placehold.co/1200x800/000000/f18f01?text=Chat-It",
-  },
-  {
-    title: "EchoLearn.",
-    subtitle: "The Complete Student's ToolKit - Including the Exclusive Echo AI",
-    services: "React · Langchain · RAG · PineconeDB · MERN",
-    image: "https://placehold.co/1200x800/000000/f18f01?text=EchoLearn",
-  },
-  {
-    title: "iPhone Threejs.",
-    subtitle: "Clone of iPhone 15 Pro with a 3D model of it",
-    services: "React · ThreeJs · GSAP · Tailwind CSS",
-    image: "https://placehold.co/1200x800/000000/f18f01?text=iPhone+3D",
-  },
-  {
-    title: "Arcane.",
-    subtitle: "Contributed to the Website of Event named 'Arcane'",
-    services: "React · Tailwind CSS",
-    image: "https://placehold.co/1200x800/000000/f18f01?text=Arcane",
-  },
-];
-
-const allProjectsCard = {
-  title: "See all Projects",
-  isLink: true,
-  href: "#",
-};
-
-const Projects: React.FC = () => {
-  const allItems = [...featuredProjects, allProjectsCard];
-  const [activeIndex, setActiveIndex] = useState(0);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const slidesRef = useRef<HTMLDivElement>(null);
-  const autoplayRef = useRef<gsap.core.Tween | null>(null);
+const Projects = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const projectsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      let draggableInstance: Draggable | null = null;
+    const section = sectionRef.current;
+    const title = titleRef.current;
+    const projects = projectsRef.current;
 
-      const setupCarousel = () => {
-        draggableInstance?.kill();
-        autoplayRef.current?.kill();
+    if (!section || !title || !projects) return;
 
-        const items = gsap.utils.toArray<HTMLElement>(".carousel-item");
-        if (!items.length || !slidesRef.current || !wrapperRef.current) return;
+    // Title animation
+    gsap.fromTo(title.children,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
 
-        const itemWidth = items[0].offsetWidth;
-        const totalWidth = itemWidth * items.length;
+    // Projects animation
+    gsap.fromTo(projects.children,
+      { y: 80, opacity: 0, scale: 0.9 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 1.2,
+        ease: 'power3.out',
+        stagger: 0.3,
+        scrollTrigger: {
+          trigger: projects,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
 
-        gsap.set(slidesRef.current, { width: totalWidth });
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
-        const goToSlide = (index: number, isInitial = false) => {
-          const newIndex = (index % items.length + items.length) % items.length;
-          setActiveIndex(newIndex);
-          gsap.to(slidesRef.current, {
-            x: -newIndex * itemWidth,
-            duration: isInitial ? 0 : 0.75,
-            ease: "power3.inOut",
-          });
-        };
-
-        // Delay initial render to wait for layout to stabilize
-        requestAnimationFrame(() => goToSlide(activeIndex, true));
-
-        const startAutoplay = () => {
-          autoplayRef.current = gsap.delayedCall(5, () => {
-            goToSlide(activeIndex + 1);
-            startAutoplay();
-          }).pause();
-        };
-
-        startAutoplay();
-
-        draggableInstance = Draggable.create(slidesRef.current, {
-          type: "x",
-          inertia: true,
-          bounds: wrapperRef.current,
-          edgeResistance: 0.65,
-          onPress: () => autoplayRef.current?.pause(),
-          onRelease: function () {
-            const snappedIndex = Math.round(this.x / -itemWidth);
-            goToSlide(snappedIndex);
-            autoplayRef.current?.resume(2);
-          },
-        })[0];
-      };
-
-      ScrollTrigger.create({
-        trigger: wrapperRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        onEnter: () => autoplayRef.current?.resume(),
-        onLeave: () => autoplayRef.current?.pause(),
-        onEnterBack: () => autoplayRef.current?.resume(),
-        onLeaveBack: () => autoplayRef.current?.pause(),
-        onRefresh: setupCarousel,
-      });
-
-      setupCarousel();
-
-      window.addEventListener("resize", setupCarousel);
-
-      return () => {
-        window.removeEventListener("resize", setupCarousel);
-        draggableInstance?.kill();
-        autoplayRef.current?.kill();
-      };
-    }, wrapperRef);
-
-    return () => ctx.revert();
-  }, [activeIndex]);
-
-  const handleDotClick = (index: number) => {
-    const items = gsap.utils.toArray<HTMLElement>(".carousel-item");
-    if (!items.length || !slidesRef.current) return;
-
-    const itemWidth = items[0].offsetWidth;
-    autoplayRef.current?.pause();
-    setActiveIndex(index);
-
-    gsap.to(slidesRef.current, {
-      x: -index * itemWidth,
-      duration: 0.75,
-      ease: "power3.inOut",
-      onComplete: () => autoplayRef.current?.restart(true).resume(2),
-    });
-  };
+  const projects = [
+    {
+      id: 1,
+      title: 'E-Commerce Platform',
+      description: 'A full-stack e-commerce solution built with Next.js, Stripe, and Firebase. Features include user authentication, product management, shopping cart, and secure payment processing.',
+      technologies: ['Next.js', 'Firebase', 'Stripe', 'Tailwind CSS'],
+      liveUrl: '#',
+      githubUrl: '#',
+      category: 'Full Stack'
+    },
+    {
+      id: 2,
+      title: 'Task Management App',
+      description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features. Built with React and Socket.io.',
+      technologies: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
+      liveUrl: '#',
+      githubUrl: '#',
+      category: 'Web App'
+    },
+    {
+      id: 3,
+      title: 'AI Content Generator',
+      description: 'An AI-powered content generation tool that helps users create blog posts, social media content, and marketing copy using OpenAI\'s API.',
+      technologies: ['Python', 'FastAPI', 'OpenAI API', 'React'],
+      liveUrl: '#',
+      githubUrl: '#',
+      category: 'AI/ML'
+    },
+    {
+      id: 4,
+      title: 'Weather Dashboard',
+      description: 'A responsive weather dashboard that provides real-time weather data, forecasts, and interactive maps. Features geolocation and favorite locations.',
+      technologies: ['Vue.js', 'Weather API', 'Chart.js', 'PWA'],
+      liveUrl: '#',
+      githubUrl: '#',
+      category: 'Dashboard'
+    },
+    {
+      id: 5,
+      title: 'Cryptocurrency Tracker',
+      description: 'A real-time cryptocurrency tracking application with portfolio management, price alerts, and detailed analytics. Built with React Native for mobile.',
+      technologies: ['React Native', 'Redux', 'CoinGecko API', 'Firebase'],
+      liveUrl: '#',
+      githubUrl: '#',
+      category: 'Mobile App'
+    },
+    {
+      id: 6,
+      title: 'Social Media Platform',
+      description: 'A modern social media platform with real-time messaging, post sharing, story features, and user engagement analytics.',
+      technologies: ['Next.js', 'PostgreSQL', 'Redis', 'AWS S3'],
+      liveUrl: '#',
+      githubUrl: '#',
+      category: 'Social Platform'
+    }
+  ];
 
   return (
-    <section
-      ref={wrapperRef}
-      className="relative w-full h-screen flex flex-col items-center justify-center bg-transparent overflow-hidden font-satoshi"
+    <section 
+      ref={sectionRef}
+      id="projects" 
+      className="py-20 md:py-32 bg-[#fefefe] relative overflow-hidden"
     >
-      <div ref={slidesRef} className="relative h-full flex">
-        {allItems.map((item, index) => (
-          <div
-            key={item.title + index}
-            className="carousel-item w-screen h-full flex items-center justify-center px-[5vw] md:px-[15vw] flex-shrink-0"
-          >
-            <div className="w-full h-[70vh] transition-transform duration-300 hover:scale-[1.02] hover:shadow-2xl">
-              {item.isLink ? (
-                <a
-                  href={item.href}
-                  className="w-full h-full flex items-center justify-center bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl shadow-lg hover:bg-gray-800 hover:scale-105 transition-all duration-300"
-                >
-                  <h3 className="text-3xl md:text-5xl font-semibold text-[#f18f01]">
-                    {item.title} &rarr;
-                  </h3>
-                </a>
-              ) : (
-                <div className="relative w-full h-full bg-black rounded-2xl shadow-2xl shadow-orange-500/20 overflow-hidden group">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src =
-                        "https://placehold.co/1200x800/000000/FFFFFF?text=Image+Not+Found";
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent flex flex-col justify-end p-6 md:p-12 transition-opacity duration-300">
-                    <h3 className="text-4xl md:text-7xl font-bold mb-3 text-[#f18f01]">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-200 text-lg md:text-2xl mb-2">
-                      {item.subtitle}
-                    </p>
-                    <p className="text-gray-400 text-sm md:text-base font-mono">
-                      {item.services}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-3">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23111111' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}></div>
       </div>
 
-      <div className="absolute bottom-10 flex space-x-3 z-10">
-        {allItems.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => handleDotClick(i)}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-              activeIndex === i ? "bg-[#f18f01] scale-125" : "bg-gray-600"
-            }`}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Title Section */}
+        <div ref={titleRef} className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi">
+            Featured Projects
+          </h2>
+          <div className="w-20 h-1 bg-[#111111] mx-auto mb-8"></div>
+          <p className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed">
+            Here are some of my recent projects that showcase my skills in web development, 
+            mobile applications, and AI integration.
+          </p>
+        </div>
+
+        {/* Projects Grid */}
+        <div ref={projectsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              className="card-hover group bg-white rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-2xl transition-all duration-500"
+            >
+              {/* Project Header */}
+              <div className="flex items-center justify-between mb-4">
+                <span className="px-3 py-1 bg-[#111111]/10 text-[#111111] rounded-full text-sm font-medium">
+                  {project.category}
+                </span>
+                <div className="flex space-x-2">
+                  <a
+                    href={project.liveUrl}
+                    className="p-2 text-[#111111]/60 hover:text-[#111111] transition-colors hover:scale-110 transform"
+                    aria-label="View Live Project"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                  <a
+                    href={project.githubUrl}
+                    className="p-2 text-[#111111]/60 hover:text-[#111111] transition-colors hover:scale-110 transform"
+                    aria-label="View GitHub Repository"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              {/* Project Content */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-[#111111] font-satoshi group-hover:text-[#333333] transition-colors">
+                  {project.title}
+                </h3>
+                
+                <p className="text-[#111111]/70 text-sm leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Technologies */}
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, index) => (
+                    <span
+                      key={index}
+                      className="px-2 py-1 bg-[#f8f8f8] text-[#111111] rounded text-xs font-medium border border-[#111111]/10"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Hover Effect Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#111111]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+            </div>
+          ))}
+        </div>
+
+        {/* View More Button */}
+        <div className="text-center mt-16">
+          <button className="btn-hover px-8 py-4 border-2 border-[#111111] text-[#111111] rounded-full font-semibold text-lg transition-all duration-300 hover:bg-[#111111] hover:text-white hover:scale-105">
+            View All Projects
+          </button>
+        </div>
       </div>
     </section>
   );

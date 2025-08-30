@@ -1,8 +1,10 @@
 import Hero from '../components/Hero';
+import About from '../components/About';
 import Projects from '../components/Projects';
 import Skills from '../components/Skills';
-import GitHubContributions from '../components/GitHubContributions';
+import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
+import Footer from '../components/Footer';
 
 export default function Home() {
   return (
@@ -10,18 +12,28 @@ export default function Home() {
       <section id="hero">
         <Hero />
       </section>
-      <section id="projects" className="mt-24">
+      
+      <section id="about">
+        <About />
+      </section>
+      
+      <section id="projects">
         <Projects />
       </section>
-      <section id="skills" className="mt-24">
+      
+      <section id="skills">
         <Skills />
       </section>
-      <section id="github" className="mt-24">
-        <GitHubContributions />
+      
+      <section id="testimonials">
+        <Testimonials />
       </section>
-      <section id="contact" className="">
+      
+      <section id="contact">
         <Contact />
       </section>
+      
+      <Footer />
     </>
   );
 }

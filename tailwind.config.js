@@ -6,6 +6,77 @@ export default {
   ],
   theme: {
   	extend: {
+      fontFamily: {
+        'satine': ['Satine', 'serif'],
+        'moxa': ['moxa', 'sans-serif'],
+        'agraham': ['agraham', 'serif'],
+        'satoshi': ['Satoshi', 'sans-serif'],
+        'monojb': ['MonoJB', 'monospace'],
+        'outfit': ['Outfit', 'sans-serif'],
+        'inter': ['Inter', 'sans-serif'],
+      },
+      colors: {
+        primary: {
+          50: '#fefefe',
+          100: '#f8f8f8',
+          500: '#111111',
+          600: '#0f0f0f',
+          700: '#0d0d0d',
+          800: '#0b0b0b',
+          900: '#090909',
+        },
+        gray: {
+          50: '#fefefe',
+          100: '#f8f8f8',
+          200: '#f0f0f0',
+          300: '#e8e8e8',
+          400: '#d0d0d0',
+          500: '#a0a0a0',
+          600: '#707070',
+          700: '#404040',
+          800: '#202020',
+          900: '#111111',
+        }
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+        'slide-down': 'slideDown 0.5s ease-out',
+        'slide-left': 'slideLeft 0.5s ease-out',
+        'slide-right': 'slideRight 0.5s ease-out',
+        'scale-in': 'scaleIn 0.5s ease-out',
+        'bounce-gentle': 'bounceGentle 2s infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(30px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+          '0%': { transform: 'translateY(-30px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideLeft: {
+          '0%': { transform: 'translateX(30px)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        slideRight: {
+          '0%': { transform: 'translateX(-30px)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        scaleIn: {
+          '0%': { transform: 'scale(0.9)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        bounceGentle: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

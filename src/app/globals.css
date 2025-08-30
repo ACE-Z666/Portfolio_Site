@@ -27,18 +27,35 @@
   src: url("../fonts/JetBrainsMono.ttf") format('truetype');
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 html {
   font-family: 'Outfit', 'Inter', sans-serif;
-  background: transparent;
-  color-scheme: dark;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
-  @apply bg-transparent text-gray-100 min-h-screen;
+  @apply bg-[#fefefe] text-[#111111] min-h-screen antialiased;
   font-family: 'Outfit', 'Inter', sans-serif;
-  transition: background 0.5s;
+  transition: all 0.5s ease;
+  line-height: 1.6;
+}
+
+/* Prevent content flash during loading */
+.main-content {
+  opacity: 0;
+}
+
+/* Loading screen z-index should be higher than main content */
+.loading-screen {
+  z-index: 9999;
 }
 
 .font-satoshi {
@@ -47,6 +64,164 @@ body {
 
 .font-monojb {
   font-family: 'MonoJB', sans-serif;
+}
+
+.font-satine {
+  font-family: 'Satine', sans-serif;
+}
+
+.font-moxa {
+  font-family: 'moxa', sans-serif;
+}
+
+.font-agraham {
+  font-family: 'agraham', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #111111;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
+
+/* Smooth Transitions */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up {
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+.slide-left {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+
+.slide-right {
+  transform: translateX(50px);
+  opacity: 0;
+}
+
+.scale-in {
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+/* Button Animations */
+.btn-hover {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-hover:hover::before {
+  left: 100%;
+}
+
+/* Loading Animation */
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #111111;
+  animation: loading 1.4s ease-in-out infinite both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes loading {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #111111 0%, #666666 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* Magnetic Button Effect */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glass Morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Navigation Styles */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #111111;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
 }
 
 
@@ -318,6 +493,61 @@ button:focus:not(:focus-visible) {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+  }
+}
+
+/* Skills Component Enhancements */
+@keyframes skillFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes skillGlow {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(241, 143, 1, 0.2);
+  }
+  50% { 
+    box-shadow: 0 0 20px rgba(241, 143, 1, 0.4), 0 0 30px rgba(241, 143, 1, 0.2);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skills-list > div {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.skills-list > div:nth-child(1) { animation-delay: 0.1s; }
+.skills-list > div:nth-child(2) { animation-delay: 0.2s; }
+.skills-list > div:nth-child(3) { animation-delay: 0.3s; }
+.skills-list > div:nth-child(4) { animation-delay: 0.4s; }
+.skills-list > div:nth-child(5) { animation-delay: 0.5s; }
+.skills-list > div:nth-child(6) { animation-delay: 0.6s; }
+
+/* Scrollbar hiding for different browsers */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 

@@ -2,8 +2,8 @@
 
 import './globals.css';
 import { ReactNode, useState, useEffect } from 'react';
-import FaultyTerminal from '../components/animatedComps/FaultyTerminal';
 import LoadingScreen from '../components/LoadingScreen';
+import Navigation from '../components/Navigation';
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -14,30 +14,28 @@ if (typeof window !== 'undefined') {
 export default function RootLayout({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
-  // THIS IS THE CORRECTED FUNCTION
-  // It is now the single source of truth for animating the main content in.
   const handleLoadingComplete = () => {
+    // First, remove the loading state
     setIsLoading(false);
     
+    // Then animate in the main content with a slight delay
     requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-      
-      // Animate BOTH the background and the main content to visible
-      gsap.to([".faulty-terminal", ".main-content"], {
+      gsap.to(".main-content", {
         opacity: 1,
-        duration: 1,
-        stagger: 0.1,
+        duration: 1.2,
+        ease: 'power3.out',
         onComplete: () => {
-          ScrollTrigger.refresh(true); // Force a hard refresh
+          // Refresh ScrollTrigger after content is visible
+          ScrollTrigger.refresh(true);
         }
       });
     });
   };
 
   useEffect(() => {
-    // This initial setup is correct - it hides content before animations run.
     if (typeof window !== 'undefined') {
-      gsap.set([".main-content", ".faulty-terminal"], {
+      // Hide main content initially
+      gsap.set(".main-content", {
         opacity: 0
       });
     }
@@ -49,44 +47,24 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <html lang="en" className="dark">
-      <body className="relative bg-[#030303] text-gray-100 overflow-x-hidden">
-        {isLoading ? (
-          <LoadingScreen onLoadingComplete={handleLoadingComplete} />
-        ) : (
-          <>
-            <div className="fixed inset-0 z-0 w-full h-full faulty-terminal">
-              <FaultyTerminal
-                scale={2}
-                gridMul={[2, 1]}
-                digitSize={1.4}
-                timeScale={2}
-                pause={false}
-                scanlineIntensity={1}
-                glitchAmount={1}
-                flickerAmount={1}
-                noiseAmp={1}
-                chromaticAberration={0}
-                dither={4}
-                curvature={0}
-                tint="#A6C954"
-                mouseReact={true}
-                mouseStrength={4}
-                pageLoadAnimation={true}
-                brightness={0.2}
-              />
-            </div>
-            <div className="relative z-10 w-full main-content">
-              <main className="min-h-screen flex flex-col items-center justify-center">
-                {children}
-              </main>
-              <footer className="w-full py-6 sm:px-48 px-8 sm:text-left flex sm:flex-row flex-col text-center justify-between font-satoshi text-md text-gray-300 border-t border-gray-900">
-                &copy; {new Date().getFullYear()} Abhijith J Nair. All rights reserved.
-                <p>Bye Bee!!</p>
-              </footer>
-            </div>
-          </>
-        )}
+    <html lang="en">
+      <head>
+        <title>Abhijith J Nair - AI/ML & Full Stack Developer</title>
+        <meta name="description" content="Intermediate AI/ML & Full Stack Developer passionate about creating digital experiences that make a difference." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <body className="relative bg-[#fefefe] text-[#111111] overflow-x-hidden">
+        {/* Loading Screen */}
+        {isLoading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
+        
+        {/* Main Content - Always rendered but hidden during loading */}
+        <div className="main-content">
+          <Navigation />
+          <main>
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
