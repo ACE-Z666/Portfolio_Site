@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import TextReveal from './ui/TextReveal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -156,13 +157,21 @@ const Testimonials = () => {
         
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi">
-            Others Opinion About Me!
-          </h2>
+          <TextReveal
+            words="Others Opinion About Me!"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi"
+            duration={0.6}
+            delay={100}
+            staggerDelay={80}
+          />
           <div className="w-20 h-1 bg-[#111111] mx-auto mb-8"></div>
-          <p className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed">
-            Here is what others have to speak about me and my work!
-          </p>
+          <TextReveal
+            words="Here is what others have to speak about me and my work!"
+            className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed"
+            duration={0.5}
+            delay={500}
+            staggerDelay={50}
+          />
         </div>
 
         {/* Featured Testimonial */}

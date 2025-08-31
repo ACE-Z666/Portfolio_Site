@@ -249,7 +249,7 @@ const CardNav: React.FC<CardNavProps> = ({
 
           <div className="logo-container flex items-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 order-1 md:order-none">
             <div 
-              className="font-satoshi text-2xl font-bold text-[#111111] cursor-pointer hover:opacity-75 transition-opacity duration-200" 
+              className="font-agraham text-xl font-medium text-[#111111] cursor-pointer hover:opacity-75 transition-opacity duration-200" 
               onClick={handleLogoClick}
               role="button"
               tabIndex={0}
@@ -267,14 +267,14 @@ const CardNav: React.FC<CardNavProps> = ({
           <button
             type="button"
             onClick={() => handleNavClick('#contact')}
-            className="card-nav-cta-button hidden md:inline-flex border-0 rounded-xl px-6 py-2 font-medium cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
+            className="card-nav-cta-button hidden md:inline-flex border-0 rounded-xl px-6 py-2 font-medium font-satoshi cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
             style={{ 
               backgroundColor: buttonBgColor, 
               color: buttonTextColor,
               focusRingColor: buttonBgColor 
             }}
           >
-            Get In Touch
+            Resumé
           </button>
         </div>
 
@@ -289,18 +289,18 @@ const CardNav: React.FC<CardNavProps> = ({
           {(items || []).slice(0, 3).map((item, idx) => (
             <div
               key={`${item.label}-${idx}`}
-              className="nav-card select-none relative flex flex-col gap-3 p-5 rounded-xl min-w-0 flex-[1_1_auto] h-auto min-h-[80px] md:h-full md:min-h-0 md:flex-[1_1_0%] hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
+              className="nav-card select-none relative flex flex-col gap-3 p-5 rounded-xl font-satoshi min-w-0 flex-[1_1_auto] h-auto min-h-[80px] md:h-full md:min-h-0 md:flex-[1_1_0%] hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
               ref={setCardRef(idx)}
               style={{ backgroundColor: item.bgColor, color: item.textColor }}
             >
-              <div className="nav-card-label font-semibold tracking-[-0.5px] text-lg md:text-xl">
+              <div className="nav-card-label font-satoshi font-medium tracking-[-0.5px] text-lg md:text-xl">
                 {item.label}
               </div>
               <div className="nav-card-links mt-auto flex flex-col gap-1">
                 {item.links?.map((lnk, i) => (
                   <button
                     key={`${lnk.label}-${i}`}
-                    className="nav-card-link inline-flex items-center gap-2 no-underline cursor-pointer transition-opacity duration-300 hover:opacity-75 text-sm md:text-base text-left p-0 border-0 bg-transparent focus:outline-none focus:opacity-75"
+                    className="nav-card-link inline-flex font-satoshi items-center gap-2 no-underline cursor-pointer transition-opacity duration-300 hover:opacity-75 text-sm md:text-base text-left p-0 border-0 bg-transparent focus:outline-none focus:opacity-75"
                     onClick={() => handleNavClick(lnk.href)}
                     aria-label={lnk.ariaLabel}
                     style={{ color: item.textColor }}

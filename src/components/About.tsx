@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import TextReveal from './ui/TextReveal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -91,37 +92,52 @@ const About = () => {
           {/* Content */}
           <div ref={contentRef} className="space-y-8">
             <div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi">
-                About Me
-              </h2>
-              <div className="w-20 h-1 bg-[#111111] mb-8"></div>
+              <TextReveal
+                words="About Me"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-4 md:mb-6 font-hattonem leading-tight"
+                duration={0.6}
+                delay={100}
+                staggerDelay={80}
+              />
+              <div className="w-16 md:w-20 h-1 bg-[#111111] mb-6 md:mb-8"></div>
             </div>
 
-            <div className="space-y-6 text-lg text-[#111111]/80 leading-relaxed">
-              <p>
-               I'm an emerging Full Stack and AI/ML Engineer driven by a passion for building intelligent, impactful applications. My journey started with a curiosity for how technology can solve real-world problems, which has grown into a commitment to developing solutions that are both scalable and meaningful.
-              </p>
+            <div className="space-y-4 md:space-y-6 text-base md:text-lg text-[#111111]/80 leading-relaxed font-satoshi font-medium">
+              <TextReveal
+                words="I'm an emerging Full Stack and AI/ML Engineer driven by a passion for building intelligent, impactful applications. My journey started with a curiosity for how technology can solve real-world problems, which has grown into a commitment to developing solutions that are both scalable and meaningful."
+                className="block"
+                duration={0.4}
+                delay={500}
+                staggerDelay={30}
+              />
               
-              <p>
-                I specialize in modern web and AI technologies including React, Node.js, LangChain, and Hugging Face, with experience that extends beyond coding into strategic planning, team leadership, and managing complex initiatives. 
-              </p>
-
-              <p>
-               I believe in writing clean, efficient code while ensuring that every solution delivers long-term value and innovation.
-              </p>
+              <TextReveal
+                words="I believe in writing clean, efficient code while ensuring that every solution delivers long-term value and innovation."
+                className="block"
+                duration={0.4}
+                delay={900}
+                staggerDelay={35}
+              />
             </div>
 
             {/* Skills */}
-            <div>
-              <h3 className="text-2xl font-bold text-[#111111] mb-4 font-satoshi">
-                Technologies I Love
-              </h3>
-              <div className="flex flex-wrap gap-3">
+            <div className="pt-4">
+              {/* <TextReveal
+                words="Technologies I Love"
+                className="text-xl md:text-2xl text-[#111111] mb-3 md:mb-4 font-hattonem"
+                duration={0.5}
+                delay={1200}
+                staggerDelay={60}
+              /> */}
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 {skills.map((skill, index) => (
                   <span
                     key={skill}
-                    className="px-4 py-2 bg-white border border-[#111111]/20 rounded-full text-sm font-medium text-[#111111] hover:bg-[#111111] hover:text-white transition-all duration-300 cursor-default"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className="px-3 py-1.5 md:px-4 md:py-2 bg-white border border-[#111111]/20  font-satoshi font-light rounded-full text-xs md:text-sm font-medium text-[#111111] hover:bg-[#111111] hover:text-white transition-all duration-300 cursor-default opacity-0"
+                    style={{ 
+                      animationDelay: `${1.5 + index * 0.05}s`,
+                      animation: 'fadeInUp 0.4s ease-out forwards'
+                    }}
                   >
                     {skill}
                   </span>
@@ -130,13 +146,16 @@ const About = () => {
             </div>
 
             {/* CTA Button */}
-            <div className="pt-4">
+            <div className="pt-6 md:pt-8">
               <button 
                 onClick={() => {
                   const element = document.querySelector('#contact');
                   element?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="btn-hover px-8 py-4 bg-[#111111] text-white rounded-full font-semibold text-lg transition-all duration-300 hover:bg-[#333333] hover:scale-105 shadow-lg hover:shadow-xl"
+                className="btn-hover px-6 py-3 md:px-8 md:py-4 font-satoshi font-medium bg-[#111111] text-white rounded-full text-base md:text-lg transition-all duration-300 hover:bg-[#333333] hover:scale-105 shadow-lg hover:shadow-xl opacity-0 w-full sm:w-auto"
+                style={{ 
+                  animation: 'fadeInUp 0.6s ease-out forwards 2.0s'
+                }}
               >
                 Let's Work Together
               </button>
@@ -158,7 +177,7 @@ const About = () => {
 
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-[#111111] mb-2 font-satoshi">Abhijith J Nair</h3>
-                <p className="text-[#111111]/60">Intermediate AI/ML & Full Stack Developer</p>
+                <p className="text-[#111111] font-hattoneu">Intermediate AI/ML & Full Stack Developer</p>
               </div>
 
               {/* Stats */}
@@ -168,7 +187,7 @@ const About = () => {
                     <div className="text-2xl font-bold text-[#111111] font-monojb">
                       {stat.number}
                     </div>
-                    <div className="text-sm text-[#111111]/60 font-medium">
+                    <div className="text-sm text-[#111111]/60 font-satoshi font-medium">
                       {stat.label}
                     </div>
                   </div>
@@ -182,6 +201,20 @@ const About = () => {
           </div>
         </div>
       </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };

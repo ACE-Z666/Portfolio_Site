@@ -3,6 +3,8 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import TextReveal from './ui/TextReveal';
+import SkillsActivityCard from './ui/SkillsActivityCard';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -12,15 +14,15 @@ const Skills = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
+  const activityRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     const title = titleRef.current;
     const skills = skillsRef.current;
-    const progress = progressRef.current;
+    const activity = activityRef.current;
 
-    if (!section || !title || !skills || !progress) return;
+    if (!section || !title || !skills || !activity) return;
 
     // Title animation
     gsap.fromTo(title.children,
@@ -57,16 +59,16 @@ const Skills = () => {
       }
     );
 
-    // Progress bars animation
-    gsap.fromTo(progress.querySelectorAll('.progress-bar'),
-      { width: '0%' },
+    // Activity card animation
+    gsap.fromTo(activity,
+      { y: 80, opacity: 0 },
       {
-        width: (index, target) => target.getAttribute('data-width') + '%',
-        duration: 2,
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
         ease: 'power3.out',
-        stagger: 0.1,
         scrollTrigger: {
-          trigger: progress,
+          trigger: activity,
           start: 'top 85%',
           toggleActions: 'play none none reverse'
         }
@@ -82,26 +84,26 @@ const Skills = () => {
     {
       title: 'Frontend Development',
       icon: '🎨',
-      skills: ['React', 'Next.js', 'Vue.js', 'TypeScript', 'Tailwind CSS', 'SASS'],
-      description: 'Creating beautiful and responsive user interfaces with modern frameworks and tools.'
+      skills: ['React', 'Next.js', 'Vue.js', 'TypeScript', 'Tailwind CSS', 'SASS']
+      
     },
     {
       title: 'Backend Development',
       icon: '⚙️',
-      skills: ['Node.js', 'Python', 'Express.js', 'FastAPI', 'GraphQL', 'REST APIs'],
-      description: 'Building robust server-side applications and APIs with scalable architecture.'
+      skills: ['Node.js', 'Python', 'Express.js', 'FastAPI', 'GraphQL', 'REST APIs']
+    
     },
     {
       title: 'Database & Cloud',
       icon: '☁️',
-      skills: ['Firebase', 'MongoDB', 'PostgreSQL', 'AWS', 'Docker', 'Redis'],
-      description: 'Managing data and deploying applications on cloud platforms efficiently.'
+      skills: ['Firebase', 'MongoDB', 'PostgreSQL', 'AWS', 'Docker', 'Redis']
+      
     },
     {
       title: 'Tools & DevOps',
       icon: '🛠️',
-      skills: ['Git', 'GitHub Actions', 'Webpack', 'Vite', 'Jest', 'Cypress'],
-      description: 'Utilizing modern development tools and implementing CI/CD pipelines.'
+      skills: ['Git', 'GitHub Actions', 'Webpack', 'Vite', 'Jest', 'Cypress']
+     
     }
   ];
 
@@ -133,14 +135,21 @@ const Skills = () => {
         
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi">
-            Skills & Expertise
-          </h2>
+          <TextReveal
+            words="Skills & Expertise"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi"
+            duration={0.6}
+            delay={100}
+            staggerDelay={80}
+          />
           <div className="w-20 h-1 bg-[#111111] mx-auto mb-8"></div>
-          <p className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed">
-            A comprehensive overview of my technical skills and areas of expertise 
-            in modern web development and software engineering.
-          </p>
+          <TextReveal
+            words="A comprehensive overview of my technical skills and areas of expertise in modern web development and software engineering."
+            className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed"
+            duration={0.5}
+            delay={500}
+            staggerDelay={40}
+          />
         </div>
 
         {/* Skills Categories */}
@@ -150,17 +159,11 @@ const Skills = () => {
               key={index}
               className="card-hover group bg-white rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-xl transition-all duration-500 text-center"
             >
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                {category.icon}
-              </div>
               
               <h3 className="text-xl font-bold text-[#111111] mb-3 font-satoshi">
                 {category.title}
               </h3>
               
-              <p className="text-[#111111]/60 text-sm mb-4 leading-relaxed">
-                {category.description}
-              </p>
               
               <div className="flex flex-wrap justify-center gap-2">
                 {category.skills.map((skill, skillIndex) => (
@@ -179,34 +182,13 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Technical Skills Progress */}
-        <div ref={progressRef} className="max-w-4xl mx-auto">
-          <h3 className="text-3xl font-bold text-[#111111] text-center mb-12 font-satoshi">
-            Technical Proficiency
-          </h3>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {technicalSkills.map((skill, index) => (
-              <div key={index} className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold text-[#111111] font-satoshi">
-                    {skill.name}
-                  </span>
-                  <span className="text-[#111111]/70 font-monojb text-sm">
-                    {skill.level}%
-                  </span>
-                </div>
-                
-                <div className="w-full bg-[#f0f0f0] rounded-full h-3 overflow-hidden">
-                  <div
-                    className="progress-bar bg-gradient-to-r from-[#111111] to-[#333333] h-full rounded-full transition-all duration-300"
-                    data-width={skill.level}
-                    style={{ width: '0%' }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Technical Skills Activity Card */}
+        <div ref={activityRef} className="mb-16">
+          <SkillsActivityCard
+            title="Technical Proficiency"
+            skills={technicalSkills}
+            className="mx-auto"
+          />
         </div>
 
         {/* Call to Action */}

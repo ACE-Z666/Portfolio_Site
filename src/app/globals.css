@@ -25,7 +25,25 @@
 @font-face {
   font-family: "MonoJB";
   src: url("../fonts/JetBrainsMono.ttf") format('truetype');
+
 }
+
+@font-face {
+  font-family: "Hattonb";
+  src: url("../fonts/hatton_b.otf") format('opentype')
+}
+
+@font-face {
+  font-family: "Hattonm";
+  src: url("../fonts/hatton_m.otf") format('opentype')
+}
+
+@font-face {
+  font-family: "Hattonu";
+  src: url("../fonts/hatton_ul.otf") format('opentype')
+}
+
+
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -57,6 +75,19 @@ body {
 .loading-screen {
   z-index: 9999;
 }
+
+.font-hattoneb{
+  font-family: "Hattonb", sans-serif;
+}
+
+.font-hattonem{
+  font-family: "Hattonm", sans-serif;
+}
+
+.font-hattoneu{
+  font-family: "Hattonu", sans-serif;
+}
+
 
 .font-satoshi {
   font-family: 'Satoshi', sans-serif;
@@ -560,4 +591,24 @@ button:focus:not(:focus-visible) {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* SVG Mask Reveal Effect */
+.bg-grid-white\/\[0\.2\] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgba(255,255,255,0.2)'%3e%3cpath d='m0 .5h32m-32 32v-32'/%3e%3c/svg%3e");
+}
+
+/* Utility classes */
+.size-full {
+  width: 100%;
+  height: 100%;
+}
+
+/* Mask reveal animations */
+.mask-reveal-enter {
+  transition: all 0.3s ease-in-out;
+}
+
+.mask-reveal-exit {
+  transition: all 0.3s ease-in-out;
 }

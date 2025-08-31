@@ -89,12 +89,10 @@ const Footer = () => {
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <h3 className="text-3xl md:text-4xl font-bold mb-4 font-satoshi">
-                John Doe
+                Abhijith J Nair
               </h3>
               <p className="text-white/70 text-lg leading-relaxed mb-6 max-w-md">
-                Full Stack Developer & UI/UX Designer passionate about creating 
-                digital experiences that make a difference. Let's build something 
-                amazing together.
+                Intermediate AI/ML & Full Stack Developer passionate about building intelligent applications and seamless digital experiences.
               </p>
               
               {/* Social Links */}
@@ -147,7 +145,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <a href="mailto:john@example.com" className="hover:text-white transition-colors">
-                    john@example.com
+                    abhijithjnair4321@gmail.com
                   </a>
                 </div>
                 
@@ -156,7 +154,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <a href="tel:+1234567890" className="hover:text-white transition-colors">
-                    +1 (234) 567-8900
+                    +91 86069 82351
                   </a>
                 </div>
                 
@@ -166,8 +164,8 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   <span>
-                    New York, NY<br />
-                    United States
+                   PTA, Kerala<br />
+                   India
                   </span>
                 </div>
               </div>
@@ -179,15 +177,13 @@ const Footer = () => {
         <div className="border-t border-white/10 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-white/60 text-sm">
-              © {currentYear} John Doe. All rights reserved. Built with Next.js & Firebase.
+              © {currentYear} Abhijith J Nair. All rights reserved.
             </p>
             
             <div className="flex items-center space-x-6">
+              
               <a href="#" className="text-white/60 hover:text-white transition-colors text-sm">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-white/60 hover:text-white transition-colors text-sm">
-                Terms of Service
+                Have a Nice Day!
               </a>
               <button
                 onClick={scrollToTop}

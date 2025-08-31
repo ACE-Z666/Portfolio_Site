@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import TextReveal from './ui/TextReveal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -182,12 +183,20 @@ const Contact = () => {
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-3xl font-bold text-[#111111] mb-8 font-satoshi">
-                Get In Touch
-              </h3>
-              <p className="text-lg text-[#111111]/70 leading-relaxed mb-8">
-                Drop me a message and let's create 
-                something amazing together! </p>
+              <TextReveal
+                words="Get In Touch"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#111111] mb-8 font-satoshi"
+                duration={0.6}
+                delay={100}
+                staggerDelay={80}
+              />
+              <TextReveal
+                words="Drop me a message and let's create something amazing together!"
+                className="text-lg text-[#111111]/70 leading-relaxed mb-8"
+                duration={0.5}
+                delay={500}
+                staggerDelay={50}
+              />
             </div>
 
             {/* Contact Cards */}
@@ -236,6 +245,15 @@ const Contact = () => {
           {/* Contact Form */}
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
             <div className="bg-white p-8 rounded-2xl shadow-lg border border-[#111111]/10">
+              <div className="mb-8">
+                <TextReveal
+                  words="Send Me a Message"
+                  className="text-2xl md:text-3xl font-bold text-[#111111] mb-4 font-satoshi"
+                  duration={0.5}
+                  delay={800}
+                  staggerDelay={70}
+                />
+              </div>
               
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div>

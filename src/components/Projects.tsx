@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import TextReveal from './ui/TextReveal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -134,14 +135,21 @@ const Projects = () => {
         
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi">
-            Featured Projects
-          </h2>
+          <TextReveal
+            words="My Works"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-hattonem"
+            duration={0.6}
+            delay={100}
+            staggerDelay={80}
+          />
           <div className="w-20 h-1 bg-[#111111] mx-auto mb-8"></div>
-          <p className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed">
-            Here are some of my recent projects that showcase my skills in web development, 
-            mobile applications, and AI integration.
-          </p>
+          <TextReveal
+            words="Some of my recent projects focussing on web development, mobile applications, and AI integration."
+            className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed font-satoshi font-medium"
+            duration={0.5}
+            delay={500}
+            staggerDelay={40}
+          />
         </div>
 
         {/* Projects Grid */}
@@ -152,8 +160,8 @@ const Projects = () => {
               className="card-hover group bg-white rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-2xl transition-all duration-500"
             >
               {/* Project Header */}
-              <div className="flex items-center justify-between mb-4">
-                <span className="px-3 py-1 bg-[#111111]/10 text-[#111111] rounded-full text-sm font-medium">
+              <div className="flex items-center justify-between mb-4 font-satoshi font-extralight">
+                <span className="px-3 py-1 bg-[#111111]/0 border-2 border-[#222222]/50 text-[#111111] rounded-full text-sm font-medium">
                   {project.category}
                 </span>
                 <div className="flex space-x-2">
@@ -180,11 +188,11 @@ const Projects = () => {
 
               {/* Project Content */}
               <div className="space-y-4">
-                <h3 className="text-xl font-bold text-[#111111] font-satoshi group-hover:text-[#333333] transition-colors">
+                <h3 className="text-xl  text-[#111111] font-hattonem group-hover:text-[#333333] transition-colors">
                   {project.title}
                 </h3>
                 
-                <p className="text-[#111111]/70 text-sm leading-relaxed">
+                <p className="text-[#111111]/70 text-sm leading-relaxed font-satoshi font-medium">
                   {project.description}
                 </p>
 
@@ -193,7 +201,7 @@ const Projects = () => {
                   {project.technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-[#f8f8f8] text-[#111111] rounded text-xs font-medium border border-[#111111]/10"
+                      className="px-2 py-1 bg-[#eeeeee] text-[#111111] rounded text-xs font-medium font-satoshi border border-[#111111]/10"
                     >
                       {tech}
                     </span>
@@ -209,8 +217,14 @@ const Projects = () => {
 
         {/* View More Button */}
         <div className="text-center mt-16">
-          <button className="btn-hover px-8 py-4 border-2 border-[#111111] text-[#111111] rounded-full font-semibold text-lg transition-all duration-300 hover:bg-[#111111] hover:text-white hover:scale-105">
-            View All Projects
+          <button className="btn-hover px-8 py-4 border-2 border-[#111111] text-[#111111] font-satoshi rounded-full font-medium text-lg transition-all duration-300 hover:bg-[#111111] hover:text-white hover:scale-105">
+            <TextReveal
+              words="View All Projects"
+              className="inline-block"
+              duration={0.4}
+              delay={900}
+              staggerDelay={60}
+            />
           </button>
         </div>
       </div>
