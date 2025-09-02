@@ -155,7 +155,7 @@ const Contact = () => {
     <section 
       ref={sectionRef}
       id="contact" 
-      className="py-20 md:py-32 bg-gradient-to-br from-[#f8f8f8] to-[#fefefe] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[#FFFFE3] relative overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -204,7 +204,7 @@ const Contact = () => {
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
-                  className="card-hover bg-white p-6 rounded-2xl shadow-lg border border-[#111111]/10 hover:shadow-xl transition-all duration-300"
+                  className="card-hover bg-[#FFFFE3] p-6 rounded-2xl shadow-xl border border-[#111111]/10 hover:shadow-2xl transition-all duration-300"
                 >
                   <div className="flex items-center mb-4">
                     <div className="p-3 bg-[#111111]/10 rounded-full mr-4">
@@ -229,13 +229,13 @@ const Contact = () => {
             </div>
 
             {/* Availability */}
-            <div className="bg-white p-6 rounded-2xl shadow-lg border border-[#111111]/10">
+            <div className="bg-[#FFFFE3] p-6 rounded-2xl shadow-xl transition-all hover:shadow-2xl border border-[#111111]/10">
               <h4 className="font-bold text-[#111111] mb-4 font-satoshi">
                 Current Availability
               </h4>
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-[#111111]/70">
+                <span className="text-[#111111]/80">
                   Available for new projects starting January 2025
                 </span>
               </div>
@@ -244,7 +244,7 @@ const Contact = () => {
 
           {/* Contact Form */}
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-[#111111]/10">
+            <div className="bg-[#FFFFE3] p-8 rounded-2xl shadow-lg border border-[#111111]/10">
               <div className="mb-8">
                 <TextReveal
                   words="Send Me a Message"
@@ -267,7 +267,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-white text-[#111111]"
+                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#FFFFE3] text-[#111111]"
                     placeholder="Your full name"
                   />
                 </div>
@@ -283,7 +283,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-white text-[#111111]"
+                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#FFFFE3] text-[#111111]"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -299,7 +299,7 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-white text-[#111111]"
+                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#FFFFE3] text-[#111111]"
                   placeholder="What's this about?"
                 />
               </div>
@@ -315,7 +315,7 @@ const Contact = () => {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-white text-[#111111] resize-none"
+                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#FFFFE3] text-[#111111] resize-none"
                   placeholder="Tell me about your project..."
                 />
               </div>
@@ -341,14 +341,14 @@ const Contact = () => {
                       <span></span>
                       <span></span>
                     </div>
-                    <span>Sending...</span>
+                    <span></span>
                   </>
                 ) : submitStatus === 'success' ? (
                   <>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span>Message Sent!</span>
+                    <span>Sent!</span>
                   </>
                 ) : submitStatus === 'error' ? (
                   <>

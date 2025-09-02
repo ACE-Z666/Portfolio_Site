@@ -54,13 +54,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="relative bg-[#fefefe] text-[#111111] overflow-x-hidden">
+      <body className="relative  text-[#111111] overflow-x-hidden">
         {/* Loading Screen */}
         {isLoading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
         
         {/* Main Content - Always rendered but hidden during loading */}
         <div className="main-content w-screen">
-          <div className='w-screen top-0 right-0'><Navigation /></div>
+          <div className='w-screen top-0 right-0 mx-0'><Navigation /></div>
           <main>
             {children}
           </main>

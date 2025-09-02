@@ -122,7 +122,7 @@ const Projects = () => {
     <section 
       ref={sectionRef}
       id="projects" 
-      className="py-20 md:py-32 bg-[#fefefe] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[#f9f9d3] relative overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-3">
@@ -157,7 +157,7 @@ const Projects = () => {
           {projects.map((project) => (
             <div
               key={project.id}
-              className="card-hover group bg-white rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-2xl transition-all duration-500"
+              className="card-hover group bg-[#f8f8f8] rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-2xl transition-all duration-500"
             >
               {/* Project Header */}
               <div className="flex items-center justify-between mb-4 font-satoshi font-extralight">
@@ -201,7 +201,7 @@ const Projects = () => {
                   {project.technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-[#eeeeee] text-[#111111] rounded text-xs font-medium font-satoshi border border-[#111111]/10"
+                      className="px-2 py-1 bg-[#F7E6CA]/60 text-[#111111] rounded-full text-xs font-medium font-satoshi border border-[#111111]/10"
                     >
                       {tech}
                     </span>

@@ -122,7 +122,7 @@ const Skills = () => {
     <section 
       ref={sectionRef}
       id="skills" 
-      className="py-20 md:py-32 bg-gradient-to-br from-[#f8f8f8] to-[#fefefe] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[#f9f9d3] relative overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -187,7 +187,7 @@ const Skills = () => {
           <SkillsActivityCard
             title="Technical Proficiency"
             skills={technicalSkills}
-            className="mx-auto"
+            className="mx-auto bg-transparent"
           />
         </div>
 

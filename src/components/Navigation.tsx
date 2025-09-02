@@ -65,18 +65,20 @@ const Navigation = () => {
   ];
 
   return (
-    <CardNav
-      logo="AJN"
-      logoAlt="Abhijith J Nair Portfolio"
-      items={navItems}
-      baseColor={scrolled ? "#fefefe" : "#fefefe"}
-      menuColor="#111111"
-      buttonBgColor="#111111"
-      buttonTextColor="#ffffff"
-      ease="power3.out"
-      onNavClick={scrollToSection}
-      className={scrolled ? "shadow-xl" : ""}
-    />
+    <div className="fixed top-0 right-0 w-full z-50 px-4 sm:px-6 lg:px-8 flex justify-end pointer-events-auto">
+      <CardNav
+        logo="AJN"
+        logoAlt="Abhijith J Nair Portfolio"
+        items={navItems}
+        baseColor={scrolled ? "#fefefe" : "#fefefe"}
+        menuColor="#111111"
+        buttonBgColor="#111111"
+        buttonTextColor="#ffffff"
+        ease="power3.out"
+        onNavClick={scrollToSection}
+        className={`card-nav-container ${scrolled ? "shadow-xl" : ""}`}
+      />
+    </div>
   );
 };
 

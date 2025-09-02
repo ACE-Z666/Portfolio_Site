@@ -73,7 +73,7 @@ const CircleProgress = ({ data, index, inView }: CircleProgressProps & { inView:
                                             ? "#555555"
                                             : data.color === "#555555"
                                             ? "#777777"
-                                            : "#999999",
+                                            : "#FFFFE3",
                                     stopOpacity: 1,
                                 }}
                             />
@@ -87,7 +87,7 @@ const CircleProgress = ({ data, index, inView }: CircleProgressProps & { inView:
                         fill="none"
                         stroke="currentColor"
                         strokeWidth={strokeWidth}
-                        className="text-zinc-200/50 dark:text-zinc-800/50"
+                        className="text-[#FFFFE3] dark:text-zinc-800/50"
                     />
 
                     <motion.circle
@@ -210,7 +210,7 @@ export default function SkillsActivityCard({
         <div
             ref={ref}
             className={cn(
-                "relative w-full max-w-4xl mx-auto p-8 bg-white rounded-3xl shadow-lg border border-[#111111]/10",
+                "relative w-full max-w-4xl mx-auto p-8",
                 className
             )}
         >
@@ -256,7 +256,7 @@ export default function SkillsActivityCard({
                         {skills.slice(4).map((skill, index) => (
                             <motion.div 
                                 key={skill.name}
-                                className="text-center p-4 bg-[#f8f8f8] rounded-xl border border-[#111111]/5 hover:shadow-lg transition-shadow duration-300"
+                                className="text-center p-4  transition-shadow duration-300"
                                 initial={{ opacity: 0, scale: 0.8, y: 20, rotateY: 45 }}
                                 animate={inView ? { 
                                     opacity: 1, 

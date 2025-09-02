@@ -18,45 +18,22 @@ const Hero = () => {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Hide only the animatable elements, not the whole section
-    gsap.set([ designationRef.current, 
-              descriptionRef.current, buttonRef.current, scrollIndicatorRef.current], {
+    // Only hide/animate elements that are NOT using TextReveal
+    gsap.set([buttonRef.current, scrollIndicatorRef.current], {
       opacity: 0,
       y: 30
     });
 
-    // Make sure the section is visible
     gsap.set(heroRef.current, { opacity: 1 });
 
-    // Wait for loading to complete before starting animations
     const startAnimations = () => {
       const tl = gsap.timeline({ delay: 0.3 });
 
-      // Name animation
-      // tl.to(nameRef.current, {
-      //   y: 0,
-      //   opacity: 1,
-      //   duration: 1,
-      //   ease: 'power3.out'
-      // }, 0.2);
+      // REMOVE: tl.to(nameRef.current, { ... });
+      // REMOVE: tl.to(designationRef.current, { ... });
+      // REMOVE: tl.to(descriptionRef.current, { ... });
 
-      // Designation animation
-      tl.to(designationRef.current, {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power3.out'
-      }, 0.5);
-
-      // Description animation
-      tl.to(descriptionRef.current, {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power3.out'
-      }, 0.8);
-
-      // FIXED: Animate the button container itself, not its children
+      // Animate buttons and scroll indicator as before
       tl.to(buttonRef.current, {
         y: 0,
         opacity: 1,
@@ -64,7 +41,6 @@ const Hero = () => {
         ease: 'power3.out'
       }, 1.1);
 
-      // Scroll indicator animation
       tl.to(scrollIndicatorRef.current, {
         y: 0,
         opacity: 1,
@@ -72,7 +48,6 @@ const Hero = () => {
         ease: 'power3.out'
       }, 1.4);
 
-      // Floating animation for scroll indicator
       tl.to(scrollIndicatorRef.current, {
         y: 10,
         duration: 2,
@@ -119,7 +94,7 @@ const Hero = () => {
   return (
     <section 
       ref={heroRef}
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#fefefe] via-[#f8f8f8] to-[#f0f0f0]"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#FFFFE3]"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -131,9 +106,8 @@ const Hero = () => {
 
       <div className="md:w-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="md:w-screen max-w-4xl mx-auto md:mx-0 text-center md:text-left ">
-          
           {/* Name */}
-          <div ref={nameRef}>
+          <h1 ref={nameRef}>
             <TextReveal
               words="Abhijith J Nair"
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-[#111111] mb-6 font-hattonem leading-tight"
@@ -142,13 +116,13 @@ const Hero = () => {
               staggerDelay={60}
               filter={true}
             />
-          </div>
+          </h1>
 
           {/* Designation */}
-          <div ref={designationRef}>
+          <div ref={designationRef} className="mb-8">
             <TextReveal
               words="Intermediate AI/ML & Full Stack Developer"
-              className="text-xl sm:text-xl md:text-xl lg:text-xl text-[#111111]/75 mb-8 font-agraham font-medium"
+              className="text-xl sm:text-xl md:text-xl lg:text-xl text-[#111111]/75 font-agraham font-medium"
               duration={0.5}
               delay={800}
               staggerDelay={50}
@@ -156,8 +130,8 @@ const Hero = () => {
             />
           </div>
 
-          {/* Description
-          <div ref={descriptionRef} className="mb-12">
+          {/* Description */}
+          {/* <div ref={descriptionRef} className="mb-12">
             <TextReveal
               words="Passionate about creating digital experiences that make a difference. Building intelligent applications with modern technologies and clean, efficient code."
               className="text-lg sm:text-xl md:text-2xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed font-light"
@@ -167,7 +141,6 @@ const Hero = () => {
               filter={true}
             />
           </div> */}
-          
           {/* Buttons */}
           <div 
             ref={buttonRef}

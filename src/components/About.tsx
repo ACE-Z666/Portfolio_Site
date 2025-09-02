@@ -74,17 +74,16 @@ const About = () => {
   return (
     <section 
       ref={sectionRef}
-      id="about" 
-      className="py-20 md:py-32 bg-gradient-to-br from-[#f8f8f8] to-[#fefefe] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[#FFFFE3] relative overflow-hidden"
     >
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
+      {/* <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
           backgroundImage: `linear-gradient(45deg, #111111 25%, transparent 25%), linear-gradient(-45deg, #111111 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #111111 75%), linear-gradient(-45deg, transparent 75%, #111111 75%)`,
           backgroundSize: '20px 20px',
           backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
         }}></div>
-      </div>
+      </div> */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -133,7 +132,7 @@ const About = () => {
                 {skills.map((skill, index) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 md:px-4 md:py-2 bg-white border border-[#111111]/20  font-satoshi font-light rounded-full text-xs md:text-sm font-medium text-[#111111] hover:bg-[#111111] hover:text-white transition-all duration-300 cursor-default opacity-0"
+                    className="px-3 py-1.5 md:px-4 md:py-2 bg-white border border-[#111111]/20  font-satoshi rounded-full text-xs md:text-sm font-medium text-[#111111] hover:bg-[#111111] hover:text-white transition-all duration-300 cursor-default opacity-0"
                     style={{ 
                       animationDelay: `${1.5 + index * 0.05}s`,
                       animation: 'fadeInUp 0.4s ease-out forwards'
