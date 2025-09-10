@@ -122,7 +122,7 @@ const Projects = () => {
     <section 
       ref={sectionRef}
       id="projects" 
-      className="py-20 md:py-32 bg-[#f9f9d3] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[#111111] relative overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-3">
@@ -137,7 +137,7 @@ const Projects = () => {
         <div ref={titleRef} className="text-center mb-16">
           <TextReveal
             words="My Works"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-hattonem"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-hattonem"
             duration={0.6}
             delay={100}
             staggerDelay={80}
@@ -145,7 +145,7 @@ const Projects = () => {
           <div className="w-20 h-1 bg-[#111111] mx-auto mb-8"></div>
           <TextReveal
             words="Some of my recent projects focussing on web development, mobile applications, and AI integration."
-            className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed font-satoshi font-medium"
+            className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed font-satoshi font-medium"
             duration={0.5}
             delay={500}
             staggerDelay={40}
@@ -157,17 +157,17 @@ const Projects = () => {
           {projects.map((project) => (
             <div
               key={project.id}
-              className="card-hover group bg-[#f8f8f8] rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-2xl transition-all duration-500"
+              className="card-hover group bg-[#222222] rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-2xl transition-all duration-500"
             >
               {/* Project Header */}
               <div className="flex items-center justify-between mb-4 font-satoshi font-extralight">
-                <span className="px-3 py-1 bg-[#111111]/0 border-2 border-[#222222]/50 text-[#111111] rounded-full text-sm font-medium">
+                <span className="px-3 py-1 bg-[#111111]/0 border-2 border-[#222222]/50 text-white rounded-full text-sm font-medium">
                   {project.category}
                 </span>
                 <div className="flex space-x-2">
                   <a
                     href={project.liveUrl}
-                    className="p-2 text-[#111111]/60 hover:text-[#111111] transition-colors hover:scale-110 transform"
+                    className="p-2 text-white/60 hover:text-white transition-colors hover:scale-110 transform"
                     aria-label="View Live Project"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,7 +176,7 @@ const Projects = () => {
                   </a>
                   <a
                     href={project.githubUrl}
-                    className="p-2 text-[#111111]/60 hover:text-[#111111] transition-colors hover:scale-110 transform"
+                    className="p-2 text-white/60 hover:text-white transition-colors hover:scale-110 transform"
                     aria-label="View GitHub Repository"
                   >
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -188,11 +188,11 @@ const Projects = () => {
 
               {/* Project Content */}
               <div className="space-y-4">
-                <h3 className="text-xl  text-[#111111] font-hattonem group-hover:text-[#333333] transition-colors">
+                <h3 className="text-xl  text-white font-hattonem group-hover:text-[#ffffff]/70 transition-colors">
                   {project.title}
                 </h3>
                 
-                <p className="text-[#111111]/70 text-sm leading-relaxed font-satoshi font-medium">
+                <p className="text-white/70 text-sm leading-relaxed font-satoshi font-medium">
                   {project.description}
                 </p>
 
@@ -201,7 +201,7 @@ const Projects = () => {
                   {project.technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-[#F7E6CA]/60 text-[#111111] rounded-full text-xs font-medium font-satoshi border border-[#111111]/10"
+                      className="px-2 py-1 bg-[#F7E6CA]/60 text-white rounded-full text-xs font-medium font-satoshi border border-[#111111]/10"
                     >
                       {tech}
                     </span>
@@ -217,7 +217,7 @@ const Projects = () => {
 
         {/* View More Button */}
         <div className="text-center mt-16">
-          <button className="btn-hover px-8 py-4 border-2 border-[#111111] text-[#111111] font-satoshi rounded-full font-medium text-lg transition-all duration-300 hover:bg-[#111111] hover:text-white hover:scale-105">
+          <button className="btn-hover px-8 py-4 border-2 border-[#222222] text-white font-satoshi rounded-full font-medium text-lg transition-all duration-300 hover:bg-[#222222] hover:text-white hover:scale-105">
             <TextReveal
               words="View All Projects"
               className="inline-block"

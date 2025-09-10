@@ -35,7 +35,7 @@ const Navigation = () => {
   const navItems = [
     {
       label: "About",
-      bgColor: "#111111",
+      bgColor: "#222222",
       textColor: "#fff",
       links: [
         { label: "My Story", href: "#about", ariaLabel: "Learn about my background" },
@@ -44,7 +44,7 @@ const Navigation = () => {
     },
     {
       label: "Work", 
-      bgColor: "#2a2a2a",
+      bgColor: "#2c2c2c",
       textColor: "#fff",
       links: [
         { label: "Projects", href: "#projects", ariaLabel: "View my projects" },
@@ -70,10 +70,10 @@ const Navigation = () => {
         logo="AJN"
         logoAlt="Abhijith J Nair Portfolio"
         items={navItems}
-        baseColor={scrolled ? "#fefefe" : "#fefefe"}
-        menuColor="#111111"
-        buttonBgColor="#111111"
-        buttonTextColor="#ffffff"
+        baseColor={scrolled ? "#111111" : "#111111"}
+        menuColor="#eeeeee"
+        buttonBgColor="#fefefe"
+        buttonTextColor="#111111"
         ease="power3.out"
         onNavClick={scrollToSection}
         className={`card-nav-container ${scrolled ? "shadow-xl" : ""}`}

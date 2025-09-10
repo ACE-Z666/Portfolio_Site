@@ -87,7 +87,7 @@ const CircleProgress = ({ data, index, inView }: CircleProgressProps & { inView:
                         fill="none"
                         stroke="currentColor"
                         strokeWidth={strokeWidth}
-                        className="text-[#FFFFE3] dark:text-zinc-800/50"
+                        className="text-[#111111] dark:text-zinc-800/50"
                     />
 
                     <motion.circle
@@ -141,7 +141,7 @@ const DetailedSkillsInfo = ({ skills, inView }: { skills: SkillData[], inView: b
                     }}
                 >
                     <motion.span 
-                        className="text-sm font-medium text-[#111111]/70 font-satoshi"
+                        className="text-sm font-medium text-white/70 font-satoshi"
                         initial={{ opacity: 0 }}
                         animate={inView ? { opacity: 1 } : { opacity: 0 }}
                         transition={{ 
@@ -163,7 +163,7 @@ const DetailedSkillsInfo = ({ skills, inView }: { skills: SkillData[], inView: b
                         }}
                     >
                         {skill.level}%
-                        <span className="text-base ml-1 text-[#111111]/50">
+                        <span className="text-base ml-1 text-white/50">
                             {skill.category}
                         </span>
                     </motion.span>
@@ -193,7 +193,7 @@ export default function SkillsActivityCard({
 
     // Convert skills data to activity format with different colors and sizes
     const skillsData: SkillData[] = skills.slice(0, 4).map((skill, index) => {
-        const colors = ["#111111", "#333333", "#555555", "#777777"];
+        const colors = ["#ffffff", "#999999", "#555555", "#333333"];
         const sizes = [180, 150, 120, 90];
         
         return {
@@ -216,7 +216,7 @@ export default function SkillsActivityCard({
         >
             <div className="flex flex-col items-center gap-8">
                 <motion.h3
-                    className="text-3xl font-bold text-[#111111] font-satoshi"
+                    className="text-3xl font-bold text-white font-satoshi"
                     initial={{ opacity: 0, y: -30, scale: 0.9 }}
                     animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: -30, scale: 0.9 }}
                     transition={{ 
@@ -282,7 +282,7 @@ export default function SkillsActivityCard({
                                 style={{ perspective: 1000 }}
                             >
                                 <motion.div 
-                                    className="text-lg font-bold text-[#111111] font-monojb mb-1"
+                                    className="text-lg font-bold text-white font-monojb mb-1"
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                                     transition={{ 
@@ -293,7 +293,7 @@ export default function SkillsActivityCard({
                                     {skill.level}%
                                 </motion.div>
                                 <motion.div 
-                                    className="text-sm text-[#111111]/70 font-satoshi"
+                                    className="text-sm text-white/70 font-satoshi"
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                                     transition={{ 

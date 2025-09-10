@@ -59,7 +59,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {isLoading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
         
         {/* Main Content - Always rendered but hidden during loading */}
-        <div className="main-content w-screen">
+        <div className="main-content mx-0 w-screen">
           <div className='w-screen top-0 right-0 mx-0'><Navigation /></div>
           <main>
             {children}

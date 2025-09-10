@@ -74,7 +74,7 @@ const About = () => {
   return (
     <section 
       ref={sectionRef}
-      className="py-20 md:py-32 bg-[#FFFFE3] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[rgb(17,17,17)] relative overflow-hidden"
     >
       {/* Background Pattern */}
       {/* <div className="absolute inset-0 opacity-5">
@@ -93,15 +93,15 @@ const About = () => {
             <div>
               <TextReveal
                 words="About Me"
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-4 md:mb-6 font-hattonem leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 font-hattonem leading-tight"
                 duration={0.6}
                 delay={100}
                 staggerDelay={80}
               />
-              <div className="w-16 md:w-20 h-1 bg-[#111111] mb-6 md:mb-8"></div>
+              <div className="w-16 md:w-20 h-1 bg-white mb-6 md:mb-8"></div>
             </div>
 
-            <div className="space-y-4 md:space-y-6 text-base md:text-lg text-[#111111]/80 leading-relaxed font-satoshi font-medium">
+            <div className="space-y-4 md:space-y-6 text-base md:text-lg text-white/80 leading-relaxed font-satoshi font-medium">
               <TextReveal
                 words="I'm an emerging Full Stack and AI/ML Engineer driven by a passion for building intelligent, impactful applications. My journey started with a curiosity for how technology can solve real-world problems, which has grown into a commitment to developing solutions that are both scalable and meaningful."
                 className="block"
@@ -123,7 +123,7 @@ const About = () => {
             <div className="pt-4">
               {/* <TextReveal
                 words="Technologies I Love"
-                className="text-xl md:text-2xl text-[#111111] mb-3 md:mb-4 font-hattonem"
+                className="text-xl md:text-2xl text-white mb-3 md:mb-4 font-hattonem"
                 duration={0.5}
                 delay={1200}
                 staggerDelay={60}
@@ -132,7 +132,7 @@ const About = () => {
                 {skills.map((skill, index) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 md:px-4 md:py-2 bg-white border border-[#111111]/20  font-satoshi rounded-full text-xs md:text-sm font-medium text-[#111111] hover:bg-[#111111] hover:text-white transition-all duration-300 cursor-default opacity-0"
+                    className="px-3 py-1.5 md:px-4 md:py-2 bg-[#555555] border border-[#111111]/20  font-satoshi rounded-full text-xs md:text-sm font-medium text-white hover:bg-[#111111] hover:text-white transition-all duration-300 cursor-default opacity-0"
                     style={{ 
                       animationDelay: `${1.5 + index * 0.05}s`,
                       animation: 'fadeInUp 0.4s ease-out forwards'
@@ -151,7 +151,7 @@ const About = () => {
                   const element = document.querySelector('#contact');
                   element?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="btn-hover px-6 py-3 md:px-8 md:py-4 font-satoshi font-medium bg-[#111111] text-white rounded-full text-base md:text-lg transition-all duration-300 hover:bg-[#333333] hover:scale-105 shadow-lg hover:shadow-xl opacity-0 w-full sm:w-auto"
+                className="btn-hover px-6 py-3 md:px-8 md:py-4 font-satoshi font-medium bg-[#555555] text-white rounded-full text-base md:text-lg transition-all duration-300 hover:bg-[#333333] hover:scale-105 shadow-lg hover:shadow-xl opacity-0 w-full sm:w-auto"
                 style={{ 
                   animation: 'fadeInUp 0.6s ease-out forwards 2.0s'
                 }}
@@ -164,29 +164,29 @@ const About = () => {
           {/* Image/Visual Side */}
           <div ref={imageRef} className="relative">
             {/* Profile Card */}
-            <div className="card-hover bg-white p-8 rounded-3xl shadow-xl border border-[#111111]/10">
+            <div className="card-hover bg-[#555555] p-8 rounded-3xl shadow-xl border border-[#111111]/10">
               {/* Profile Image Placeholder */}
               <div className="w-48 h-48 mx-auto mb-6 bg-gradient-to-br from-[#f0f0f0] to-[#e0e0e0] rounded-full flex items-center justify-center border-4 border-[#111111]/10">
                 <div className="w-32 h-32 bg-gradient-to-br from-[#111111]/20 to-[#111111]/10 rounded-full flex items-center justify-center">
-                  <svg className="w-16 h-16 text-[#111111]/40" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-16 h-16 text-white/40" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                   </svg>
                 </div>
               </div>
 
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-[#111111] mb-2 font-satoshi">Abhijith J Nair</h3>
-                <p className="text-[#111111] font-hattoneu">Intermediate AI/ML & Full Stack Developer</p>
+                <h3 className="text-2xl font-bold text-white mb-2 font-satoshi">Abhijith J Nair</h3>
+                <p className="text-white font-hattoneu">Intermediate AI/ML & Full Stack Developer</p>
               </div>
 
               {/* Stats */}
               <div className="grid grid-cols-2 gap-4">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
-                    <div className="text-2xl font-bold text-[#111111] font-monojb">
+                    <div className="text-2xl font-bold text-white font-monojb">
                       {stat.number}
                     </div>
-                    <div className="text-sm text-[#111111]/60 font-satoshi font-medium">
+                    <div className="text-sm text-white/60 font-satoshi font-medium">
                       {stat.label}
                     </div>
                   </div>

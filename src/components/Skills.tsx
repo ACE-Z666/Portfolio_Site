@@ -122,7 +122,7 @@ const Skills = () => {
     <section 
       ref={sectionRef}
       id="skills" 
-      className="py-20 md:py-32 bg-[#f9f9d3] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[#111111] relative overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -137,15 +137,15 @@ const Skills = () => {
         <div ref={titleRef} className="text-center mb-16">
           <TextReveal
             words="Skills & Expertise"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-satoshi"
             duration={0.6}
             delay={100}
             staggerDelay={80}
           />
-          <div className="w-20 h-1 bg-[#111111] mx-auto mb-8"></div>
+          <div className="w-20 h-1 bg-white mx-auto mb-8"></div>
           <TextReveal
             words="A comprehensive overview of my technical skills and areas of expertise in modern web development and software engineering."
-            className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed"
             duration={0.5}
             delay={500}
             staggerDelay={40}
@@ -157,10 +157,10 @@ const Skills = () => {
           {skillCategories.map((category, index) => (
             <div
               key={index}
-              className="card-hover group bg-white rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-xl transition-all duration-500 text-center"
+              className="card-hover group bg-[#222222] rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-xl transition-all duration-500 text-center"
             >
               
-              <h3 className="text-xl font-bold text-[#111111] mb-3 font-satoshi">
+              <h3 className="text-xl font-bold text-white mb-3 font-satoshi">
                 {category.title}
               </h3>
               
@@ -169,7 +169,7 @@ const Skills = () => {
                 {category.skills.map((skill, skillIndex) => (
                   <span
                     key={skillIndex}
-                    className="px-2 py-1 bg-[#f8f8f8] text-[#111111] rounded text-xs font-medium border border-[#111111]/10 hover:bg-[#111111] hover:text-white transition-colors duration-300"
+                    className="px-2 py-1 bg-[#444444] text-white rounded text-xs font-medium border border-[#111111]/10 hover:bg-[#111111] hover:text-white transition-colors duration-300"
                   >
                     {skill}
                   </span>
@@ -193,7 +193,7 @@ const Skills = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <p className="text-lg text-[#111111]/70 mb-6 max-w-2xl mx-auto">
+          <p className="text-lg text-white/70 mb-6 max-w-2xl mx-auto">
             Ready to bring your ideas to life? Let's discuss how my skills can help 
             transform your vision into reality.
           </p>

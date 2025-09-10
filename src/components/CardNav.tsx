@@ -213,11 +213,11 @@ const CardNav: React.FC<CardNavProps> = ({
 
   return (
     <div
-      className={`card-nav-container fixed left-1/2 -translate-x-1/2 w-[90%] max-w-[900px] z-50 top-4 md:top-6 ${className}`}
+      className={`card-nav-container fixed left-1/2 -translate-x-1/2 w-[90%] max-w-9xl z-50 top-4 md:top-6 ${className}`}
     >
       <nav
         ref={navRef}
-        className={`card-nav ${isExpanded ? "open" : ""} block h-[60px] p-0 rounded-2xl shadow-lg backdrop-blur-md border border-[#111111]/10 relative overflow-hidden will-change-[height] transition-shadow duration-300`}
+        className={`card-nav ${isExpanded ? "open" : ""} block h-[60px] p-0 rounded-2xl shadow-lg backdrop-blur-md border-b border-[#eeeeee]/10 relative overflow-hidden will-change-[height] transition-shadow duration-300`}
         style={{ backgroundColor: `${baseColor}f0` }}
       >
         <div className="card-nav-top absolute inset-x-0 top-0 h-[60px] flex items-center justify-between p-2 pl-6 z-[2]">
@@ -249,7 +249,7 @@ const CardNav: React.FC<CardNavProps> = ({
 
           <div className="logo-container flex items-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 order-1 md:order-none">
             <div 
-              className="font-agraham text-xl font-medium text-[#111111] cursor-pointer hover:opacity-75 transition-opacity duration-200" 
+              className="font-agraham text-xl font-medium text-[#ffffff] cursor-pointer hover:opacity-75 transition-opacity duration-200" 
               onClick={handleLogoClick}
               role="button"
               tabIndex={0}

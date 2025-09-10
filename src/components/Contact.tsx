@@ -155,7 +155,7 @@ const Contact = () => {
     <section 
       ref={sectionRef}
       id="contact" 
-      className="py-20 md:py-32 bg-[#FFFFE3] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[#111111] relative overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -169,11 +169,11 @@ const Contact = () => {
         
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-satoshi">
             Let's Work Together
           </h2>
-          <div className="w-20 h-1 bg-[#111111] mx-auto mb-8"></div>
-          <p className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed">
+          <div className="w-20 h-1 bg-[#555555] mx-auto mb-8"></div>
+          <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
             Have a project in mind? Bring it On!
           </p>
         </div>
@@ -185,14 +185,14 @@ const Contact = () => {
             <div>
               <TextReveal
                 words="Get In Touch"
-                className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#111111] mb-8 font-satoshi"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 font-satoshi"
                 duration={0.6}
                 delay={100}
                 staggerDelay={80}
               />
               <TextReveal
                 words="Drop me a message and let's create something amazing together!"
-                className="text-lg text-[#111111]/70 leading-relaxed mb-8"
+                className="text-lg text-white/70 leading-relaxed mb-8"
                 duration={0.5}
                 delay={500}
                 staggerDelay={50}
@@ -204,21 +204,21 @@ const Contact = () => {
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
-                  className="card-hover bg-[#FFFFE3] p-6 rounded-2xl shadow-xl border border-[#111111]/10 hover:shadow-2xl transition-all duration-300"
+                  className="card-hover bg-[#333333] p-6 rounded-2xl shadow-xl border border-[#111111]/10 hover:shadow-2xl transition-all duration-300"
                 >
                   <div className="flex items-center mb-4">
-                    <div className="p-3 bg-[#111111]/10 rounded-full mr-4">
-                      <svg className="w-6 h-6 text-[#111111]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="p-3 bg-[#555555]/10 rounded-full mr-4">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={info.icon} />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-bold text-[#111111] font-satoshi">
+                      <h4 className="font-bold text-white font-satoshi">
                         {info.title}
                       </h4>
                       <a 
                         href={info.link}
-                        className="text-[#111111]/70 hover:text-[#111111] transition-colors"
+                        className="text-white/70 hover:text-white transition-colors"
                       >
                         {info.content}
                       </a>
@@ -229,13 +229,13 @@ const Contact = () => {
             </div>
 
             {/* Availability */}
-            <div className="bg-[#FFFFE3] p-6 rounded-2xl shadow-xl transition-all hover:shadow-2xl border border-[#111111]/10">
-              <h4 className="font-bold text-[#111111] mb-4 font-satoshi">
+            <div className="bg-[#333333] p-6 rounded-2xl shadow-xl transition-all hover:shadow-2xl border border-[#111111]/10">
+              <h4 className="font-bold text-white mb-4 font-satoshi">
                 Current Availability
               </h4>
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-[#111111]/80">
+                <span className="text-white/80">
                   Available for new projects starting January 2025
                 </span>
               </div>
@@ -244,11 +244,11 @@ const Contact = () => {
 
           {/* Contact Form */}
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-            <div className="bg-[#FFFFE3] p-8 rounded-2xl shadow-lg border border-[#111111]/10">
+            <div className="bg-[#333333] p-8 rounded-2xl shadow-lg border border-[#111111]/10">
               <div className="mb-8">
                 <TextReveal
                   words="Send Me a Message"
-                  className="text-2xl md:text-3xl font-bold text-[#111111] mb-4 font-satoshi"
+                  className="text-2xl md:text-3xl font-bold text-white mb-4 font-satoshi"
                   duration={0.5}
                   delay={800}
                   staggerDelay={70}
@@ -257,7 +257,7 @@ const Contact = () => {
               
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label htmlFor="name" className="block text-[#111111] font-semibold mb-2">
+                  <label htmlFor="name" className="block text-white font-semibold mb-2">
                     Name *
                   </label>
                   <input
@@ -267,13 +267,13 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#FFFFE3] text-[#111111]"
+                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#232323] text-white"
                     placeholder="Your full name"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-[#111111] font-semibold mb-2">
+                  <label htmlFor="email" className="block text-white font-semibold mb-2">
                     Email *
                   </label>
                   <input
@@ -283,14 +283,14 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#FFFFE3] text-[#111111]"
+                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#232323] text-white"
                     placeholder="your.email@example.com"
                   />
                 </div>
               </div>
 
               <div className="mb-6">
-                <label htmlFor="subject" className="block text-[#111111] font-semibold mb-2">
+                <label htmlFor="subject" className="block text-white font-semibold mb-2">
                   Subject
                 </label>
                 <input
@@ -299,13 +299,13 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#FFFFE3] text-[#111111]"
+                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#232323] text-white"
                   placeholder="What's this about?"
                 />
               </div>
 
               <div className="mb-6">
-                <label htmlFor="message" className="block text-[#111111] font-semibold mb-2">
+                <label htmlFor="message" className="block text-white font-semibold mb-2">
                   Message *
                 </label>
                 <textarea
@@ -315,7 +315,7 @@ const Contact = () => {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#FFFFE3] text-[#111111] resize-none"
+                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#232323] text-white resize-none"
                   placeholder="Tell me about your project..."
                 />
               </div>
@@ -326,12 +326,12 @@ const Contact = () => {
                 disabled={isSubmitting}
                 className={`w-full btn-hover px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-2 ${
                   isSubmitting
-                    ? 'bg-[#111111]/50 text-white cursor-not-allowed'
+                    ? 'bg-[#555555]/50 text-white cursor-not-allowed'
                     : submitStatus === 'success'
                     ? 'bg-green-600 text-white hover:bg-green-700'
                     : submitStatus === 'error'
                     ? 'bg-red-600 text-white hover:bg-red-700'
-                    : 'bg-[#111111] text-white hover:bg-[#333333] hover:scale-105'
+                    : 'bg-[#232323] text-white hover:bg-[#444444] hover:scale-105'
                 }`}
               >
                 {isSubmitting ? (
@@ -355,11 +355,11 @@ const Contact = () => {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                    <span>Error - Try Again</span>
+                    <span>Try Again</span>
                   </>
                 ) : (
                   <>
-                    <span>Send Message</span>
+                    <span>Send</span>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>

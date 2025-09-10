@@ -8,6 +8,12 @@
 }
 
 @font-face {
+  font-family: 'labelle';
+  src: url("../fonts/LaBelleAurore.ttf") format('truetype');
+}
+
+
+@font-face {
   font-family: "moxa";
   src: url("../fonts/moxa.ttf") format('truetype');
 }
@@ -43,6 +49,11 @@
   src: url("../fonts/hatton_ul.otf") format('opentype')
 }
 
+@font-face {
+  font-family: "Maghfirea";
+  src: url("../fonts/Maghfirea.ttf") format('truetype')
+}
+
 
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -74,6 +85,20 @@ body {
 /* Loading screen z-index should be higher than main content */
 .loading-screen {
   z-index: 9999;
+}
+
+.bgimg{
+background-image: url("/mypic.jpg");
+background-size: cover;
+background-repeat: no-repeat;
+}
+
+
+.font-maghfirea{
+  font-family : "Maghfirea", sans-serif;
+}
+.font-labelle{
+  font-family: "labelle", sans-serif;
 }
 
 .font-hattoneb{

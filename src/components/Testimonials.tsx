@@ -144,7 +144,7 @@ const Testimonials = () => {
     <section 
       ref={sectionRef}
       id="testimonials" 
-      className="py-20 md:py-32 bg-[#f9f9d3] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[#111111] relative overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -159,15 +159,15 @@ const Testimonials = () => {
         <div ref={titleRef} className="text-center mb-16">
           <TextReveal
             words="Others Opinion About Me!"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] mb-6 font-satoshi"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-satoshi"
             duration={0.6}
             delay={100}
             staggerDelay={80}
           />
-          <div className="w-20 h-1 bg-[#111111] mx-auto mb-8"></div>
+          <div className="w-20 h-1 bg-[#ffffff] mx-auto mb-8"></div>
           <TextReveal
             words="Here is what others have to speak about me and my work!"
-            className="text-xl text-[#111111]/70 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed"
             duration={0.5}
             delay={500}
             staggerDelay={50}
@@ -176,10 +176,10 @@ const Testimonials = () => {
 
         {/* Featured Testimonial */}
         <div className="max-w-4xl mx-auto mb-16">
-          <div className="card-hover bg-[#FFFFE3] rounded-3xl p-8 md:p-12 shadow-2xl border border-[#111111]/10 relative overflow-hidden">
+          <div className="card-hover bg-[#333333] rounded-3xl p-8 md:p-12 shadow-2xl border border-[#111111]/10 relative overflow-hidden">
             
             {/* Quote Icon */}
-            <div className="absolute top-6 left-6 text-6xl text-[#111111]/10 font-serif">
+            <div className="absolute top-6 left-6 text-6xl text-white/10 font-serif">
               "
             </div>
             
@@ -187,7 +187,7 @@ const Testimonials = () => {
               
               {/* Testimonial Content */}
               <div className="text-center mb-8">
-                <p className="text-xl md:text-2xl font-satoshi italic text-[#111111]/80 leading-relaxed font-medium text-left mb-6">
+                <p className="text-xl md:text-2xl font-satoshi italic text-white/80 leading-relaxed font-medium text-left mb-6">
                   {testimonials[currentTestimonial].text}
                 </p>
                 
@@ -201,13 +201,13 @@ const Testimonials = () => {
               <div className="flex items-center justify-end space-x-4">
                 
                 <div className="text-right">
-                  <h4 className="font-bold text-[#111111] font-satoshi text-lg">
+                  <h4 className="font-bold text-white font-satoshi text-lg">
                     {testimonials[currentTestimonial].name}
                   </h4>
-                  <p className="text-[#111111]/60 font-medium">
+                  <p className="text-white/60 font-medium">
                     {testimonials[currentTestimonial].position}
                   </p>
-                  <p className="text-[#111111]/50 text-sm font-monojb">
+                  <p className="text-white/50 text-sm font-monojb">
                     Project: {testimonials[currentTestimonial].project}
                   </p>
                 </div>
@@ -220,7 +220,7 @@ const Testimonials = () => {
             {/* Navigation Arrows */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-4 md:bottom-1/8 transform -translate-y-1/2 p-2 text-[#111111]/60 hover:text-[#111111] transition-colors hover:scale-110"
+              className="absolute left-4 md:bottom-1/8 transform -translate-y-1/2 p-2 text-white/60 hover:text-white transition-colors hover:scale-110"
               aria-label="Previous testimonial"
             >
               <svg className="w-6 h-6 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,7 +230,7 @@ const Testimonials = () => {
             
             <button
               onClick={nextTestimonial}
-              className="absolute right-4 md:bottom-1/8 transform -translate-y-1/2 p-2 text-[#111111]/60 hover:text-[#111111] transition-colors hover:scale-110"
+              className="absolute right-4 md:bottom-1/8 transform -translate-y-1/2 p-2 text-white/60 hover:text-white transition-colors hover:scale-110"
               aria-label="Next testimonial"
             >
               <svg className="w-6 h-6 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
