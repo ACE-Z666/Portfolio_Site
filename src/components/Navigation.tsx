@@ -65,18 +65,18 @@ const Navigation = () => {
   ];
 
   return (
-    <div className="fixed top-0 right-0 w-full z-50 px-4 sm:px-6 lg:px-8 flex justify-end pointer-events-auto">
+    <div className="fixed top-0 sm:left-1/2 right-0 w-full z-50 px-4 sm:px-6 lg:px-8 flex justify-end pointer-events-auto">
       <CardNav
         logo="AJN"
         logoAlt="Abhijith J Nair Portfolio"
         items={navItems}
-        baseColor={scrolled ? "#111111" : "#111111"}
+        baseColor={scrolled ? "transparent" : "transparent"}
         menuColor="#eeeeee"
-        buttonBgColor="#fefefe"
-        buttonTextColor="#111111"
+        buttonBgColor="transparent"
+        buttonTextColor="#ffffff"
         ease="power3.out"
         onNavClick={scrollToSection}
-        className={`card-nav-container ${scrolled ? "shadow-xl" : ""}`}
+        className={`card-nav-container ${scrolled ? "shadow-2xl " : ""}`}
       />
     </div>
   );

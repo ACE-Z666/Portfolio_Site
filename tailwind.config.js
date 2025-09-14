@@ -46,6 +46,10 @@ export default {
         'slide-right': 'slideRight 0.5s ease-out',
         'scale-in': 'scaleIn 0.5s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
+        'marquee': 'marquee 15s linear infinite',
+      },
+      translate: {
+        '101': '101%',
       },
       keyframes: {
         fadeIn: {
@@ -75,6 +79,10 @@ export default {
         bounceGentle: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        marquee: {
+          'from': { transform: 'translateX(0%)' },
+          'to': { transform: 'translateX(-50%)' }
         },
       },
   		borderRadius: {

@@ -6,6 +6,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import Navigation from '../components/Navigation';
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from 'lenis';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -46,6 +47,38 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  useEffect(() => {
+    // Initialize Lenis
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    // Connect Lenis with GSAP ScrollTrigger
+    lenis.on('scroll', () => {
+      ScrollTrigger.update();
+    });
+
+    // Animation frame function
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <html lang="en">
       <head>
@@ -54,14 +87,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="relative  text-[#111111] overflow-x-hidden">
+      <body className="relative text-[#111111] w-full h-full overflow-x-hidden ">
         {/* Loading Screen */}
         {isLoading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
         
+        {/* Fixed Navigation - Outside main content */}
+        <Navigation />
+        
         {/* Main Content - Always rendered but hidden during loading */}
-        <div className="main-content mx-0 w-screen">
-          <div className='w-screen top-0 right-0 mx-0'><Navigation /></div>
-          <main>
+        <div className="main-content">
+          <main className="relative">
             {children}
           </main>
         </div>

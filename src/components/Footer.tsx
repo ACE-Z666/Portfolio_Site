@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import TextReveal from './ui/TextReveal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -57,8 +58,6 @@ const Footer = () => {
     { name: 'About', href: '#about' },
     { name: 'Projects', href: '#projects' },
     { name: 'Skills', href: '#skills' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' }
   ];
 
   const scrollToSection = (href: string) => {
@@ -71,7 +70,7 @@ const Footer = () => {
   return (
     <footer 
       ref={footerRef}
-      className="bg-[#111111] text-white relative overflow-hidden"
+      className="bg-[#010101] text-white relative overflow-hidden w-screen"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -80,28 +79,90 @@ const Footer = () => {
         }}></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Main Footer Content */}
         <div ref={contentRef} className="py-16 md:py-20">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             
             {/* Brand Section */}
-            <div className="lg:col-span-2">
-              <h3 className="text-3xl md:text-4xl font-bold mb-4 font-satoshi">
+            <div className="lg:col-span-1">
+              {/* <h3 className="text-3xl md:text-4xl font-bold mb-4 font-satoshi">
                 Abhijith J Nair
               </h3>
               <p className="text-white/70 text-lg leading-relaxed mb-6 max-w-md">
                 Intermediate AI/ML & Full Stack Developer passionate about building intelligent applications and seamless digital experiences.
               </p>
-              
+               */}
               {/* Social Links */}
-              <div className="flex space-x-4">
+             
+            {/* </div> */}
+
+            {/* Quick Links */}
+            <div className="flex flex-col items-start justify-start">
+              <TextReveal
+                words="Quick Links"
+                className="text-xl font-bold mb-6 font-sulpr sm:text-left sm:ml-4"
+                duration={0.5}
+                delay={200}
+                staggerDelay={50}
+              />
+              <ul className="space-y-3 ">
+                {quickLinks.map((link, index) => (
+                  <li key={index}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection(link.href);
+                      }}
+                      className="text-white/70 hover:text-white font-satoshi font-light transition-colors duration-300 cursor-pointer flex sm:text-left sm:justify-start justify-center items-center group"
+                    >
+                      <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                      <TextReveal
+                        words={link.name}
+                        className=""
+                        duration={0.3}
+                        delay={300 + (index * 100)}
+                        staggerDelay={30}
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              </div>
+            </div>
+
+            <div className='lg:col-span-2 flex flex-col justify-end items-center space-y-8 md:space-y-0 '>
+              <TextReveal
+                words="AJN"
+                className='sm:text-4xl text-2xl text-[#fff] py-5 text-center font-agraham'
+                duration={0.6}
+                delay={400}
+                staggerDelay={100}
+              />
+              <TextReveal
+                words="Intermediate AI/ML & Full Stack"
+                className='sm:text-2xl pt-8 text-lg font-sulpr text-center w-full font-light text-[#fff]/65'
+                duration={0.5}
+                delay={600}
+                staggerDelay={40}
+              />
+              <TextReveal
+                words="Developer."
+                className='sm:text-2xl text-lg font-sulpr w-full text-center text-[#fff]/65'
+                duration={0.4}
+                delay={800}
+                staggerDelay={60}
+              />
+              <div className="flex space-x-4 pt-8">
                 {socialLinks.map((social, index) => (
                   <a
                     key={social.name}
                     href={social.url}
-                    className="p-3 bg-white/10 rounded-full text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300 hover:scale-110 backdrop-blur-sm"
+                    className="p-3 bg-transparent rounded-full text-white/70 hover:text-white transition-all duration-300 hover:scale-110 backdrop-blur-sm"
                     aria-label={social.name}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,62 +173,58 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Quick Links */}
-            <div className="flex flex-col items-center justify-start">
-              <h4 className="text-xl font-bold mb-6 font-satoshi sm:ml-4">Quick Links</h4>
-              <ul className="space-y-3 ">
-                {quickLinks.map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href={link.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        scrollToSection(link.href);
-                      }}
-                      className="text-white/70 hover:text-white transition-colors duration-300 cursor-pointer flex text-center justify-center items-center group"
-                    >
-                      <svg className="w-4 h-4 mr-2 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             {/* Contact Info */}
             <div>
-              <h4 className="text-xl text-right font-bold mb-6 font-satoshi">Get In Touch</h4>
+              <TextReveal
+                words="Get In Touch"
+                className="text-xl text-right font-bold mb-6 font-sulpr"
+                duration={0.5}
+                delay={500}
+                staggerDelay={60}
+              />
               <div className="space-y-4">
-                <div className="flex sm:flex-row-reverse  sm:text-right text-center items-center text-white/70">
+                <div className="flex sm:flex-row-reverse font-satoshi font-light sm:text-right text-center items-center text-white/70">
                   <svg className="w-5 h-5 mr-3 sm:ml-3 sm:mr-0 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <a href="mailto:john@example.com" className="hover:text-white transition-colors">
-                    abhijithjnair4321@gmail.com
+                    <TextReveal
+                      words="abhijithjnair4321@gmail.com"
+                      className=""
+                      duration={0.6}
+                      delay={700}
+                      staggerDelay={20}
+                    />
                   </a>
-                  
                 </div>
                 
-                <div className="flex items-center sm:flex-row-reverse  sm:text-right text-center text-white/70">
+                <div className="flex items-center sm:flex-row-reverse sm:text-right text-center text-white/70">
                   <svg className="w-5 h-5 mr-3 sm:ml-3 sm:mr-0 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <a href="tel:+1234567890" className="hover:text-white transition-colors">
-                    +91 86069 82351
+                    <TextReveal
+                      words="+91 86069 82351"
+                      className=""
+                      duration={0.5}
+                      delay={900}
+                      staggerDelay={40}
+                    />
                   </a>
                 </div>
                 
-                <div className="flex items-start text-white/70 sm:flex-row-reverse  sm:text-right text-center ">
+                <div className="flex items-start text-white/70 sm:flex-row-reverse sm:text-right text-center ">
                   <svg className="w-5 h-5 mr-3 sm:ml-3 sm:mr-0 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span>
-                   PTA, Kerala<br />
-                   India
-                  </span>
+                  <TextReveal
+                    words="Kerala, India"
+                    className=""
+                    duration={0.4}
+                    delay={1100}
+                    staggerDelay={50}
+                  />
                 </div>
               </div>
             </div>
@@ -175,20 +232,29 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 py-8">
+        <div className="border-t border-white/10 py-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-white/60 text-sm">
-              © {currentYear} Abhijith J Nair. All rights reserved.
-            </p>
+            <TextReveal
+              words={`© ${currentYear} Abhijith J Nair. All Rights Reserved.`}
+              className="text-white/60 sm:text-base text-md font-satoshi font-light"
+              duration={0.6}
+              delay={1200}
+              staggerDelay={20}
+            />
             
             <div className="flex items-center space-x-6">
-              
-              <a href="#" className="text-white/60 hover:text-white transition-colors text-sm">
-                Have a Nice Day!
+              <a href="#" className="text-white/60 font-satoshi font-light hover:text-white transition-colors text-sm sm:text-base">
+                <TextReveal
+                  words="Have a Nice Day!"
+                  className=""
+                  duration={0.5}
+                  delay={1400}
+                  staggerDelay={40}
+                />
               </a>
               <button
                 onClick={scrollToTop}
-                className="p-2 bg-white/10 rounded-full text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300 hover:scale-110 backdrop-blur-sm"
+                className="p-2 bg-transparent rounded-full text-white/70 hover:text-white transition-all duration-300 hover:scale-110 backdrop-blur-sm"
                 aria-label="Scroll to top"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

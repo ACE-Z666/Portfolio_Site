@@ -29,7 +29,7 @@ const CircleProgress = ({ data, index, inView }: CircleProgressProps & { inView:
 
     return (
         <motion.div
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 flex items-center justify-center gap-12"
             initial={{ opacity: 0, scale: 0.6, rotate: -90 }}
             animate={inView ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0.6, rotate: -90 }}
             transition={{ 
@@ -38,7 +38,7 @@ const CircleProgress = ({ data, index, inView }: CircleProgressProps & { inView:
                 ease: [0.25, 0.46, 0.45, 0.94] 
             }}
         >
-            <div className="relative">
+            <div className="relative sm:scale-150 scale-90">
                 <svg
                     width={data.size}
                     height={data.size}
@@ -118,8 +118,9 @@ const CircleProgress = ({ data, index, inView }: CircleProgressProps & { inView:
 
 const DetailedSkillsInfo = ({ skills, inView }: { skills: SkillData[], inView: boolean }) => {
     return (
+        <div>
         <motion.div
-            className="flex flex-col gap-6 ml-8"
+            className="flex flex-col gap-12 sm:ml-48 ml-8"
             initial={{ opacity: 0, x: 30, y: 10 }}
             animate={inView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 30, y: 10 }}
             transition={{ 
@@ -141,7 +142,7 @@ const DetailedSkillsInfo = ({ skills, inView }: { skills: SkillData[], inView: b
                     }}
                 >
                     <motion.span 
-                        className="text-sm font-medium text-white/70 font-satoshi"
+                        className="text-lg font-medium text-white/90 font-satoshi"
                         initial={{ opacity: 0 }}
                         animate={inView ? { opacity: 1 } : { opacity: 0 }}
                         transition={{ 
@@ -163,13 +164,14 @@ const DetailedSkillsInfo = ({ skills, inView }: { skills: SkillData[], inView: b
                         }}
                     >
                         {skill.level}%
-                        <span className="text-base ml-1 text-white/50">
+                        <span className="text-xl ml-1 text-white/50">
                             {skill.category}
                         </span>
                     </motion.span>
                 </motion.div>
             ))}
         </motion.div>
+        </div>
     );
 };
 
@@ -242,7 +244,7 @@ export default function SkillsActivityCard({
                 </div>
 
                 {/* Additional Skills Grid */}
-                {skills.length > 4 && (
+                {/* {skills.length > 4 && (
                     <motion.div 
                         className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mt-8"
                         initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -306,7 +308,7 @@ export default function SkillsActivityCard({
                             </motion.div>
                         ))}
                     </motion.div>
-                )}
+                )} */}
             </div>
         </div>
     );

@@ -4,124 +4,212 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { db } from '../firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import TextReveal from './ui/TextReveal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
 const Contact = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const ringRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<SVGCircleElement>(null);
+  const [progressValue, setProgressValue] = useState(20); // Initial value
+  const [animatedProgress, setAnimatedProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [busyMeterText, setBusyMeterText] = useState("I will be busy Right now! But soon will be available.");
+
+  // Function to get shadow color based on value
+  const getShadowColor = (value: number) => {
+    if (value > 75) {
+      return 'rgba(239, 68, 68, 0.6)'; // Red shadow for above 75
+    } else if (value >= 25 && value <= 75) {
+      return 'rgba(255, 255, 227, 0.6)'; // Light yellow/white shadow for 25-75
+    } else {
+      return 'rgba(34, 197, 94, 0.6)'; // Green shadow for below 25
+    }
+  };
+
+  // Function to save progress value to Firebase
+  const saveProgressToFirebase = async (value: number) => {
+    try {
+      await addDoc(collection(db, 'progressValues'), {
+        value: value,
+        timestamp: serverTimestamp(),
+        type: 'success_rate'
+      });
+      console.log('Progress value saved to Firebase:', value);
+    } catch (error) {
+      console.error('Error saving to Firebase:', error);
+    }
+  };
+
+  // Function to save text content to Firebase
+  const saveTextContentToFirebase = async (content: string, section: string) => {
+    try {
+      await addDoc(collection(db, 'sectionTexts'), {
+        content: content,
+        section: section,
+        timestamp: serverTimestamp(),
+        type: 'busy_meter_text'
+      });
+      console.log('Text content saved to Firebase:', content);
+    } catch (error) {
+      console.error('Error saving text to Firebase:', error);
+    }
+  };
+
+  // Function to load progress value from Firebase (optional)
+  const loadProgressFromFirebase = async () => {
+    try {
+      // You can implement logic to fetch the latest value here if needed
+      // For now, we'll use the initial state value
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error loading from Firebase:', error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // Load initial value and save to Firebase
+    loadProgressFromFirebase();
+    saveProgressToFirebase(progressValue);
+    
+    // Save the busy meter text content to Firebase
+    saveTextContentToFirebase(busyMeterText, "busy_meter_description");
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
     const title = titleRef.current;
-    const form = formRef.current;
+    const ring = ringRef.current;
+    const progressCircle = progressRef.current;
 
-    if (!section || !title || !form) return;
+    if (!section || !title || !ring || !progressCircle || isLoading) return;
 
-    // Title animation
-    gsap.fromTo(title.children,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: 'power3.out',
-        stagger: 0.2,
+    // Calculate circle circumference
+    const radius = 40;
+    const circumference = 2 * Math.PI * radius;
+
+    // Set initial state
+    progressCircle.style.strokeDasharray = `${circumference}`;
+    progressCircle.style.strokeDashoffset = `${circumference}`;
+
+    const ctx = gsap.context(() => {
+      // Title animation
+      gsap.fromTo(title.children,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Ring container animation
+      gsap.fromTo(ring.children,
+        { scale: 0.8, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: ring,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Progressive ring animation
+      gsap.to(progressCircle, {
+        strokeDashoffset: circumference - (circumference * progressValue) / 100,
+        duration: 2.5,
+        ease: 'power2.out',
         scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
+          trigger: ring,
+          start: 'top 75%',
           toggleActions: 'play none none reverse'
         }
-      }
-    );
+      });
 
-    // Form animation
-    gsap.fromTo(form.children,
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: 0.1,
+      // Number counter animation
+      gsap.to({ value: 0 }, {
+        value: progressValue,
+        duration: 2.5,
+        ease: 'power2.out',
+        onUpdate: function() {
+          setAnimatedProgress(Math.round(this.targets()[0].value));
+        },
         scrollTrigger: {
-          trigger: form,
-          start: 'top 85%',
+          trigger: ring,
+          start: 'top 75%',
           toggleActions: 'play none none reverse'
         }
-      }
-    );
+      });
+    });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ctx.revert();
     };
-  }, []);
+  }, [progressValue, isLoading]);
+
+  // Function to update progress value
+  const updateProgressValue = async (newValue: number) => {
+    if (newValue >= 0 && newValue <= 100) {
+      setProgressValue(newValue);
+      await saveProgressToFirebase(newValue);
+      
+      // Re-trigger animations with new value
+      const ring = ringRef.current;
+      const progressCircle = progressRef.current;
+      
+      if (ring && progressCircle) {
+        const radius = 40;
+        const circumference = 2 * Math.PI * radius;
+        
+        gsap.to(progressCircle, {
+          strokeDashoffset: circumference - (circumference * newValue) / 100,
+          duration: 1.5,
+          ease: 'power2.out'
+        });
+        
+        gsap.to({ value: animatedProgress }, {
+          value: newValue,
+          duration: 1.5,
+          ease: 'power2.out',
+          onUpdate: function() {
+            setAnimatedProgress(Math.round(this.targets()[0].value));
+          }
+        });
+      }
+    }
+  };
+
+  // Function to update busy meter text
+  const updateBusyMeterText = async (newText: string) => {
+    setBusyMeterText(newText);
+    await saveTextContentToFirebase(newText, "busy_meter_description");
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    // No longer needed for form, but keeping for potential future use
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (isSubmitting) return;
-    
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
-      setSubmitStatus('error');
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      // Add document to Firebase Firestore
-      await addDoc(collection(db, 'contacts'), {
-        name: formData.name,
-        email: formData.email,
-        subject: formData.subject || 'No subject',
-        message: formData.message,
-        timestamp: serverTimestamp(),
-        status: 'unread'
-      });
-
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-      
-      // Reset status after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 5000);
-    }
+    // No longer needed for form, but keeping for potential future use
   };
 
   const contactInfo = [
@@ -155,59 +243,53 @@ const Contact = () => {
     <section 
       ref={sectionRef}
       id="contact" 
-      className="py-20 md:py-32 bg-[#111111] relative overflow-hidden"
+      className="py-20 md:py-32 bg-[#010101] relative overflow-hidden w-screen"
     >
-      {/* Background Pattern */}
+      {/* Background Pattern
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, #111111 1px, transparent 0)`,
           backgroundSize: '30px 30px'
         }}></div>
-      </div>
+      </div> */}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-satoshi">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#ffffe5] mb-6 font-sulpr">
             Let's Work Together
           </h2>
-          <div className="w-20 h-1 bg-[#555555] mx-auto mb-8"></div>
           <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
             Have a project in mind? Bring it On!
           </p>
         </div>
+        <div className='flex items-center justify-center'>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
           
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
               <TextReveal
                 words="Get In Touch"
-                className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 font-satoshi"
+                className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-8 font-sulpr"
                 duration={0.6}
                 delay={100}
                 staggerDelay={80}
               />
-              <TextReveal
-                words="Drop me a message and let's create something amazing together!"
-                className="text-lg text-white/70 leading-relaxed mb-8"
-                duration={0.5}
-                delay={500}
-                staggerDelay={50}
-              />
             </div>
+            
 
             {/* Contact Cards */}
             <div className="grid sm:grid-cols-2 gap-6">
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
-                  className="card-hover bg-[#333333] p-6 rounded-2xl shadow-xl border border-[#111111]/10 hover:shadow-2xl transition-all duration-300"
+                  className="card-hover bg-gradient-to-br from-[#333333] to-[#222222] p-6 rounded-2xl shadow-xl border border-[#111111]/10 hover:shadow-2xl transition-all duration-300"
                 >
                   <div className="flex items-center mb-4">
-                    <div className="p-3 bg-[#555555]/10 rounded-full mr-4">
+                    <div className="p-3 bg-tranparent rounded-full mr-4">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={info.icon} />
                       </svg>
@@ -218,7 +300,7 @@ const Contact = () => {
                       </h4>
                       <a 
                         href={info.link}
-                        className="text-white/70 hover:text-white transition-colors"
+                        className="text-white/70 hover:text-white transition-colors font-satoshi font-light"
                       >
                         {info.content}
                       </a>
@@ -229,158 +311,174 @@ const Contact = () => {
             </div>
 
             {/* Availability */}
-            <div className="bg-[#333333] p-6 rounded-2xl shadow-xl transition-all hover:shadow-2xl border border-[#111111]/10">
-              <h4 className="font-bold text-white mb-4 font-satoshi">
+            <div className="bg-gradient-to-br  from-[#333333] to-[#222222] p-6 rounded-2xl shadow-xl transition-all hover:shadow-2xl border border-[#111111]/10">
+              <h4 className="font-semibold text-white mb-4 font-satoshi">
                 Current Availability
               </h4>
               <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-white/80">
+                <span className="text-white/80 font-satoshi font-light">
                   Available for new projects starting January 2025
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-            <div className="bg-[#333333] p-8 rounded-2xl shadow-lg border border-[#111111]/10">
-              <div className="mb-8">
+          {/* Progressive Ring */}
+          <div ref={ringRef} className="flex flex-col items-center justify-center">
+            <div 
+              className="bg-transparent p-12 mt-12 rounded-2xl border border-[#111111]/10 flex flex-col items-center transition-all duration-500" >
+              
+              
+              {/* Progressive Ring */}
+              <div className="relative w-64 h-64 mb-8">
+                {/* Background Ring */}
+                <svg
+                  className="w-full h-full transform -rotate-90"
+                  viewBox="0 0 100 100"
+                >
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    stroke="#555555"
+                    strokeWidth="4"
+                    fill="none"
+                    className="opacity-20"
+                  />
+                  {/* Progress Ring */}
+                  <circle
+                    ref={progressRef}
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    stroke="url(#gradient)"
+                    strokeWidth="4"
+                    fill="none"
+                    strokeLinecap="round"
+                    className="transition-all duration-300 ease-out"
+                  />
+                  
+                  {/* Dynamic Gradient Definition based on value */}
+                  <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      {animatedProgress > 75 ? (
+                        <>
+                          <stop offset="0%" stopColor="#dc2626" />
+                          <stop offset="50%" stopColor="#ef4444" />
+                          <stop offset="100%" stopColor="#f87171" />
+                        </>
+                      ) : animatedProgress >= 25 ? (
+                        <>
+                          <stop offset="0%" stopColor="#fbbf24" />
+                          <stop offset="50%" stopColor="#f59e0b" />
+                          <stop offset="100%" stopColor="#ffffe3" />
+                        </>
+                      ) : (
+                        <>
+                          <stop offset="0%" stopColor="#10b981" />
+                          <stop offset="50%" stopColor="#059669" />
+                          <stop offset="100%" stopColor="#22c55e" />
+                        </>
+                      )}
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                
+
+                {/* Center Content */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div className="text-5xl font-light text-white mb-2 font-monojb">
+                    {animatedProgress}%
+                  </div>
+                  <div className="text-sm text-white/70 text-center">
+                    {animatedProgress > 75 ? 'Peak Busy' : animatedProgress >= 25 ? 'Busily Free' : 'Free'}
+                  </div>
+                </div>
+
+                {/* Enhanced Glow Effect with conditional colors */}
+                <div 
+                  className="absolute inset-0 rounded-full opacity-30 blur-xl transition-all duration-500"
+                  style={{
+                    background: animatedProgress > 0 
+                      ? animatedProgress > 75
+                        ? `conic-gradient(from 0deg, #dc2626 0deg, #ef4444 ${animatedProgress * 2}deg, #f87171 ${animatedProgress * 3.6}deg, transparent ${animatedProgress * 3.6}deg)`
+                        : animatedProgress >= 25
+                        ? `conic-gradient(from 0deg, #fbbf24 0deg, #f59e0b ${animatedProgress * 2}deg, #ffffe3 ${animatedProgress * 3.6}deg, transparent ${animatedProgress * 3.6}deg)`
+                        : `conic-gradient(from 0deg, #10b981 0deg, #059669 ${animatedProgress * 2}deg, #22c55e ${animatedProgress * 3.6}deg, transparent ${animatedProgress * 3.6}deg)`
+                      : 'transparent'
+                  }}
+                />
+
+                {/* Status Indicator */}
+                {/* <div className="absolute -top-2 -right-2">
+                  <div 
+                    className="w-4 h-4 rounded-full border-2 border-white animate-pulse"
+                    style={{
+                      backgroundColor: animatedProgress > 75 ? '#dc2626' : animatedProgress >= 25 ? '#fbbf24' : '#10b981'
+                    }}
+                  />
+                </div> */}
+              <div className="mt-4 mb-8">
                 <TextReveal
-                  words="Send Me a Message"
-                  className="text-2xl md:text-3xl font-bold text-white mb-4 font-satoshi"
+                  words={busyMeterText}
+                  className="text-base md:text-lg max-w-7xl font-light font-satoshi text-white mb-4  text-center"
                   duration={0.5}
                   delay={800}
                   staggerDelay={70}
                 />
               </div>
-              
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="name" className="block text-white font-semibold mb-2">
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#232323] text-white"
-                    placeholder="Your full name"
-                  />
+              </div>
+
+              {/* Statistics
+              <div className="grid grid-cols-3 gap-6 w-full">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white mb-1">25+</div>
+                  <div className="text-sm text-white/70">Projects</div>
                 </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white mb-1">100%</div>
+                  <div className="text-sm text-white/70">On Time</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white mb-1">50+</div>
+                  <div className="text-sm text-white/70">Happy Clients</div>
+                </div>
+              </div> */}
+
+              {/* Action Buttons
+              <div className="mt-8 flex flex-col gap-4">
+                <button 
+                  onClick={() => updateProgressValue(progressValue === 20 ? 20 : 20)}
+                  className="bg-gradient-to-r from-[#10b981] to-[#3b82f6] hover:from-[#059669] hover:to-[#2563eb] text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                >
+                  Start Your Project
+                </button>
                 
-                <div>
-                  <label htmlFor="email" className="block text-white font-semibold mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#232323] text-white"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label htmlFor="subject" className="block text-white font-semibold mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#232323] text-white"
-                  placeholder="What's this about?"
-                />
-              </div>
-
-              <div className="mb-6">
-                <label htmlFor="message" className="block text-white font-semibold mb-2">
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 border-2 border-[#111111]/20 rounded-lg focus:border-[#111111] focus:outline-none transition-colors bg-[#232323] text-white resize-none"
-                  placeholder="Tell me about your project..."
-                />
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full btn-hover px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-2 ${
-                  isSubmitting
-                    ? 'bg-[#555555]/50 text-white cursor-not-allowed'
-                    : submitStatus === 'success'
-                    ? 'bg-green-600 text-white hover:bg-green-700'
-                    : submitStatus === 'error'
-                    ? 'bg-red-600 text-white hover:bg-red-700'
-                    : 'bg-[#232323] text-white hover:bg-[#444444] hover:scale-105'
-                }`}
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="loading-dots">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                    <span></span>
-                  </>
-                ) : submitStatus === 'success' ? (
-                  <>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Sent!</span>
-                  </>
-                ) : submitStatus === 'error' ? (
-                  <>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                    <span>Try Again</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Send</span>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                    </svg>
-                  </>
-                )}
-              </button>
-
-              {/* Status Messages */}
-              {submitStatus === 'success' && (
-                <p className="mt-4 text-green-600 text-center font-medium">
-                  Thank you! I'll get back to you within 24 hours.
-                </p>
-              )}
-              
-              {submitStatus === 'error' && (
-                <p className="mt-4 text-red-600 text-center font-medium">
-                  Oops! Something went wrong. Please try again or email me directly.
-                </p>
-              )}
+                {/* Development Controls - Remove in production */}
+                {/* <div className="flex gap-2 mt-4">
+                  <button 
+                    onClick={() => updateProgressValue(15)}
+                    className="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition-colors"
+                  >
+                    Green (15%)
+                  </button>
+                  <button 
+                    onClick={() => updateProgressValue(50)}
+                    className="px-3 py-1 bg-yellow-600 text-white text-sm rounded hover:bg-yellow-700 transition-colors"
+                  >
+                    Yellow (50%)
+                  </button>
+                  <button 
+                    onClick={() => updateProgressValue(85)}
+                    className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700 transition-colors"
+                  >
+                    Red (85%)
+                  </button>
+                </div> */}
             </div>
-          </form>
+          </div>
+        </div>
         </div>
       </div>
     </section>

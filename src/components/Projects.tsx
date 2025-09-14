@@ -4,228 +4,243 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TextReveal from './ui/TextReveal';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const projectsRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const title = titleRef.current;
-    const projects = projectsRef.current;
-
-    if (!section || !title || !projects) return;
-
-    // Title animation
-    gsap.fromTo(title.children,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: 'power3.out',
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    );
-
-    // Projects animation
-    gsap.fromTo(projects.children,
-      { y: 80, opacity: 0, scale: 0.9 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 1.2,
-        ease: 'power3.out',
-        stagger: 0.3,
-        scrollTrigger: {
-          trigger: projects,
-          start: 'top 90%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    );
-
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []);
-
-  const projects = [
+  // Project data - 4 featured projects
+  const projectsData = [
     {
-      id: 1,
+      image: '/cards/img1.png',
       title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution built with Next.js, Stripe, and Firebase. Features include user authentication, product management, shopping cart, and secure payment processing.',
-      technologies: ['Next.js', 'Firebase', 'Stripe', 'Tailwind CSS'],
-      liveUrl: '#',
-      githubUrl: '#',
-      category: 'Full Stack'
+      description: 'A full-stack e-commerce solution with payment processing, inventory management, and user authentication.',
+      tech: ['Next.js', 'Stripe', 'Firebase'],
+      link: '#'
     },
     {
-      id: 2,
+      image: '/cards/img2.png',
       title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features. Built with React and Socket.io.',
-      technologies: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
-      liveUrl: '#',
-      githubUrl: '#',
-      category: 'Web App'
+      description: 'Collaborative productivity tool with real-time updates, drag-and-drop functionality, and team features.',
+      tech: ['React', 'Socket.io', 'Node.js'],
+      link: '#'
     },
     {
-      id: 3,
+      image: '/cards/img3.png',
       title: 'AI Content Generator',
-      description: 'An AI-powered content generation tool that helps users create blog posts, social media content, and marketing copy using OpenAI\'s API.',
-      technologies: ['Python', 'FastAPI', 'OpenAI API', 'React'],
-      liveUrl: '#',
-      githubUrl: '#',
-      category: 'AI/ML'
+      description: 'AI-powered writing assistant for creating blog posts, social media content, and marketing copy.',
+      tech: ['OpenAI API', 'Python', 'React'],
+      link: '#'
     },
     {
-      id: 4,
+      image: '/cards/img4.png',
       title: 'Weather Dashboard',
-      description: 'A responsive weather dashboard that provides real-time weather data, forecasts, and interactive maps. Features geolocation and favorite locations.',
-      technologies: ['Vue.js', 'Weather API', 'Chart.js', 'PWA'],
-      liveUrl: '#',
-      githubUrl: '#',
-      category: 'Dashboard'
-    },
-    {
-      id: 5,
-      title: 'Cryptocurrency Tracker',
-      description: 'A real-time cryptocurrency tracking application with portfolio management, price alerts, and detailed analytics. Built with React Native for mobile.',
-      technologies: ['React Native', 'Redux', 'CoinGecko API', 'Firebase'],
-      liveUrl: '#',
-      githubUrl: '#',
-      category: 'Mobile App'
-    },
-    {
-      id: 6,
-      title: 'Social Media Platform',
-      description: 'A modern social media platform with real-time messaging, post sharing, story features, and user engagement analytics.',
-      technologies: ['Next.js', 'PostgreSQL', 'Redis', 'AWS S3'],
-      liveUrl: '#',
-      githubUrl: '#',
-      category: 'Social Platform'
+      description: 'Real-time weather tracking with forecasts, interactive maps, and location-based alerts.',
+      tech: ['Vue.js', 'Weather API', 'Chart.js'],
+      link: '#'
     }
   ];
+
+  // GSAP animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate cards with different effects
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          // Different animation patterns for each card
+          const isEven = index % 2 === 0;
+          
+          gsap.fromTo(card, 
+            {
+              opacity: 0,
+              x: isEven ? -100 : 100,
+              rotationY: isEven ? -15 : 15,
+              transformPerspective: 1000
+            },
+            {
+              opacity: 1,
+              x: 0,
+              rotationY: 0,
+              duration: 1.2,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+              },
+              delay: index * 0.2
+            }
+          );
+
+          // Hover animations
+          const image = card.querySelector('.project-image');
+          const overlay = card.querySelector('.project-overlay');
+          
+          if (image && overlay) {
+            card.addEventListener('mouseenter', () => {
+              gsap.to(image, { scale: 1.1, duration: 0.6, ease: "power2.out" });
+              gsap.to(overlay, { opacity: 1, duration: 0.4 });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+              gsap.to(image, { scale: 1, duration: 0.6, ease: "power2.out" });
+              gsap.to(overlay, { opacity: 0, duration: 0.4 });
+            });
+          }
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section 
       ref={sectionRef}
       id="projects" 
-      className="py-20 md:py-32 bg-[#111111] relative overflow-hidden"
+      className="bg-[#010101] relative overflow-hidden w-screen py-20 lg:py-32"
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-3">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23111111' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}></div>
+      {/* Header Section */}
+      <div className="relative z-20 mb-20">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <TextReveal
+              words="Recent Projects"
+              className="text-4xl md:text-5xl text-right lg:text-7xl font-bold text-[#ffffe5] mb-6 font-sulpr"
+              duration={0.6}
+              delay={100}
+              staggerDelay={80}
+            />
+            <TextReveal
+              words="A showcase of my latest work in web development, mobile applications, and AI integration."
+              className="text-xl text-white/70 text-right max-w-screen-2xl mx-auto leading-relaxed font-satoshi font-light"
+              duration={0.5}
+              delay={500}
+              staggerDelay={40}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Title Section */}
-        <div ref={titleRef} className="text-center mb-16">
-          <TextReveal
-            words="My Works"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-hattonem"
-            duration={0.6}
-            delay={100}
-            staggerDelay={80}
-          />
-          <div className="w-20 h-1 bg-[#111111] mx-auto mb-8"></div>
-          <TextReveal
-            words="Some of my recent projects focussing on web development, mobile applications, and AI integration."
-            className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed font-satoshi font-medium"
-            duration={0.5}
-            delay={500}
-            staggerDelay={40}
-          />
-        </div>
+      {/* Projects Grid */}
+      <div className="relative z-10">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-20">
+            {projectsData.map((project, index) => (
+              <div 
+                key={index}
+                ref={(el) => {
+                  if (el) cardsRef.current[index] = el;
+                }}
+                className="group relative"
+              >
+                {/* Card Container */}
+                <div className="relative bg-gradient-to-br from-zinc-900/50 via-zinc-800/30 to-zinc-900/80 backdrop-blur-xl border border-zinc-700/30 rounded-3xl overflow-hidden transform-gpu transition-all duration-700 hover:border-[#ffffe5]/20 hover:shadow-2xl hover:shadow-[#ffffe5]/10">
+                  
+                  {/* Animated Background Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#333333] via-[#222222] to-[#111111] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                  
+                  {/* Number Badge */}
+                  {/* <div className="absolute top-6 left-6 z-20">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                  </div> */}
 
-        {/* Projects Grid */}
-        <div ref={projectsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              className="card-hover group bg-[#222222] rounded-2xl p-6 shadow-lg border border-[#111111]/10 hover:shadow-2xl transition-all duration-500"
-            >
-              {/* Project Header */}
-              <div className="flex items-center justify-between mb-4 font-satoshi font-extralight">
-                <span className="px-3 py-1 bg-[#111111]/0 border-2 border-[#222222]/50 text-white rounded-full text-sm font-medium">
-                  {project.category}
-                </span>
-                <div className="flex space-x-2">
-                  <a
-                    href={project.liveUrl}
-                    className="p-2 text-white/60 hover:text-white transition-colors hover:scale-110 transform"
-                    aria-label="View Live Project"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                  <a
-                    href={project.githubUrl}
-                    className="p-2 text-white/60 hover:text-white transition-colors hover:scale-110 transform"
-                    aria-label="View GitHub Repository"
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
+                  {/* Project Image */}
+                  <div className="relative aspect-video overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="project-image w-full h-full object-cover"
+                    />
+                    
+                    {/* Image Overlay */}
+                    {/* <div className="project-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-400">
+                      <div className="absolute bottom-6 left-6 right-6">
+                        <div className="flex items-center gap-3">
+                          <ExternalLink className="w-5 h-5 text-white" />
+                          <span className="text-white font-medium">View Live Project</span>
+                        </div>
+                      </div>
+                    </div> */}
+                  </div>
 
-              {/* Project Content */}
-              <div className="space-y-4">
-                <h3 className="text-xl  text-white font-hattonem group-hover:text-[#ffffff]/70 transition-colors">
-                  {project.title}
-                </h3>
-                
-                <p className="text-white/70 text-sm leading-relaxed font-satoshi font-medium">
-                  {project.description}
-                </p>
+                  {/* Content Section */}
+                  <div className="relative p-8">
+                    {/* Title with animated underline */}
+                    <div className="relative mb-4">
+                      <h3 className="text-2xl lg:text-3xl font-bold text-[#ffffff] mb- font-sulpr group-hover:text-[#ffffe5] transition-colors duration-300">
+                        {project.title}
+                      </h3>
+                      {/* <div className="w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:w-20 transition-all duration-500"></div> */}
+                    </div>
+                    
+                    <p className="text-zinc-400 font-satoshi text-base leading-relaxed mb-6 group-hover:text-zinc-300 transition-colors duration-300">
+                      {project.description}  
+                    </p>
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-2 py-1 bg-[#F7E6CA]/60 text-white rounded-full text-xs font-medium font-satoshi border border-[#111111]/10"
+                    {/* Tech Stack with enhanced styling */}
+                    <div className="flex flex-wrap gap-2 font-satoshi mb-8">
+                      {project.tech.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-4 py-2 text-sm font-medium bg-zinc-800/60 text-white rounded-full border border-zinc-600/40 backdrop-blur-sm group-hover:bg-[#212121] group-hover:border-[#444444] group-hover:text-[#ffffe5] transition-all duration-400"
+                          style={{ 
+                            transitionDelay: `${techIndex * 50}ms` 
+                          }}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Enhanced CTA Button */}
+                    <a
+                      href={project.link}
+                      className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r font-satoshi font-extralight from-zinc-800 to-zinc-700 hover:from-[#111111] hover:to-[#121212] text-[#ffffe5] hover:text-white rounded-xl border border-zinc-600/40 hover:border-[#ffffe5]/50 transition-all duration-400 hover:shadow-lg hover:shadow-[#ffffe5]/5 group/btn"
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      <span>View Project</span>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                    </a>
+                  </div>
+
+                  {/* Decorative corner accent */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-orange-500/10 to-transparent rounded-3xl transform rotate-45 translate-x-16 -translate-y-16 group-hover:from-orange-500/20 transition-all duration-700"></div>
                 </div>
+
+                {/* Floating shadow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 to-purple-500/0 group-hover:from-orange-500/10 group-hover:to-purple-500/5 rounded-3xl blur-xl transition-all duration-700 -z-10 transform scale-95 group-hover:scale-100"></div>
               </div>
+            ))}
+          </div>
 
-              {/* Hover Effect Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#111111]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+          {/* Enhanced View All Button */}
+          <div className="text-center">
+            <div className="relative inline-block">
+              <a
+                href="/projects"
+                className="relative inline-flex items-center gap-4 px-10 py-5 bg-tranparent border border-b-white bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-semibold text-lg rounded-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#ffffe5]/10 group/cta overflow-hidden"
+              >
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-transparent opacity-0 group-hover/cta:opacity-100 transition-opacity duration-500"></div>
+                
+                <span className="relative z-10">View All Projects</span>
+                <ArrowRight className="relative z-10 w-6 h-6 transition-transform duration-300 group-hover/cta:translate-x-2" />
+                
+                {/* Shine effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 transform -translate-x-full group-hover/cta:translate-x-full transition-transform duration-1000"></div>
+              </a>
+              
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-0 hover:opacity-50 transition-opacity duration-500 -z-10"></div>
             </div>
-          ))}
-        </div>
-
-        {/* View More Button */}
-        <div className="text-center mt-16">
-          <button className="btn-hover px-8 py-4 border-2 border-[#222222] text-white font-satoshi rounded-full font-medium text-lg transition-all duration-300 hover:bg-[#222222] hover:text-white hover:scale-105">
-            <TextReveal
-              words="View All Projects"
-              className="inline-block"
-              duration={0.4}
-              delay={900}
-              staggerDelay={60}
-            />
-          </button>
+          </div>
         </div>
       </div>
     </section>
