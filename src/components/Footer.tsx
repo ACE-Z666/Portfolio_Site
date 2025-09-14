@@ -82,8 +82,8 @@ const Footer = () => {
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Main Footer Content */}
-        <div ref={contentRef} className="py-16 md:py-20">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div ref={contentRef} className="py-12 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             
             {/* Brand Section */}
             <div className="lg:col-span-1">
@@ -99,24 +99,24 @@ const Footer = () => {
             {/* </div> */}
 
             {/* Quick Links */}
-            <div className="flex flex-col items-start justify-start">
+            <div className="flex flex-col items-center md:items-start justify-start order-2 md:order-1">
               <TextReveal
                 words="Quick Links"
-                className="text-xl font-bold mb-6 font-sulpr sm:text-left sm:ml-4"
+                className="text-xl font-bold mb-6 font-sulpr text-center md:text-left md:ml-4"
                 duration={0.5}
                 delay={200}
                 staggerDelay={50}
               />
-              <ul className="space-y-3 ">
+              <ul className="space-y-3 w-full">
                 {quickLinks.map((link, index) => (
-                  <li key={index}>
+                  <li key={index} className="w-full">
                     <a
                       href={link.href}
                       onClick={(e) => {
                         e.preventDefault();
                         scrollToSection(link.href);
                       }}
-                      className="text-white/70 hover:text-white font-satoshi font-light transition-colors duration-300 cursor-pointer flex sm:text-left sm:justify-start justify-center items-center group"
+                      className="text-white/70 hover:text-white font-satoshi font-light transition-colors duration-300 cursor-pointer flex justify-center md:justify-start items-center group w-full"
                     >
                       <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -135,29 +135,29 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className='lg:col-span-2 flex flex-col justify-end items-center space-y-8 md:space-y-0 '>
+            <div className='lg:col-span-2 flex flex-col justify-center items-center space-y-2  md:space-y-2 order-1 md:order-2'>
               <TextReveal
                 words="AJN"
-                className='sm:text-4xl text-2xl text-[#fff] py-5 text-center font-agraham'
+                className='text-3xl md:text-4xl text-[#fff] py-3 md:py-5 text-center font-agraham'
                 duration={0.6}
                 delay={400}
                 staggerDelay={100}
               />
               <TextReveal
                 words="Intermediate AI/ML & Full Stack"
-                className='sm:text-2xl pt-8 text-lg font-sulpr text-center w-full font-light text-[#fff]/65'
+                className='text-xl md:text-2xl pt-4 md:pt-8 font-sulpr text-center w-full font-light text-[#fff]/65'
                 duration={0.5}
                 delay={600}
                 staggerDelay={40}
               />
               <TextReveal
                 words="Developer."
-                className='sm:text-2xl text-lg font-sulpr w-full text-center text-[#fff]/65'
+                className='text-xl md:text-2xl font-sulpr w-full text-center text-[#fff]/65'
                 duration={0.4}
                 delay={800}
                 staggerDelay={60}
               />
-              <div className="flex space-x-4 pt-8">
+              <div className="flex space-x-4 pt-0 sm:pb-0 pb-4 md:pt-8">
                 {socialLinks.map((social, index) => (
                   <a
                     key={social.name}
@@ -174,17 +174,17 @@ const Footer = () => {
             </div>
 
             {/* Contact Info */}
-            <div>
+            <div className="order-3 md:order-3">
               <TextReveal
                 words="Get In Touch"
-                className="text-xl text-right font-bold mb-6 font-sulpr"
+                className="text-xl text-center md:text-right font-bold mb-6 font-sulpr"
                 duration={0.5}
                 delay={500}
                 staggerDelay={60}
               />
               <div className="space-y-4">
-                <div className="flex sm:flex-row-reverse font-satoshi font-light sm:text-right text-center items-center text-white/70">
-                  <svg className="w-5 h-5 mr-3 sm:ml-3 sm:mr-0 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex flex-col md:flex-row-reverse font-satoshi font-light text-center md:text-right items-center text-white/70">
+                  <svg className="w-5 h-5 mx-auto md:mx-0 md:ml-3 md:mr-0 flex-shrink-0 mb-2 md:mb-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <a href="mailto:john@example.com" className="hover:text-white transition-colors">
@@ -198,8 +198,8 @@ const Footer = () => {
                   </a>
                 </div>
                 
-                <div className="flex items-center sm:flex-row-reverse sm:text-right text-center text-white/70">
-                  <svg className="w-5 h-5 mr-3 sm:ml-3 sm:mr-0 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex flex-col md:flex-row-reverse items-center text-center md:text-right text-white/70">
+                  <svg className="w-5 h-5 mx-auto md:mx-0 md:ml-3 md:mr-0 flex-shrink-0 mb-2 md:mb-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <a href="tel:+1234567890" className="hover:text-white transition-colors">
@@ -213,8 +213,8 @@ const Footer = () => {
                   </a>
                 </div>
                 
-                <div className="flex items-start text-white/70 sm:flex-row-reverse sm:text-right text-center ">
-                  <svg className="w-5 h-5 mr-3 sm:ml-3 sm:mr-0 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex flex-col md:flex-row-reverse items-center md:items-start text-center md:text-right text-white/70">
+                  <svg className="w-5 h-5 mx-auto md:mx-0 md:ml-3 md:mr-0 flex-shrink-0 mt-0 md:mt-1 mb-2 md:mb-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -232,18 +232,18 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 py-4">
+        <div className="border-t border-white/10 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <TextReveal
               words={`© ${currentYear} Abhijith J Nair. All Rights Reserved.`}
-              className="text-white/60 sm:text-base text-md font-satoshi font-light"
+              className="text-white/60 text-sm md:text-base font-satoshi font-light text-center md:text-left"
               duration={0.6}
               delay={1200}
               staggerDelay={20}
             />
             
             <div className="flex items-center space-x-6">
-              <a href="#" className="text-white/60 font-satoshi font-light hover:text-white transition-colors text-sm sm:text-base">
+              <a href="#" className="text-white/60 font-satoshi font-light hover:text-white transition-colors text-sm md:text-base">
                 <TextReveal
                   words="Have a Nice Day!"
                   className=""

@@ -109,6 +109,7 @@ const CircleProgress = ({ data, index, inView }: CircleProgressProps & { inView:
                         style={{
                             filter: "drop-shadow(0 0 8px rgba(0,0,0,0.2))",
                         }}
+                        key={`circle-${inView ? 'in' : 'out'}`} // Force re-animation
                     />
                 </svg>
             </div>
@@ -128,10 +129,11 @@ const DetailedSkillsInfo = ({ skills, inView }: { skills: SkillData[], inView: b
                 delay: 0.4,
                 ease: [0.25, 0.46, 0.45, 0.94]
             }}
+            key={`details-${inView ? 'in' : 'out'}`} // Force re-animation
         >
             {skills.map((skill, index) => (
                 <motion.div 
-                    key={skill.label} 
+                    key={`${skill.label}-${inView ? 'in' : 'out'}`} // Force re-animation
                     className="flex flex-col"
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -189,8 +191,9 @@ export default function SkillsActivityCard({
 }) {
     const ref = useRef(null);
     const inView = useInView(ref, { 
-        once: true,
-        amount: 0.3
+        once: false, // Changed from true to false - allows re-triggering
+        amount: 0.3,
+        margin: "0px 0px -100px 0px" // Trigger animation earlier
     });
 
     // Convert skills data to activity format with different colors and sizes
@@ -225,6 +228,7 @@ export default function SkillsActivityCard({
                         duration: 0.8,
                         ease: [0.25, 0.46, 0.45, 0.94]
                     }}
+                    key={`title-${inView ? 'in' : 'out'}`} // Force re-animation
                 >
                     {title}
                 </motion.h3>
@@ -233,7 +237,7 @@ export default function SkillsActivityCard({
                     <div className="relative w-[200px] h-[200px] flex-shrink-0">
                         {skillsData.map((skill, index) => (
                             <CircleProgress
-                                key={skill.label}
+                                key={`${skill.label}-${inView ? 'in' : 'out'}-${index}`} // Force re-animation with unique key
                                 data={skill}
                                 index={index}
                                 inView={inView}
@@ -242,73 +246,6 @@ export default function SkillsActivityCard({
                     </div>
                     <DetailedSkillsInfo skills={skillsData} inView={inView} />
                 </div>
-
-                {/* Additional Skills Grid */}
-                {/* {skills.length > 4 && (
-                    <motion.div 
-                        className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mt-8"
-                        initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                        animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.95 }}
-                        transition={{ 
-                            duration: 0.8, 
-                            delay: 1.2,
-                            ease: [0.25, 0.46, 0.45, 0.94]
-                        }}
-                    >
-                        {skills.slice(4).map((skill, index) => (
-                            <motion.div 
-                                key={skill.name}
-                                className="text-center p-4  transition-shadow duration-300"
-                                initial={{ opacity: 0, scale: 0.8, y: 20, rotateY: 45 }}
-                                animate={inView ? { 
-                                    opacity: 1, 
-                                    scale: 1, 
-                                    y: 0, 
-                                    rotateY: 0 
-                                } : { 
-                                    opacity: 0, 
-                                    scale: 0.8, 
-                                    y: 20, 
-                                    rotateY: 45 
-                                }}
-                                transition={{ 
-                                    duration: 0.6, 
-                                    delay: 1.4 + (index * 0.1),
-                                    ease: [0.25, 0.46, 0.45, 0.94]
-                                }}
-                                whileHover={{ 
-                                    scale: 1.08,
-                                    y: -5,
-                                    transition: { duration: 0.2, ease: "easeOut" }
-                                }}
-                                style={{ perspective: 1000 }}
-                            >
-                                <motion.div 
-                                    className="text-lg font-bold text-white font-monojb mb-1"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                                    transition={{ 
-                                        duration: 0.4, 
-                                        delay: 1.6 + (index * 0.1)
-                                    }}
-                                >
-                                    {skill.level}%
-                                </motion.div>
-                                <motion.div 
-                                    className="text-sm text-white/70 font-satoshi"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                                    transition={{ 
-                                        duration: 0.4, 
-                                        delay: 1.7 + (index * 0.1)
-                                    }}
-                                >
-                                    {skill.name}
-                                </motion.div>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                )} */}
             </div>
         </div>
     );
