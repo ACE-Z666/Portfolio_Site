@@ -13,7 +13,7 @@
     "@types/three": "^0.180.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "firebase": "^11.9.0",
+    "firebase": "^11.10.0",
     "framer-motion": "^12.23.9",
     "github-calendar": "^2.3.4",
     "gsap": "^3.13.0",

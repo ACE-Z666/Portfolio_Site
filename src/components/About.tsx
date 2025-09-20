@@ -90,7 +90,7 @@ const About = () => {
           
           {/* Content */}
           <div ref={contentRef} className="space-y-10 flex flex-col justify-center items-center">
-            <div className='text-base rounded-full font-sulpr font-bold text-[#111111] p-2 px-4 bg-white'>
+            <div className='text-base rounded-full font-sulpr font-bold text-[#111111] p-2 px-4 bg-[#ffffe5]'>
               About Me
             </div>
 

@@ -92,11 +92,25 @@ body {
   z-index: 9999;
 }
 
-.bgimg{
-background-image: url("/mypic.jpg");
-background-size: cover;
-background-repeat: no-repeat;
+/* Add this to your globals.css */
+/* .bgimg1 {
+  background-image: 
+    linear-gradient(to top, rgba(1, 1, 1, 0.9) 0%, rgba(0,0,0,0.4) 20%, transparent 50%),
+    url("/mypic.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+
+
+.bgimg {
+  background-image: 
+    linear-gradient(to top, rgba(1,1,1,0.95) 0%, rgba(1,1,1,0.6) 15%, rgba(1,1,1,0.3) 30%, transparent 70%),
+    url("/mypic.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
 .font-sulpr{
   font-family: "sulphur-point";
 }

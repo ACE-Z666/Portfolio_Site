@@ -130,7 +130,7 @@ const Testimonials = () => {
         </div>
 
         {/* All Testimonials Grid */}
-        <div ref={testimonialsRef}  className='scale-125'>
+        <div ref={testimonialsRef}  className='sm:scale-125 scale-100'>
           <AnimatedTestimonials 
             testimonials={testimonials}
             autoplay={true}

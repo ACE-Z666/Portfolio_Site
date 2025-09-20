@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TextReveal from './ui/TextReveal';
 import SkillsActivityCard from './ui/SkillsActivityCard';
+import { db } from '../firebase';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +18,33 @@ const Skills = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
   const activityRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+
+  // Add state for fetched data
+  const [skillCategories, setSkillCategories] = useState<any[]>([]);
+  const [technicalSkills, setTechnicalSkills] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch data from Firestore
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        // Fetch skillCategories
+        const catQuery = query(collection(db, 'skillcategories'), orderBy('order', 'asc'));
+        const catSnap = await getDocs(catQuery);
+        setSkillCategories(catSnap.docs.map(doc => doc.data()));
+
+        // Fetch technicalSkills
+        const techQuery = query(collection(db, 'technicalskills'), orderBy('order', 'asc'));
+        const techSnap = await getDocs(techQuery);
+        setTechnicalSkills(techSnap.docs.map(doc => doc.data()));
+      } catch (e) {
+        console.error('Error fetching skills:', e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchSkills();
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -100,43 +129,9 @@ const Skills = () => {
     };
   }, []);
 
-  const skillCategories = [
-    {
-      title: 'Frontend Development',
-      icon: '🎨',
-      skills: ['React', 'Next.js', 'Vue.js', 'TypeScript', 'Tailwind CSS', 'SASS']
-      
-    },
-    {
-      title: 'Backend Development',
-      icon: '⚙️',
-      skills: ['Node.js', 'Python', 'Express.js', 'FastAPI', 'GraphQL', 'REST APIs']
-    
-    },
-    {
-      title: 'Database & Cloud',
-      icon: '☁️',
-      skills: ['Firebase', 'MongoDB', 'PostgreSQL', 'AWS', 'Docker', 'Redis']
-      
-    },
-    {
-      title: 'Tools & DevOps',
-      icon: '🛠️',
-      skills: ['Git', 'GitHub Actions', 'Webpack', 'Vite', 'Jest', 'Cypress']
-     
-    }
-  ];
-
-  const technicalSkills = [
-    { name: 'JavaScript/TypeScript', level: 95 },
-    { name: 'React/Next.js', level: 90 },
-    { name: 'Node.js', level: 85 },
-    { name: 'Python', level: 80 },
-    { name: 'Database Design', level: 85 },
-    { name: 'Cloud Platforms', level: 75 },
-    { name: 'UI/UX Design', level: 70 },
-    { name: 'DevOps', level: 65 }
-  ];
+  if (isLoading) {
+    return <div className="text-white text-center py-20">Loading skills...</div>;
+  }
 
   return (
     <section 
@@ -330,7 +325,7 @@ const SkillMenuItem: React.FC<SkillMenuItemProps> = ({ category }) => {
       >
         <TextReveal
           words={category.title}
-          className="font-sulpr uppercase font-light text-white text-[5vh] md:text-[4vh] sm:text-[3vh]"
+          className="font-sulpr uppercase font-light text-white text-[3vh] md:text-[4vh] sm:text-[3vh]"
           duration={0.4}
           delay={50}
           staggerDelay={60}

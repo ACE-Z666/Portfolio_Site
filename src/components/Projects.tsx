@@ -1,52 +1,58 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import TextReveal from './ui/TextReveal';
 import { ArrowRight, ExternalLink } from 'lucide-react';
+import { db } from '../firebase'; // Import db
+import { collection, getDocs, query, orderBy } from 'firebase/firestore'; // Import firestore functions
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
+// Define the Project type
+interface Project {
+  id: string;
+  image: string;
+  title: string;
+  description: string;
+  tech: string[];
+  link: string;
+}
+
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
+  const [projectsData, setProjectsData] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Project data - 4 featured projects
-  const projectsData = [
-    {
-      image: '/cards/img1.png',
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution with payment processing, inventory management, and user authentication.',
-      tech: ['Next.js', 'Stripe', 'Firebase'],
-      link: '#'
-    },
-    {
-      image: '/cards/img2.png',
-      title: 'Task Management App',
-      description: 'Collaborative productivity tool with real-time updates, drag-and-drop functionality, and team features.',
-      tech: ['React', 'Socket.io', 'Node.js'],
-      link: '#'
-    },
-    {
-      image: '/cards/img3.png',
-      title: 'AI Content Generator',
-      description: 'AI-powered writing assistant for creating blog posts, social media content, and marketing copy.',
-      tech: ['OpenAI API', 'Python', 'React'],
-      link: '#'
-    },
-    {
-      image: '/cards/img4.png',
-      title: 'Weather Dashboard',
-      description: 'Real-time weather tracking with forecasts, interactive maps, and location-based alerts.',
-      tech: ['Vue.js', 'Weather API', 'Chart.js'],
-      link: '#'
-    }
-  ];
+  // Fetch projects from Firebase
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const projectsCollection = collection(db, 'projects');
+        const q = query(projectsCollection, orderBy('order', 'asc'));
+        const projectsSnapshot = await getDocs(q);
+        const projectsList = projectsSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        } as Project));
+        setProjectsData(projectsList);
+      } catch (error) {
+        console.error("Error fetching projects: ", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   // GSAP animations
   useEffect(() => {
+    if (isLoading) return; // Don't run animations until data is loaded
+
     const ctx = gsap.context(() => {
       // Animate cards with different effects
       cardsRef.current.forEach((card, index) => {
@@ -97,7 +103,15 @@ const Projects = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isLoading]); // Depend on isLoading state
+
+  if (isLoading) {
+    return (
+      <section id="projects" className="bg-[#010101] w-screen py-20 lg:py-32 flex justify-center items-center">
+        <div className="text-white">Loading Projects...</div>
+      </section>
+    );
+  }
 
   return (
     <section 
@@ -157,7 +171,7 @@ const Projects = () => {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="project-image w-full h-full object-cover"
+                      className="project-image w-full h-full sm:grayscale sm:group-hover:grayscale-0 grayscale-0 transition-all object-cover"
                     />
                     
                     {/* Image Overlay */}

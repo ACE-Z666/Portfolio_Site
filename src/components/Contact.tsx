@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { db } from '../firebase';
-import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import TextReveal from './ui/TextReveal';
 
 if (typeof window !== 'undefined') {
@@ -16,20 +16,17 @@ const Contact = () => {
   const titleRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<SVGCircleElement>(null);
-  const [progressValue, setProgressValue] = useState(20); // Initial value
+  const [progressValue, setProgressValue] = useState(20); // Default initial value
   const [animatedProgress, setAnimatedProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [busyMeterText, setBusyMeterText] = useState("I will be busy Right now! But soon will be available.");
+  const [newBusyTextInput, setNewBusyTextInput] = useState(""); // State for the new text input
 
   // Function to get shadow color based on value
   const getShadowColor = (value: number) => {
-    if (value > 75) {
-      return 'rgba(239, 68, 68, 0.6)'; // Red shadow for above 75
-    } else if (value >= 25 && value <= 75) {
-      return 'rgba(255, 255, 227, 0.6)'; // Light yellow/white shadow for 25-75
-    } else {
-      return 'rgba(34, 197, 94, 0.6)'; // Green shadow for below 25
-    }
+    if (value > 75) return 'rgba(239, 68, 68, 0.6)';
+    if (value >= 25) return 'rgba(255, 255, 227, 0.6)';
+    return 'rgba(34, 197, 94, 0.6)';
   };
 
   // Function to save progress value to Firebase
@@ -42,7 +39,7 @@ const Contact = () => {
       });
       console.log('Progress value saved to Firebase:', value);
     } catch (error) {
-      console.error('Error saving to Firebase:', error);
+      console.error('Error saving progress to Firebase:', error);
     }
   };
 
@@ -61,26 +58,35 @@ const Contact = () => {
     }
   };
 
-  // Function to load progress value from Firebase (optional)
-  const loadProgressFromFirebase = async () => {
-    try {
-      // You can implement logic to fetch the latest value here if needed
-      // For now, we'll use the initial state value
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error loading from Firebase:', error);
-      setIsLoading(false);
-    }
-  };
-
+  // Function to load the latest data from Firebase on component mount
   useEffect(() => {
-    // Load initial value and save to Firebase
-    loadProgressFromFirebase();
-    saveProgressToFirebase(progressValue);
-    
-    // Save the busy meter text content to Firebase
-    saveTextContentToFirebase(busyMeterText, "busy_meter_description");
+    const loadDataFromFirebase = async () => {
+      try {
+        // Fetch latest progress value
+        const progressQuery = query(collection(db, 'progressValues'), orderBy('timestamp', 'desc'), limit(1));
+        const progressSnapshot = await getDocs(progressQuery);
+        if (!progressSnapshot.empty) {
+          const latestProgress = progressSnapshot.docs[0].data().value;
+          setProgressValue(latestProgress);
+        }
+
+        // Fetch latest busy meter text
+        const textQuery = query(collection(db, 'sectionTexts'), orderBy('timestamp', 'desc'), limit(1));
+        const textSnapshot = await getDocs(textQuery);
+        if (!textSnapshot.empty) {
+          const latestText = textSnapshot.docs[0].data().content;
+          setBusyMeterText(latestText);
+        }
+      } catch (error) {
+        console.error('Error loading from Firebase:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadDataFromFirebase();
   }, []);
+
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -90,11 +96,8 @@ const Contact = () => {
 
     if (!section || !title || !ring || !progressCircle || isLoading) return;
 
-    // Calculate circle circumference
     const radius = 40;
     const circumference = 2 * Math.PI * radius;
-
-    // Set initial state
     progressCircle.style.strokeDasharray = `${circumference}`;
     progressCircle.style.strokeDashoffset = `${circumference}`;
 
@@ -166,11 +169,11 @@ const Contact = () => {
     };
   }, [progressValue, isLoading]);
 
-  // Function to update progress value
+  // Function to update progress value and save to Firebase
   const updateProgressValue = async (newValue: number) => {
     if (newValue >= 0 && newValue <= 100) {
       setProgressValue(newValue);
-      await saveProgressToFirebase(newValue);
+      await saveProgressToFirebase(newValue); // Save to Firebase
       
       // Re-trigger animations with new value
       const ring = ringRef.current;
@@ -198,18 +201,12 @@ const Contact = () => {
     }
   };
 
-  // Function to update busy meter text
+  // Function to update busy meter text and save to Firebase
   const updateBusyMeterText = async (newText: string) => {
+    if (!newText.trim()) return; // Don't save empty text
     setBusyMeterText(newText);
+    // This is the line you provided, correctly placed.
     await saveTextContentToFirebase(newText, "busy_meter_description");
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    // No longer needed for form, but keeping for potential future use
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    // No longer needed for form, but keeping for potential future use
   };
 
   const contactInfo = [
@@ -455,32 +452,49 @@ const Contact = () => {
                   Start Your Project
                 </button>
                 
-                {/* Development Controls - Remove in production */}
-                {/* <div className="flex gap-2 mt-4">
-                  <button 
-                    onClick={() => updateProgressValue(15)}
-                    className="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition-colors"
-                  >
-                    Green (15%)
-                  </button>
-                  <button 
-                    onClick={() => updateProgressValue(50)}
-                    className="px-3 py-1 bg-yellow-600 text-white text-sm rounded hover:bg-yellow-700 transition-colors"
-                  >
-                    Yellow (50%)
-                  </button>
-                  <button 
-                    onClick={() => updateProgressValue(85)}
-                    className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700 transition-colors"
-                  >
-                    Red (85%)
-                  </button>
-                </div> */}
+                // {/* Development Controls - Remove in production */}
+                {/* // <div className="flex flex-col gap-4 mt-4 p-4 border border-zinc-700 rounded-lg">
+                //   <div className="flex gap-2">
+                //     <button  */}
+                {/* //       onClick={() => updateProgressValue(15)}
+                //       className="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition-colors w-full"
+                //     >
+                //       Set 15%
+                //     </button>
+                //     <button  */}
+                {/* //       onClick={() => updateProgressValue(50)}
+                //       className="px-3 py-1 bg-yellow-600 text-white text-sm rounded hover:bg-yellow-700 transition-colors w-full"
+                //     >
+                //       Set 50%
+                //     </button>
+                //     <button  */}
+                {/* //       onClick={() => updateProgressValue(85)}
+                //       className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700 transition-colors w-full"
+                //     >
+                //       Set 85%
+                //     </button>
+                //   </div>
+                //   <div className="flex flex-col gap-2">
+                //     <input */}
+                {/* //       type="text"
+                //       value={newBusyTextInput}
+                //       onChange={(e) => setNewBusyTextInput(e.target.value)}
+                //       placeholder="Enter new busy meter text"
+                //       className="px-3 py-2 bg-zinc-800 text-white rounded border border-zinc-600 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                //     />
+                //     <button */}
+                {/* //       onClick={() => updateBusyMeterText(newBusyTextInput)}
+                //       className="px-3 py-2 bg-blue-600 text-white text-sm font-semibold rounded hover:bg-blue-700 transition-colors"
+                //     >
+                //       Update Busy Text
+                //     </button>
+                //   </div>
+                // </div> */}
+              </div>
             </div>
           </div>
         </div>
         </div>
-      </div>
     </section>
   );
 };
