@@ -1,6 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import .env
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.APIKEY,
