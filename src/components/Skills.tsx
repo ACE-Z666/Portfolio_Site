@@ -151,8 +151,8 @@ const Skills = () => {
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16">
           <TextReveal
-            words="My Cooking Tools"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#ffffe5] mb-6 font-sulpr"
+            words="My Tools"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#fff] mb-6 font-sulpr"
             duration={0.6}
             delay={100}
             staggerDelay={80}
@@ -197,7 +197,7 @@ const Skills = () => {
         <div ref={cardsRef} className='sm:flex sm:flex-col flex justify-center items-center sm:px-24 px-4 py-4 mb-16 sm:py-0 sm:gap-4 gap-4'>
           {/* My Certifications Card */}
           <a 
-            href="/certifications" 
+            href="https://www.linkedin.com/in/abhijith-j-nair/details/certifications/" 
             className="group w-36 sm:h-48 h-36 bg-transparent border border-white text-white font-sulpr rounded-2xl relative flex flex-col justify-center items-center hover:border-white/60 transition-all duration-300 hover:scale-105 cursor-pointer"
           >
             <div className="text-center">
@@ -215,7 +215,7 @@ const Skills = () => {
 
           {/* Projects Showcase Card */}
           <a 
-            href="/projects" 
+            href="https://github.com/ACE-Z666?tab=repositories" 
             className="group w-36 h-36 sm:h-48 bg-transparent border border-white text-white font-sulpr rounded-2xl relative flex flex-col justify-center items-center hover:border-white/60 transition-all duration-300 hover:scale-105 cursor-pointer"
           >
             <div className="text-center">
@@ -241,15 +241,7 @@ const Skills = () => {
             transform your vision into reality.
           </p>
            */}
-          <button 
-            onClick={() => {
-              const element = document.querySelector('#contact');
-              element?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="btn-hover px-8 py-4 bg-[#111111] text-white rounded-full font-light font-satoshi text-lg transition-all duration-300 hover:bg-[#333333] hover:scale-105 shadow-lg hover:shadow-xl"
-          >
-            View My Certifications
-          </button>
+          
         </div>
       </div>
     </section>

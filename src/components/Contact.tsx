@@ -254,7 +254,7 @@ const Contact = () => {
         
         {/* Title Section */}
         <div ref={titleRef} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#ffffe5] mb-6 font-sulpr">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#fff] mb-6 font-sulpr">
             Let's Work Together
           </h2>
           <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">

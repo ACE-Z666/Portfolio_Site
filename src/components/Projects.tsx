@@ -7,6 +7,7 @@ import TextReveal from './ui/TextReveal';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { db } from '../firebase'; // Import db
 import { collection, getDocs, query, orderBy } from 'firebase/firestore'; // Import firestore functions
+import Link from 'next/link';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -27,7 +28,7 @@ const Projects = () => {
   const [projectsData, setProjectsData] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch projects from Firebase
+  // Fetch projects from Firebase (Top 4 only for main page)
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -38,7 +39,8 @@ const Projects = () => {
           id: doc.id,
           ...doc.data()
         } as Project));
-        setProjectsData(projectsList);
+        // Only show top 4 projects on main page
+        setProjectsData(projectsList.slice(0, 4));
       } catch (error) {
         console.error("Error fetching projects: ", error);
       } finally {
@@ -125,7 +127,7 @@ const Projects = () => {
           <div className="text-center">
             <TextReveal
               words="Recent Projects"
-              className="text-4xl md:text-5xl text-right lg:text-7xl font-bold text-[#ffffe5] mb-6 font-sulpr"
+              className="text-4xl md:text-5xl text-right lg:text-7xl font-bold text-[#fff] mb-6 font-sulpr"
               duration={0.6}
               delay={100}
               staggerDelay={80}
@@ -137,6 +139,7 @@ const Projects = () => {
               delay={500}
               staggerDelay={40}
             />
+           
           </div>
         </div>
       </div>
@@ -237,7 +240,7 @@ const Projects = () => {
           {/* Enhanced View All Button */}
           <div className="text-center">
             <div className="relative inline-block">
-              <a
+              <Link
                 href="/projects"
                 className="relative inline-flex items-center gap-4 px-10 py-5 bg-tranparent border border-b-white bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-semibold text-lg rounded-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#ffffe5]/10 group/cta overflow-hidden"
               >
@@ -249,7 +252,7 @@ const Projects = () => {
                 
                 {/* Shine effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 transform -translate-x-full group-hover/cta:translate-x-full transition-transform duration-1000"></div>
-              </a>
+              </Link>
               
               {/* Glow effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl blur-lg opacity-0 hover:opacity-50 transition-opacity duration-500 -z-10"></div>

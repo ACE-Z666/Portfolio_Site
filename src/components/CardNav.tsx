@@ -266,13 +266,9 @@ const CardNav: React.FC<CardNavProps> = ({
 
           <button
             type="button"
-            onClick={() => handleNavClick('#contact')}
-            className="card-nav-cta-button hidden md:inline-flex border-0 rounded-xl px-6 py-2 font-medium font-satoshi cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
-            style={{ 
-              backgroundColor: buttonBgColor, 
-              color: buttonTextColor,
-              focusRingColor: buttonBgColor 
-            }}
+            onClick={() => handleNavClick('https://drive.google.com/file/d/1n7lSQIZdmQQDd0Xw2h0kV8J_5d8Ec_Ji/view?usp=sharing')}
+            className="card-nav-cta-button hidden md:inline-flex border-0 rounded-xl px-6 py-2 font-medium font-satoshi cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg text-white"
+            
           >
             Resumé
           </button>

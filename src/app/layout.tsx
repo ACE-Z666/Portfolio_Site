@@ -82,7 +82,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <title>Abhijith J Nair - AI/ML & Full Stack Developer</title>
+        <title>Abhijith J Nair</title>
         <meta name="description" content="Intermediate AI/ML & Full Stack Developer passionate about creating digital experiences that make a difference." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

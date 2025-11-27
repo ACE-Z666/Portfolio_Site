@@ -26,20 +26,30 @@ const Navigation = () => {
   }, []);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    // Check if it's an internal anchor link
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } 
+    // Check if it's a mailto link
+    else if (href.startsWith('mailto:')) {
+      window.location.href = href;
+    }
+    // Otherwise, it's an external link - open in new tab
+    else {
+      window.open(href, '_blank', 'noopener,noreferrer');
     }
   };
-
   const navItems = [
     {
       label: "About",
       bgColor: "#222222",
       textColor: "#fff",
       links: [
-        { label: "My Story", href: "#about", ariaLabel: "Learn about my background" },
-        { label: "Experience", href: "#about", ariaLabel: "View my experience" }
+        { label: "My Career", href: "https://www.linkedin.com/in/abhijith-j-nair/", ariaLabel: "Learn about my background" },
+        { label: "About Me", href: "#about", ariaLabel: "View my experience" }
       ]
     },
     {
@@ -57,9 +67,9 @@ const Navigation = () => {
       bgColor: "#404040", 
       textColor: "#fff",
       links: [
-        { label: "Contact", href: "#contact", ariaLabel: "Get in touch" },
-        { label: "LinkedIn", href: "https://linkedin.com", ariaLabel: "LinkedIn Profile" },
-        { label: "GitHub", href: "https://github.com", ariaLabel: "GitHub Profile" }
+        { label: "Contact", href: "mailto:abhijithjnair4321@gmail.com", ariaLabel: "Get in touch" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/abhijith-j-nair/", ariaLabel: "LinkedIn Profile" },
+        { label: "GitHub", href: "https://github.com/ACE-Z666", ariaLabel: "GitHub Profile" }
       ]
     }
   ];
@@ -68,7 +78,7 @@ const Navigation = () => {
     <div className="fixed top-0 sm:left-1/2 right-0 w-full z-50 px-4 sm:px-6 lg:px-8 flex justify-end pointer-events-auto">
       <CardNav
         logo="AJN"
-        logoAlt="Abhijith J Nair Portfolio"
+        logoAlt="Abhijith J Nair"
         items={navItems}
         baseColor={scrolled ? "transparent" : "transparent"}
         menuColor="#eeeeee"

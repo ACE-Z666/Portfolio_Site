@@ -74,7 +74,7 @@ const About = () => {
   return (
     <section 
       ref={sectionRef}
-      className="py-20 md:py-32 h-screen flex w-screen justify-center items-center bg-[#010101] relative overflow-hidden"
+      className="py-20 md:py-32 sm:h-screen h-full flex w-screen justify-center items-center bg-[#010101] relative overflow-hidden"
     >
       {/* Background Pattern */}
       {/* <div className="absolute inset-0 opacity-5">
