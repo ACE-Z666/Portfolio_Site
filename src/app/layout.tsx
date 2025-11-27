@@ -84,7 +84,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <title>Abhijith J Nair</title>
         <meta name="description" content="Intermediate AI/ML & Full Stack Developer passionate about creating digital experiences that make a difference." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/ajn.ico" />
       </head>
       <body className="relative text-[#111111] w-full h-full overflow-x-hidden ">
         {/* Loading Screen */}
