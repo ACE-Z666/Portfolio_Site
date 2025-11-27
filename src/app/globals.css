@@ -35,21 +35,6 @@
 }
 
 @font-face {
-  font-family: "Hattonb";
-  src: url("../fonts/hatton_b.otf") format('opentype')
-}
-
-@font-face {
-  font-family: "Hattonm";
-  src: url("../fonts/hatton_m.otf") format('opentype')
-}
-
-@font-face {
-  font-family: "Hattonu";
-  src: url("../fonts/hatton_ul.otf") format('opentype')
-}
-
-@font-face {
   font-family: "Maghfirea";
   src: url("../fonts/Maghfirea.ttf") format('truetype')
 }
