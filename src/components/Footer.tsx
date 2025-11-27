@@ -85,20 +85,7 @@ const Footer = () => {
         <div ref={contentRef} className="py-12 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             
-            {/* Brand Section */}
-            <div className="lg:col-span-1">
-              {/* <h3 className="text-3xl md:text-4xl font-bold mb-4 font-satoshi">
-                Abhijith J Nair
-              </h3>
-              <p className="text-white/70 text-lg leading-relaxed mb-6 max-w-md">
-                Intermediate AI/ML & Full Stack Developer passionate about building intelligent applications and seamless digital experiences.
-              </p>
-               */}
-              {/* Social Links */}
-             
-            {/* </div> */}
-
-            {/* Quick Links */}
+            {/* Quick Links - order-2 on mobile, order-1 on desktop */}
             <div className="flex flex-col items-center md:items-start justify-start order-2 md:order-1">
               <TextReveal
                 words="Quick Links"
@@ -132,10 +119,10 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-              </div>
             </div>
 
-            <div className='lg:col-span-2 flex flex-col justify-center items-center space-y-2  md:space-y-2 order-1 md:order-2'>
+            {/* AJN Section - order-1 on mobile, order-2 on desktop */}
+            <div className='lg:col-span-2 flex flex-col justify-center items-center space-y-2 md:space-y-2 order-1 md:order-2 md:pb-8'>
               <TextReveal
                 words="AJN"
                 className='text-3xl md:text-4xl text-[#fff] py-3 md:py-5 text-center font-agraham'
@@ -173,7 +160,7 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Contact Info */}
+            {/* Contact Info - order-3 on both mobile and desktop */}
             <div className="order-3 md:order-3">
               <TextReveal
                 words="Get In Touch"
@@ -187,7 +174,7 @@ const Footer = () => {
                   <svg className="w-5 h-5 mx-auto md:mx-0 md:ml-3 md:mr-0 flex-shrink-0 mb-2 md:mb-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <a href="mailto:john@example.com" className="hover:text-white transition-colors">
+                  <a href="mailto:abhijithjnair4321@gmail.com" className="hover:text-white transition-colors">
                     <TextReveal
                       words="abhijithjnair4321@gmail.com"
                       className=""
