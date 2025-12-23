@@ -2,6 +2,7 @@
 
 import React, { useLayoutEffect, useRef, useState, useCallback } from "react";
 import { gsap } from "gsap";
+import { useRouter, usePathname } from 'next/navigation';
 
 type CardNavLink = {
   label: string;
@@ -49,6 +50,8 @@ const CardNav: React.FC<CardNavProps> = ({
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const calculateHeight = useCallback(() => {
     const navEl = navRef.current;
@@ -208,7 +211,13 @@ const CardNav: React.FC<CardNavProps> = ({
   };
 
   const handleLogoClick = () => {
-    handleNavClick('#hero');
+    // If on home page, scroll to top
+    if (pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Navigate to home page
+      router.push('/');
+    }
   };
 
   return (
@@ -268,7 +277,6 @@ const CardNav: React.FC<CardNavProps> = ({
             type="button"
             onClick={() => handleNavClick('https://drive.google.com/file/d/1n7lSQIZdmQQDd0Xw2h0kV8J_5d8Ec_Ji/view?usp=sharing')}
             className="card-nav-cta-button hidden md:inline-flex border-0 rounded-xl px-6 py-2 font-medium font-satoshi cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg text-white"
-            
           >
             Résumé
           </button>

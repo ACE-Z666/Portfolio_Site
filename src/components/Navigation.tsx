@@ -1,11 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { gsap } from 'gsap';
+import { useRouter, usePathname } from 'next/navigation';
 import CardNav from './CardNav';
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,12 +28,47 @@ const Navigation = () => {
     );
   }, []);
 
+  // Handle hash navigation after page load
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && pathname === '/') {
+      // Wait for page to fully render
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [pathname]);
+
   const scrollToSection = (href: string) => {
     // Check if it's an internal anchor link
     if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+      // Check if we're on the home page
+      if (pathname === '/') {
+        // Same page - just scroll
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        // Different page - navigate to home with hash and scroll after load
+        router.push(`/${href}`);
+        
+        // Wait for navigation to complete, then scroll
+        setTimeout(() => {
+          const checkElement = setInterval(() => {
+            const element = document.querySelector(href);
+            if (element) {
+              clearInterval(checkElement);
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
+          
+          // Clear interval after 3 seconds to avoid infinite loop
+          setTimeout(() => clearInterval(checkElement), 3000);
+        }, 300);
       }
     } 
     // Check if it's a mailto link
@@ -42,37 +80,47 @@ const Navigation = () => {
       window.open(href, '_blank', 'noopener,noreferrer');
     }
   };
-  const navItems = [
-    {
-      label: "About",
-      bgColor: "#222222",
-      textColor: "#fff",
-      links: [
-        { label: "My Career", href: "https://www.linkedin.com/in/abhijith-j-nair/", ariaLabel: "Learn about my background" },
-        { label: "About Me", href: "#about", ariaLabel: "View my experience" }
-      ]
-    },
-    {
-      label: "Work", 
-      bgColor: "#2c2c2c",
-      textColor: "#fff",
-      links: [
-        { label: "Projects", href: "#projects", ariaLabel: "View my projects" },
-        { label: "Skills", href: "#skills", ariaLabel: "See my skills" },
-        { label: "Testimonials", href: "#testimonials", ariaLabel: "Read testimonials" }
-      ]
-    },
-    {
-      label: "Connect",
-      bgColor: "#404040", 
-      textColor: "#fff",
-      links: [
-        { label: "Contact", href: "mailto:abhijithjnair4321@gmail.com", ariaLabel: "Get in touch" },
-        { label: "LinkedIn", href: "https://www.linkedin.com/in/abhijith-j-nair/", ariaLabel: "LinkedIn Profile" },
-        { label: "GitHub", href: "https://github.com/ACE-Z666", ariaLabel: "GitHub Profile" }
-      ]
-    }
-  ];
+
+  // Dynamically create navItems based on current pathname
+  const navItems = useMemo(() => {
+    const isProjectsPage = pathname === '/projects';
+
+    return [
+      {
+        label: "About",
+        bgColor: "#222222",
+        textColor: "#fff",
+        links: [
+          { label: "My Career", href: "https://www.linkedin.com/in/abhijith-j-nair/", ariaLabel: "Learn about my background" },
+          { label: "About Me", href: "#about", ariaLabel: "View my experience" }
+        ]
+      },
+      {
+        label: "View", 
+        bgColor: "#2c2c2c",
+        textColor: "#fff",
+        links: isProjectsPage 
+          ? [
+              { label: "Home", href: "#hero", ariaLabel: "Go to home" },
+            ]
+          : [
+              { label: "Projects", href: "#projects", ariaLabel: "View my projects" },
+              { label: "Skills", href: "#skills", ariaLabel: "See my skills" },
+              { label: "Testimonials", href: "#testimonials", ariaLabel: "Read testimonials" }
+            ]
+      },
+      {
+        label: "Connect",
+        bgColor: "#404040", 
+        textColor: "#fff",
+        links: [
+          { label: "Contact", href: "mailto:abhijithjnair4321@gmail.com", ariaLabel: "Get in touch" },
+          { label: "LinkedIn", href: "https://www.linkedin.com/in/abhijith-j-nair/", ariaLabel: "LinkedIn Profile" },
+          { label: "GitHub", href: "https://github.com/ACE-Z666", ariaLabel: "GitHub Profile" }
+        ]
+      }
+    ];
+  }, [pathname]);
 
   return (
     <div className="fixed top-0 sm:left-1/2 right-0 w-full z-50 px-4 sm:px-6 lg:px-8 flex justify-end pointer-events-auto">
