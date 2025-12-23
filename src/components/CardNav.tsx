@@ -270,7 +270,7 @@ const CardNav: React.FC<CardNavProps> = ({
             className="card-nav-cta-button hidden md:inline-flex border-0 rounded-xl px-6 py-2 font-medium font-satoshi cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg text-white"
             
           >
-            Resumé
+            Résumé
           </button>
         </div>
 

@@ -190,7 +190,7 @@ const Hero = () => {
 
                   <a href="https://drive.google.com/file/d/1n7lSQIZdmQQDd0Xw2h0kV8J_5d8Ec_Ji/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                     <TextReveal
-                      words="Resumé"
+                      words="Résumé"
                       className="text-xl sm:text-2xl md:text-3xl sm:text-left text-center uppercase lg:text-3xl font-satoshi mt-12 text-white/75 hover:text-white transition-all cursor-pointer font-medium"
                       duration={0.5}
                       delay={2400}
