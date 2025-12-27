@@ -112,7 +112,7 @@ const Testimonials = () => {
       <div className="max-w-screen-2xl mx-auto px-4  sm:px-6 lg:px-8 relative z-10">
         
         {/* Title Section */}
-        <div ref={titleRef} className="text-center mb-24 sm:mb-32"> {/* Increased bottom margin */}
+        <div ref={titleRef} className="text-center mb-8 sm:mb-20">
           <TextReveal
             words="Hear From Others"
             className="text-4xl md:text-6xl lg:text-7xl sm:text-left text-center font-bold text-[#fff] mb-6 font-sulpr"
@@ -131,7 +131,7 @@ const Testimonials = () => {
         </div>
 
         {/* All Testimonials Grid */}
-        <div ref={testimonialsRef} className='sm:scale-125 scale-100 sm:mt-16'> {/* Added top margin for scaled version */}
+        <div ref={testimonialsRef} className='sm:scale-125 scale-100 sm:mt-8'> 
           <AnimatedTestimonials 
             testimonials={testimonials}
             autoplay={true}
