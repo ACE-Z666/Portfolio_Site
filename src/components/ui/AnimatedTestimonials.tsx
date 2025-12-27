@@ -24,9 +24,10 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
   autoplay = false,
   duration = 5000,
   className = '',
-  isVisible = true // Add default value
+  isVisible = true
 }) => {
   const [active, setActive] = useState(0);
+  const [lastInteraction, setLastInteraction] = useState(Date.now()); // Add this state
 
   const randomRotateY = useCallback(() => {
     return Math.floor(Math.random() * 21) - 10;
@@ -34,10 +35,12 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
 
   const handleNext = useCallback(() => {
     setActive((prev) => (prev + 1) % testimonials.length);
+    setLastInteraction(Date.now()); // Reset timer on interaction
   }, [testimonials.length]);
 
   const handlePrev = useCallback(() => {
     setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setLastInteraction(Date.now()); // Reset timer on interaction
   }, [testimonials.length]);
 
   const isActive = useCallback((index: number) => {
@@ -45,11 +48,11 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
   }, [active]);
 
   useEffect(() => {
-    if (!autoplay || !isVisible) return; // Check isVisible here
+    if (!autoplay || !isVisible) return;
 
     const interval = setInterval(handleNext, duration);
     return () => clearInterval(interval);
-  }, [autoplay, duration, handleNext, isVisible]); // Add isVisible to dependencies
+  }, [autoplay, duration, handleNext, isVisible, lastInteraction]); // Add lastInteraction to dependencies
 
   if (!testimonials || testimonials.length === 0) {
     return null;
@@ -163,7 +166,10 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
             {testimonials.map((_, index) => (
               <motion.button
                 key={index}
-                onClick={() => setActive(index)}
+                onClick={() => {
+                  setActive(index);
+                  setLastInteraction(Date.now()); // Reset timer on dot click
+                }}
                 className={`h-2 w-2 rounded-full transition-all duration-300 ${
                   isActive(index) 
                     ? 'bg-[#ffffe5] w-6' 
