@@ -230,7 +230,7 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
                 >
                   {/* Animated quotation marks */}
                   <motion.span
-                    className="absolute -top-2 left-0 italic text-5xl sm:text-6xl text-[#222222] font-serif" // Adjusted positioning
+                    className="absolute -top-2 left-0 italic text-5xl sm:text-6xl text-[#555555] font-serif" // Adjusted positioning
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ duration: 0.6, delay: 0.4, type: "spring", bounce: 0.4 }}
