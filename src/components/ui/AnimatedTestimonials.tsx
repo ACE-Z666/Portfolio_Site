@@ -16,13 +16,15 @@ interface AnimatedTestimonialsProps {
   autoplay?: boolean;
   duration?: number;
   className?: string;
+  isVisible?: boolean; // Add this prop
 }
 
 const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
   testimonials,
   autoplay = false,
   duration = 5000,
-  className = ''
+  className = '',
+  isVisible = true // Add default value
 }) => {
   const [active, setActive] = useState(0);
 
@@ -43,11 +45,11 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
   }, [active]);
 
   useEffect(() => {
-    if (!autoplay) return;
+    if (!autoplay || !isVisible) return; // Check isVisible here
 
     const interval = setInterval(handleNext, duration);
     return () => clearInterval(interval);
-  }, [autoplay, duration, handleNext]);
+  }, [autoplay, duration, handleNext, isVisible]); // Add isVisible to dependencies
 
   if (!testimonials || testimonials.length === 0) {
     return null;
@@ -58,9 +60,8 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
   return (
     <div className={`mx-auto max-w-sm px-4 py-12 md:py-20 font-sans antialiased lg:px-12 md:max-w-4xl md:px-8 xl:max-w-6xl ${className}`}>
       <div className="relative grid grid-cols-1 sm:gap-36 gap-12 md:grid-cols-2">
-        {/* Image Stack */}
-
-        <div className="order-1">
+        {/* Image Stack with Navigation Below */}
+        <div className="order-1 flex flex-col">
           <div className="relative h-64 w-full sm:h-80 md:h-96 lg:h-80">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
@@ -104,12 +105,82 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
               ))}
             </AnimatePresence>
           </div>
+
+          {/* Navigation Arrows - Fixed below images */}
+          <motion.div 
+            className="flex justify-center gap-4 mt-20"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
+            <button
+              onClick={handlePrev}
+              className="group/button flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-[#343434] hover:bg-gray-700 transition-all duration-300 hover:scale-105"
+              aria-label="Previous testimonial"
+            >
+              <svg
+                className="h-5 w-5 sm:h-6 sm:w-6 text-white transition-transform duration-300 group-hover/button:rotate-12"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <button
+              onClick={handleNext}
+              className="group/button flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-[#343434] hover:bg-gray-700 transition-all duration-300 hover:scale-110"
+              aria-label="Next testimonial"
+            >
+              <svg
+                className="h-5 w-5 sm:h-6 sm:w-6 text-white transition-transform duration-300 group-hover/button:-rotate-12"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </motion.div>
+
+          {/* Dots Indicator - Below arrows */}
+          <motion.div 
+            className="flex gap-2 justify-center mt-6"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+          >
+            {testimonials.map((_, index) => (
+              <motion.button
+                key={index}
+                onClick={() => setActive(index)}
+                className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                  isActive(index) 
+                    ? 'bg-[#ffffe5] w-6' 
+                    : 'bg-[#343434] hover:bg-[#353535]'
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              />
+            ))}
+          </motion.div>
         </div>
 
         {/* Content */}
-        <div className="flex flex-col py-4 order-1 md:order-2 relative h-full min-h-[250px] md:min-h-[350px]">
-          {/* Content Area */}
-          <div className="flex-1">
+        <div className="flex flex-col py-4 order-1 md:order-2 relative h-full">
+          {/* Content Area - Flexible height */}
+          <div className="flex-1 min-h-0">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
@@ -152,14 +223,14 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
                 
                 {/* Enhanced Quote Animation */}
                 <motion.div
-                  className="relative"
+                  className="relative" // Add padding-top here
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.3 }}
                 >
                   {/* Animated quotation marks */}
                   <motion.span
-                    className="absolute -top-4 -left-2 italic text-6xl text-[#222222] font-serif"
+                    className="absolute -top-2 left-0 italic text-5xl sm:text-6xl text-[#222222] font-serif" // Adjusted positioning
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ duration: 0.6, delay: 0.4, type: "spring", bounce: 0.4 }}
@@ -167,7 +238,7 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
                     "
                   </motion.span>
                   
-                  <motion.p className="text-base sm:text-lg text-[#fff]/80 italic font-satoshi leading-relaxed relative z-10 pl-4">
+                  <motion.p className="text-base sm:text-lg text-[#fff]/80 italic font-satoshi leading-relaxed relative z-10 pl-6 sm:pl-8"> {/* Increased left padding */}
                     {activeTestimonialQuote.map((word, index) => (
                       <motion.span
                         key={`${active}-${index}`}
@@ -202,79 +273,6 @@ const AnimatedTestimonials: React.FC<AnimatedTestimonialsProps> = ({
                 </motion.div>
               </motion.div>
             </AnimatePresence>
-          </div>
-
-          {/* Fixed Navigation and Dots at Bottom */}
-          <div className="mt-4 pt-8">
-            {/* Navigation */}
-            <motion.div 
-              className="flex sm:justify-start justify-center gap-4 mb-4"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            >
-              <button
-                onClick={handlePrev}
-                className="group/button flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-[#343434] hover:bg-gray-700 transition-all duration-300 hover:scale-105"
-                aria-label="Previous testimonial"
-              >
-                <svg
-                  className="h-5 w-5 sm:h-6 sm:w-6 text-white transition-transform duration-300 group-hover/button:rotate-12"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-              <button
-                onClick={handleNext}
-                className="group/button flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-[#343434] hover:bg-gray-700 transition-all duration-300 hover:scale-110"
-                aria-label="Next testimonial"
-              >
-                <svg
-                  className="h-5 w-5 sm:h-6 sm:w-6 text-white transition-transform duration-300 group-hover/button:-rotate-12"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-            </motion.div>
-
-            {/* Dots Indicator */}
-            <motion.div 
-              className="flex gap-2 sm:pl-2 pl-0 justify-center md:justify-start"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-            >
-              {testimonials.map((_, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => setActive(index)}
-                  className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                    isActive(index) 
-                      ? 'bg-[#ffffe5] w-6' 
-                      : 'bg-[#343434] hover:bg-[#353535]'
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                />
-              ))}
-            </motion.div>
           </div>
         </div>
       </div>
