@@ -1,183 +1,204 @@
-# 🚀 Awesome Portfolio Website
+# Portfolio Website 🚀
 
-A modern, responsive portfolio website built with **Next.js**, **GSAP**, **Firebase**, and **Tailwind CSS**. Features smooth animations, a clean white/beige design with black accents, and a fully functional contact system.
+A modern, responsive portfolio website built with Next.js, featuring smooth animations, Firebase integration, and a clean design aesthetic.
 
-![Portfolio Preview](https://img.shields.io/badge/Status-Ready%20to%20Deploy-success?style=for-the-badge)
-![Next.js](https://img.shields.io/badge/Next.js-14.1.0-black?style=for-the-badge&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
-![Firebase](https://img.shields.io/badge/Firebase-11.9.0-orange?style=for-the-badge&logo=firebase)
+**Live Site:** [abhijith-j-nair.vercel.app](https://abhijith-j-nair.vercel.app)
+
+---
 
 ## ✨ Features
 
-### 🎨 **Design & UX**
-- **Elegant Theme**: Clean white/beige background with sophisticated black (#111111) accents
-- **Responsive Design**: Perfect on all devices - mobile, tablet, and desktop
-- **Smooth Animations**: Powered by GSAP for buttery smooth transitions and interactions
-- **Modern Typography**: Custom font integration (Satine, Satoshi, Outfit, etc.)
-- **Optimized Performance**: Fast loading with optimized assets
+- **Smooth Animations** - GSAP-powered transitions and scroll effects
+- **Responsive Design** - Optimized for all screen sizes
+- **Contact Form** - Firebase-integrated contact system
+- **Modern UI** - Clean white/beige theme with black accents
+- **Fast Performance** - Next.js optimizations and lazy loading
+- **SEO Ready** - Meta tags and structured data
 
-### 🛠️ **Technical Stack**
-- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
-- **Animations**: GSAP with ScrollTrigger
-- **Backend**: Firebase Firestore
-- **Analytics**: Google Analytics integration
-- **Deployment**: Optimized for Vercel/Firebase Hosting
+---
 
-### 📄 **Sections**
+## 🛠️ Tech Stack
 
-1. **Hero Section**
-   - Dynamic name and designation
-   - Smooth typewriter effects
-   - Call-to-action buttons
-   - Social media links
-   - Animated scroll indicator
+### Core Technologies
+- **Next.js 14** - React framework with SSR
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first styling
+- **GSAP** - Professional-grade animations
+- **Firebase** - Backend and database
 
-2. **About Section**
-   - Personal introduction
-   - Skills showcase
-   - Interactive stats
-   - Professional photo placeholder
+### Key Libraries
+- `gsap` - Animation library with ScrollTrigger
+- `firebase` - Backend services and Firestore
+- `react-icons` - Icon components
+- `next/image` - Optimized images
 
-3. **Projects Section**
-   - Featured project cards
-   - Technology tags
-   - Live demo and GitHub links
-   - Hover animations and effects
+---
 
-4. **Skills Section**
-   - Categorized skill sets
-   - Progress bars with animations
-   - Technology icons
-   - Proficiency levels
+## 📂 Project Structure
 
-5. **Testimonials Section**
-   - Client reviews carousel
-   - Star ratings
-   - Auto-rotating testimonials
-   - Interactive navigation
+```
+Portfolio_Site/
+├── src/
+│   ├── app/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── Hero.tsx
+│   │   ├── About.tsx
+│   │   ├── Projects.tsx
+│   │   ├── Skills.tsx
+│   │   ├── Testimonials.tsx
+│   │   ├── Contact.tsx
+│   │   ├── Footer.tsx
+│   │   └── Navigation.tsx
+│   ├── firebase.js
+│   └── fonts/
+├── public/
+├── FIREBASE_SETUP.md
+└── package.json
+```
 
-6. **Contact Section**
-   - Working contact form with Firebase
-   - Form validation
-   - Real-time status feedback
-   - Contact information cards
+---
 
-7. **Footer**
-   - Quick navigation links
-   - Social media integration
-   - Professional information
-
-## 🚀 Quick Start
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ installed
-- Firebase project (see [Firebase Setup Guide](./FIREBASE_SETUP.md))
+- Node.js 18 or higher
+- Firebase account (for contact form)
 
 ### Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd portfolio_site
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   - Copy `.env.local` and add your Firebase configuration
-   - See [Firebase Setup Guide](./FIREBASE_SETUP.md) for detailed instructions
-
-4. **Run development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open in browser**
-   - Navigate to `http://localhost:3000`
-
-### Build for Production
-
 ```bash
-npm run build
-npm start
+git clone https://github.com/ACE-Z666/Portfolio_Site.git
+cd Portfolio_Site
 ```
 
-## 🎯 Customization Guide
+2. **Install dependencies**
+```bash
+npm install
+```
 
-### 🎨 **Personalizing Content**
+3. **Set up Firebase**
+- Create a Firebase project
+- Copy your Firebase config
+- Add to `.env.local`:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
 
-1. **Update Personal Information**
-   ```typescript
-   // src/components/Hero.tsx
-   const name = "Your Name";
-   const designation = "Your Title";
-   ```
+See [FIREBASE_SETUP.md](FIREBASE_SETUP.md) for detailed instructions.
 
-2. **Add Your Projects**
-   ```typescript
-   // src/components/Projects.tsx
-   const projects = [
-     {
-       title: "Your Project",
-       description: "Project description...",
-       technologies: ["React", "Node.js"],
-       // ... more fields
-     }
-   ];
-   ```
+4. **Run development server**
+```bash
+npm run dev
+```
 
-3. **Customize Skills**
-   ```typescript
-   // src/components/Skills.tsx
-   const skillCategories = [
-     {
-       title: "Your Skill Category",
-       skills: ["Skill 1", "Skill 2"],
-       // ... more fields
-     }
-   ];
-   ```
+5. **Open browser**
+```
+http://localhost:3000
+```
 
-### 🎨 **Theme Customization**
+---
 
-1. **Colors** (tailwind.config.js)
-   ```javascript
-   colors: {
-     primary: {
-       50: '#fefefe',  // Light background
-       900: '#111111', // Dark text
-     }
-   }
-   ```
+## 🎨 Customization
 
-2. **Fonts** (globals.css)
-   ```css
-   .font-satine { font-family: 'Satine', serif; }
-   .font-satoshi { font-family: 'Satoshi', sans-serif; }
-   ```
+### Update Personal Information
 
-3. **Animations** (Custom GSAP animations in each component)
+**Hero Section** (`src/components/Hero.tsx`)
+```typescript
+const name = "Your Name";
+const designation = "Your Title";
+```
 
-### 📱 **Responsive Design**
-- Mobile-first approach
-- Tailwind CSS breakpoints
-- Tested on all screen sizes
-- Touch-friendly interactions
+**About Section** (`src/components/About.tsx`)
+```typescript
+const bio = "Your bio here...";
+```
 
-## 🔧 **Firebase Integration**
+**Projects** (`src/components/Projects.tsx`)
+```typescript
+const projects = [
+  {
+    title: "Project Name",
+    description: "Description...",
+    technologies: ["React", "Node.js"],
+    liveUrl: "https://...",
+    githubUrl: "https://github.com/..."
+  }
+];
+```
 
-### Features
-- **Contact Form**: Stores submissions in Firestore
-- **Real-time**: Instant form feedback
-- **Analytics**: Google Analytics integration
-- **Secure**: Proper security rules
+**Skills** (`src/components/Skills.tsx`)
+```typescript
+const skills = [
+  { name: "JavaScript", level: 90 },
+  { name: "React", level: 85 }
+];
+```
+
+### Theme Customization
+
+**Colors** (`tailwind.config.js`)
+```javascript
+colors: {
+  primary: {
+    50: '#fefefe',
+    900: '#111111'
+  }
+}
+```
+
+**Fonts** (`src/app/globals.css`)
+```css
+@font-face {
+  font-family: 'CustomFont';
+  src: url('/fonts/CustomFont.woff2');
+}
+```
+
+---
+
+## 📱 Sections
+
+1. **Hero** - Introduction with animated text and CTA buttons
+2. **About** - Personal bio and professional overview
+3. **Projects** - Portfolio showcase with links
+4. **Skills** - Technical skills with proficiency levels
+5. **Testimonials** - Client reviews carousel
+6. **Contact** - Working form with Firebase storage
+7. **Footer** - Quick links and social media
+
+---
+
+## 🎭 Animations
+
+GSAP animations include:
+- Smooth scroll effects with ScrollTrigger
+- Stagger animations on element entrance
+- Magnetic button hover effects
+- Loading screen transitions
+- Card hover 3D transforms
+- Progress bar animations
+
+---
+
+## 🔧 Firebase Integration
+
+### Contact Form
+- Stores submissions in Firestore
+- Real-time validation
+- Success/error notifications
+- Email and message storage
 
 ### Database Structure
 ```javascript
-// contacts collection
 {
   name: string,
   email: string,
@@ -188,65 +209,18 @@ npm start
 }
 ```
 
-See [Firebase Setup Guide](./FIREBASE_SETUP.md) for complete setup instructions.
+---
 
-## 📦 **Project Structure**
+## 📦 Build for Production
 
-```
-portfolio_site/
-├── src/
-│   ├── app/
-│   │   ├── globals.css        # Global styles
-│   │   ├── layout.tsx         # Root layout
-│   │   └── page.tsx          # Home page
-│   ├── components/
-│   │   ├── Hero.tsx          # Hero section
-│   │   ├── About.tsx         # About section
-│   │   ├── Projects.tsx      # Projects showcase
-│   │   ├── Skills.tsx        # Skills display
-│   │   ├── Testimonials.tsx  # Client testimonials
-│   │   ├── Contact.tsx       # Contact form
-│   │   ├── Footer.tsx        # Footer component
-│   │   ├── Navigation.tsx    # Navigation bar
-│   │   └── LoadingScreen.tsx # Loading animation
-│   ├── firebase.js           # Firebase configuration
-│   └── fonts/               # Custom fonts
-├── public/                  # Static assets
-├── tailwind.config.js      # Tailwind configuration
-└── README.md              # This file
+```bash
+npm run build
+npm start
 ```
 
-## 🎭 **Animations & Interactions**
+---
 
-### GSAP Animations
-- **Scroll Triggers**: Elements animate on scroll
-- **Stagger Effects**: Sequential element animations
-- **Smooth Transitions**: Page-wide smooth scrolling
-- **Loading Screen**: Custom loading animation
-- **Hover Effects**: Interactive button and card hovers
-
-### Interaction Details
-- **Magnetic Buttons**: Subtle magnetic effect on hover
-- **Card Hover**: 3D transform effects
-- **Progress Bars**: Animated skill progress indicators
-- **Testimonial Carousel**: Auto-rotating with manual controls
-
-## 🚀 **Performance Optimizations**
-
-- **Next.js Optimization**: Automatic code splitting and optimization
-- **Image Optimization**: Next.js Image component
-- **CSS Optimization**: Tailwind CSS purging
-- **Bundle Analysis**: Webpack bundle analyzer integration
-- **Loading States**: Smooth loading transitions
-
-## 📱 **Browser Support**
-
-- Chrome/Edge/Safari (latest)
-- Firefox (latest)
-- Mobile Safari (iOS 12+)
-- Chrome Mobile (Android 8+)
-
-## 🔄 **Deployment Options**
+## 🚀 Deployment
 
 ### Vercel (Recommended)
 ```bash
@@ -262,41 +236,96 @@ npm run build
 firebase deploy
 ```
 
-### Other Platforms
+### Other Options
 - Netlify
+- Render
 - Railway
 - AWS Amplify
 
-## 🤝 **Contributing**
+---
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
+## ⚡ Performance
 
-## 📄 **License**
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 **Acknowledgments**
-
-- **GSAP** for amazing animations
-- **Firebase** for backend services
-- **Tailwind CSS** for utility-first styling
-- **Next.js** for the powerful React framework
-- **Vercel** for seamless deployment
-
-## 📞 **Support**
-
-If you have any questions or need help customizing the portfolio:
-
-- 📧 **Email**: your.email@example.com
-- 🐛 **Issues**: [GitHub Issues](link-to-your-repo)
-- 💬 **Discussions**: [GitHub Discussions](link-to-your-repo)
+- Next.js automatic optimizations
+- Image optimization with next/image
+- Code splitting and lazy loading
+- Tailwind CSS purging
+- GSAP performance best practices
 
 ---
 
-**Built with ❤️ by [Your Name]**
+## 🌐 Browser Support
 
-*Ready to showcase your amazing work to the world? Let's make it happen!* 🚀
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS 12+, Android 8+)
+
+---
+
+## 🐛 Troubleshooting
+
+**Issue: Animations not working**
+```bash
+# Solution: Check GSAP installation
+npm install gsap
+```
+
+**Issue: Firebase errors**
+```bash
+# Solution: Verify environment variables
+# Check .env.local file exists and has correct values
+```
+
+**Issue: Build errors**
+```bash
+# Solution: Clear cache and reinstall
+rm -rf node_modules .next
+npm install
+npm run build
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Abhijith J Nair**
+
+- GitHub: [@ACE-Z666](https://github.com/ACE-Z666)
+- Portfolio: [abhijith-j-nair.vercel.app](https://abhijith-j-nair.vercel.app)
+- Email: abhijithjnair4321@gmail.com
+
+---
+
+## 🙏 Acknowledgments
+
+- GSAP for smooth animations
+- Firebase for backend services
+- Next.js for the powerful framework
+- Tailwind CSS for styling
+- Vercel for hosting
+
+---
+
+<div align="center">
+
+**Built with ❤️ using Next.js and TypeScript**
+
+</div>
