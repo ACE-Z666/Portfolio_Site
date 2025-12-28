@@ -122,13 +122,13 @@ const Hero = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
 
           {/* ====== Left Column: Text Content ====== */}
-          <div className="w-full lg:w-2/5 text-center bottom-0 lg:text-left">
+          <div className="w-full lg:w-2/5 flex flex-col items-center lg:items-start text-center lg:text-left">
             {/* Name */}
-            <h1 ref={nameRef}>
+            <h1 ref={nameRef} className="w-full">
               {showTextAnimations && (
                 <TextReveal
                   words="Hey I'm"
-                  className="text-xl sm:text-xl md:text-xl mb-1 sm:ml-2 ml-0 lg:text-xl font-extralight text-white font-satoshi leading-tight"
+                  className="text-xl sm:text-xl md:text-xl mb-1 lg:ml-2 font-extralight text-white font-satoshi leading-tight"
                   duration={0.6}
                   delay={300}
                   staggerDelay={60}
@@ -140,7 +140,7 @@ const Hero = () => {
             {showTextAnimations && (
               <TextReveal
                 words="Abhijith J Nair,"
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-7xl font-extralight text-[#fff] mb-16 font-sulpr leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-7xl font-extralight text-[#fff] mb-16 font-sulpr leading-tight w-full"
                 duration={0.6}
                 delay={600} // Increased delay
                 staggerDelay={60}
@@ -205,7 +205,7 @@ const Hero = () => {
 
           {/* ====== Right Column: Image/Visual Placeholder ====== */}
           <div className="w-full lg:w-3/5 flex items-center justify-center gap-0 sm:h-screen h-80 lg:justify-end">
-            <div className='w-full max-w-sm h-80 sm:h-96 lg:max-w-xl lg:h-screen lg:w-1/2 border-r-2 border-l-2 border-[#222222] bgimg opacity-75'>
+            <div className='w-full max-w-sm h-80 sm:h-96 lg:max-w-xl lg:h-screen lg:w-1/2 border-r-2 border-l-2 border-[#222222] bgimg opacity-75 rounded-t-2xl lg:rounded-none'>
               {/* Add your image here */}
             </div>
           </div>
