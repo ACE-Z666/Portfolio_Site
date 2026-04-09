@@ -314,7 +314,7 @@ const Contact = () => {
               </h4>
               <div className="flex items-center space-x-3">
                 <span className="text-white/80 font-satoshi font-light">
-                  Available for new projects starting January 2025
+                  Won't be available for quite a while.
                 </span>
               </div>
             </div>
