@@ -153,7 +153,7 @@ const Hero = () => {
               {showTextAnimations && (
                 <>
                   <TextReveal
-                    words="Intermediate AI/ML & Full Stack"
+                    words="AI/ML & Full Stack"
                     className="text-3xl sm:text-3xl md:text-3xl lg:text-4xl font-sulpr mb-2 text-white/75 font-medium"
                     duration={0.5}
                     delay={1200} // Increased delay
@@ -188,7 +188,7 @@ const Hero = () => {
                     ))}
                   </div>
 
-                  <a href="https://drive.google.com/file/d/11mPnrdjd3jf7T64n-jXGk3zF2j_u4QAw/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                  <a href="https://drive.google.com/file/d/1H5PeuY7Id1ty5D2Y8AuOHCJZP39R_E0L/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                     <TextReveal
                       words="Résumé"
                       className="text-xl sm:text-2xl md:text-3xl sm:text-left text-center uppercase lg:text-3xl font-satoshi mt-12 text-white/75 hover:text-white transition-all cursor-pointer font-medium"
