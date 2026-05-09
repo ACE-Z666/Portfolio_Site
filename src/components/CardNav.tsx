@@ -275,7 +275,7 @@ const CardNav: React.FC<CardNavProps> = ({
 
           <button
             type="button"
-            onClick={() => handleNavClick('https://drive.google.com/file/d/1H5PeuY7Id1ty5D2Y8AuOHCJZP39R_E0L/view?usp=sharing')}
+            onClick={() => handleNavClick('https://drive.google.com/file/d/1Lr48vHCwgvvnuM7c9i-FQx6M3n3Kh8iV/view?usp=drive_link')}
             className="card-nav-cta-button hidden md:inline-flex border-0 rounded-xl px-6 py-2 font-medium font-satoshi cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg text-white"
           >
             Résumé

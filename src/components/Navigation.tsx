@@ -114,7 +114,7 @@ const Navigation = () => {
         bgColor: "#404040", 
         textColor: "#fff",
         links: [
-          { label: "Contact", href: "mailto:abhijithjnair4321@gmail.com", ariaLabel: "Get in touch" },
+          { label: "Contact", href: "mailto:abhijithjnair01@gmail.com", ariaLabel: "Get in touch" },
           { label: "LinkedIn", href: "https://www.linkedin.com/in/abhijith-j-nair/", ariaLabel: "LinkedIn Profile" },
           { label: "GitHub", href: "https://github.com/ACE-Z666", ariaLabel: "GitHub Profile" }
         ]

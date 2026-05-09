@@ -188,7 +188,7 @@ const Hero = () => {
                     ))}
                   </div>
 
-                  <a href="https://drive.google.com/file/d/1H5PeuY7Id1ty5D2Y8AuOHCJZP39R_E0L/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                  <a href="https://drive.google.com/file/d/1Lr48vHCwgvvnuM7c9i-FQx6M3n3Kh8iV/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
                     <TextReveal
                       words="Résumé"
                       className="text-xl sm:text-2xl md:text-3xl sm:text-left text-center uppercase lg:text-3xl font-satoshi mt-12 text-white/75 hover:text-white transition-all cursor-pointer font-medium"
